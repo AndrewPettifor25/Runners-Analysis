@@ -1,0 +1,312 @@
+---
+title: "Fitness Project FIN 450"
+author: "Andrew Pettifor"
+format: html
+editor: visual
+---
+
+```{r echo=FALSE, message=FALSE}
+library(RTL)
+library(tidyverse)
+library(plotly)
+library(ggplot2)
+library(arrow)
+library(patchwork)
+library(tidyquant)
+library(scales)
+library(ggridges)
+library(viridis)
+library(forcats)
+library(scales)
+library(lubridate)
+library(stats)
+library(broom)
+```
+
+```{r echo=FALSE}
+
+devtools::install_github("risktoollib/RTLedu")
+
+```
+
+
+
+RTLedu::fitness()
+
+
+
+# Original Data
+```{r echo=FALSE}
+
+RTLedu::strava
+
+strava_df <- RTLedu::strava 
+  
+strava_df
+```
+
+## Refined Data
+##### Here we manually remove any unused variables and data, we could remove these using a package like janitor, but by selecting we can visibily see our removed data using a comparitive name function to the oringal dataset. We now have a cleaner dataset to work with before we begin operating on the data. 
+```{r echo=FALSE}
+strava_df1 <- strava_df %>% 
+  select(Activity.Type,
+         Date,
+         Title,
+         Distance,
+         Calories,
+         Time,
+         Avg.HR,
+         Max.HR,
+         Aerobic.TE,
+         Avg.Run.Cadence,
+         Max.Run.Cadence,
+         Avg.Pace,
+         Best.Pace,
+         Total.Ascent,
+         Total.Descent,
+         Avg.Stride.Length,
+         Min.Temp,
+         Best.Lap.Time,
+         Number.of.Laps,
+         Max.Temp,
+         Moving.Time,
+         Elapsed.Time,
+         Min.Elevation,
+         Max.Elevation,
+         Runner) %>% 
+  relocate(Runner, .before = Activity.Type)
+
+strava_df1
+
+
+```
+
+# Legend of Variables
+##### Credit Chat GPT
+
+#### Activity.Type – The type of running activity recorded (e.g., outdoor run, treadmill run, trail run).
+#### Date – The date on which the run took place.
+#### Title – A custom or automatically generated title for the running activity.
+#### Distance – The total distance covered during the run, usually measured in kilometers or miles.
+#### Calories – The estimated number of calories burned during the run.
+#### Time – The total time spent running, including any pauses or stops.
+#### Avg.HR (Average Heart Rate) – The average heart rate (in beats per minute) recorded throughout the run.
+#### Max.HR (Maximum Heart Rate) – The highest recorded heart rate during the run.
+#### Aerobic.TE (Aerobic Training Effect) – A metric indicating how much the run improved aerobic fitness, typically on a scale from 1 to 5.
+#### Avg.Run.Cadence – The average number of steps per minute (SPM) taken during the run.
+#### Max.Run.Cadence – The highest number of steps per minute reached during the run.
+#### Avg.Pace – The average time it takes to run one kilometer or mile.
+#### Best.Pace – The fastest pace achieved during the run for a given segment (e.g., fastest 1 km or mile).
+#### Total.Ascent – The total elevation gained during the run, usually measured in meters or feet.
+#### Total.Descent – The total elevation lost during the run, usually measured in meters or feet.
+#### Avg.Stride.Length – The average length of each step taken while running, usually measured in meters or centimeters.
+#### Min.Temp (Minimum Temperature) – The lowest recorded temperature during the run.
+#### Best.Lap.Time – The fastest lap time recorded if the run was divided into laps.
+#### Number.of.Laps – The total number of laps completed during the run.
+#### Max.Temp (Maximum Temperature) – The highest recorded temperature during the run.
+#### Moving.Time – The actual time spent running, excluding pauses and stops.
+#### Elapsed.Time – The total duration from start to finish, including any pauses or breaks.
+#### Min.Elevation – The lowest elevation reached during the run.
+#### Max.Elevation – The highest elevation reached during the run.
+#### Runner – The name or identifier of the person who completed the run.
+
+
+# Runner Pace Per Activity
+
+## "Running" "Trail Running"     "Street Running"    "Track Running"     "Treadmill Running"
+
+```{r echo=FALSE}
+pace_strava_df <- strava_df1 %>%
+  group_by(Runner) %>% 
+  select(Runner,Activity.Type,Distance,Avg.Pace)
+pace_strava_df  
+  
+unique(pace_strava_df$Activity.Type)
+```
+
+```{r echo=FALSE}
+runn_pace <- pace_strava_df %>% 
+  filter(Activity.Type == "Running")
+runn_pace
+
+runn_pace_plot <- runn_pace %>% 
+  plot_ly( x = ~ Distance,
+    y = ~ Avg.Pace,
+    name = ~ Runner,
+    type = "scatter",
+    mode = "markers",
+    color = ~ Runner
+    ) %>% 
+  layout(
+    title = "Runner Performance during Running Activity: Distance vs. Avg. Pace",
+    xaxis = list(title = "Distance (km)"),
+    yaxis = list(title = "Avg. Pace (min/km)") 
+  )
+    
+runn_pace_plot
+```
+
+
+```{r echo=FALSE}
+trail_pace <- pace_strava_df %>% 
+  filter(Activity.Type == "Trail Running")
+trail_pace
+
+trail_pace_plot <- trail_pace %>% 
+  plot_ly( x = ~ Distance,
+    y = ~ Avg.Pace,
+    name = ~ Runner,
+    type = "scatter",
+    mode = "markers",
+    color = ~ Runner
+    ) %>% 
+  layout(
+    title = "Runner Performance during Trail Running Activity: Distance vs. Avg. Pace",
+    xaxis = list(title = "Distance (km)"),
+    yaxis = list(title = "Avg. Pace (min/km)") 
+  )
+    
+trail_pace_plot
+```
+
+
+```{r echo=FALSE}
+street_pace <- pace_strava_df %>% 
+  filter(Activity.Type == "Street Running")
+street_pace # Forget this one Since only one runner does street racing
+
+street_pace_plot <- street_pace %>% 
+  plot_ly( x = ~ Distance,
+    y = ~ Avg.Pace,
+    name = ~ Runner,
+    type = "scatter",
+    mode = "markers",
+    color = ~ Runner
+    ) %>% 
+  layout(
+    title = "Hound Performance during Street Running Activity: Distance vs. Avg. Pace",
+    xaxis = list(title = "Distance (km)"),
+    yaxis = list(title = "Avg. Pace (min/km)") 
+  )
+    
+street_pace_plot
+```
+
+```{r echo=FALSE}
+track_pace <- pace_strava_df %>% 
+  filter(Activity.Type == "Track Running")
+track_pace # Also only one runner partakes
+
+track_pace_plot <- track_pace %>% 
+  plot_ly( x = ~ Distance,
+    y = ~ Avg.Pace,
+    name = ~ Runner,
+    type = "scatter",
+    mode = "markers",
+    color = ~ Runner
+    ) %>% 
+  layout(
+    title = "Hound Performance during Track Running Activity: Distance vs. Avg. Pace",
+    xaxis = list(title = "Distance (km)"),
+    yaxis = list(title = "Avg. Pace (min/km)") 
+  )
+    
+track_pace_plot
+
+```
+
+```{r echo=FALSE}
+treadmill_pace <- pace_strava_df %>% 
+  filter(Activity.Type == "Treadmill Running")
+treadmill_pace # Also only one runner partakes
+
+treadmill_pace_plot <- treadmill_pace %>% 
+  plot_ly( x = ~ Distance,
+    y = ~ Avg.Pace,
+    name = ~ Runner,
+    type = "scatter",
+    mode = "markers",
+    color = ~ Runner
+    ) %>% 
+  layout(
+    title = "Runner Performance during Treadmill Running Activity: Distance vs. Avg. Pace",
+    xaxis = list(title = "Distance (km)"),
+    yaxis = list(title = "Avg. Pace (min/km)") 
+  )
+    
+treadmill_pace_plot
+
+
+
+```
+
+# Output Test
+```{r echo=FALSE}
+subplot(runn_pace_plot,trail_pace_plot,treadmill_pace_plot)
+
+```
+
+
+# Runner progression over time Pace
+
+```{r}
+prog_pace <- strava_df1 %>% 
+  select(Runner,Date,Avg.Pace,Activity.Type)
+prog_pace
+
+prog_pace_plot <- prog_pace %>% 
+  ggplot(aes(x= Date, y=Avg.Pace, color = Activity.Type)) +
+           geom_line(size = 1)+
+           facet_wrap(~Runner, ncol = 1, scales = "free")+
+           scale_y_continuous(labels = time)+
+           scale_x_date(date_labels = "%Y")+
+           labs(
+             title = "Runner progression over time (Pace by Activity Type)",
+             subtitle = "",
+             y = "Avg. Pace (Min/KM)",
+             x= "Date",
+             color = "Activity Type"
+           )
+
+prog_pace_plot %>% ggplotly()
+
+```
+
+# Seperating Our Runners data
+```{r}
+
+data_hound <- strava_df1 %>% 
+  filter(Runner  == "Hound")
+
+data_hound
+
+data_collie <- strava_df1 %>% 
+  filter(Runner == "Collie")
+data_collie
+
+
+```
+
+
+
+
+## Multiple Regression 
+### Avg. Pace ~ Avg. HR + Avg. Stride Length + Avg. Cadence (Combined and Ignoring Individuals)
+### Which variables impact pace the most?
+
+```{r}
+pace_reg_mult_data <- strava_df1 %>% 
+  select(Avg.Pace, Avg.HR, Avg.Stride.Length, Avg.Run.Cadence) %>% 
+  na.omit() %>% 
+  mutate(Avg.Pace= as.numeric(Avg.Pace, units = "mins"))
+
+pace_reg_model <- lm(Avg.Pace ~ Avg.HR + Avg.Stride.Length + Avg.Run.Cadence, data = pace_reg_mult_data)
+summary(pace_reg_model)
+
+```
+
+# Regression Time (How do we chose what to measure?)
+
+
+
+
