@@ -1,0 +1,239 @@
+---
+title: "Fitness_Project_V2"
+author: "Andrew Pettifor"
+format: html
+editor: visual
+---
+
+```{r echo=FALSE, message=FALSE}
+library(RTL)
+library(tidyverse)
+library(plotly)
+library(ggplot2)
+library(arrow)
+library(patchwork)
+library(tidyquant)
+library(scales)
+library(ggridges)
+library(viridis)
+library(forcats)
+library(scales)
+library(lubridate)
+library(stats)
+library(broom)
+library(gt)
+library(car)
+```
+
+```{r echo=FALSE}
+
+devtools::install_github("risktoollib/RTLedu")
+
+```
+
+RTLedu::fitness()
+
+# Original Data
+
+```{r echo=FALSE}
+
+RTLedu::strava
+
+strava_df <- RTLedu::strava 
+  
+strava_df
+```
+
+## Refined Data
+
+##### Here we manually remove any unused variables and data, we could remove these using a package like janitor, but by selecting we can visibily see our removed data using a comparitive name function to the oringal dataset. We now have a cleaner dataset to work with before we begin operating on the data.
+
+#### Additionally We have Changed Distance Meters to KM
+#### Chnaged Min and Max Elevation to be MEasured in KM
+#### We are removing activities that are exclusive to the "Hound" (Street and Track) (These have been removed to ensure fairness in data)
+
+
+
+```{r echo=FALSE}
+strava_df1 <- strava_df %>% 
+  select(Activity.Type,
+         Date,
+         Title,
+         Distance,
+         Calories,
+         Time,
+         Avg.HR,
+         Max.HR,
+         Aerobic.TE,
+         Avg.Run.Cadence,
+         Max.Run.Cadence,
+         Avg.Pace,
+         Best.Pace,
+         Total.Ascent,
+         Total.Descent,
+         Avg.Stride.Length,
+         Min.Temp,
+         Best.Lap.Time,
+         Number.of.Laps,
+         Max.Temp,
+         Moving.Time,
+         Elapsed.Time,
+         Min.Elevation,
+         Max.Elevation,
+         Runner) %>% 
+  relocate(Runner, .before = Activity.Type) %>% 
+  mutate(Distance = ifelse(Distance > 150, Distance / 1000, Distance)) %>% #Converts Distance to KM
+  mutate(Max.Elevation = as.numeric(Max.Elevation) / 1000) %>% #Converts Elevation from meters to KM
+  mutate(Min.Elevation = as.numeric(Min.Elevation) / 1000) #Converts Elevation from meters to KM
+  
+  
+strava_df1
+
+strava_df2 <- strava_df1 %>% 
+  filter(!Activity.Type %in% c("Track Running", "Street Running")) # Ensures runners will only be compared on the same activities
+
+strava_df2
+
+```
+
+
+# What is Fitness?
+
+## Within the context of the data we have been provided we are going to define fitness as:
+### 1. Performance and Efficiancy
+### 2. Cardio Vascular Endurance
+
+
+# Performance and Efficiancy
+
+## Performance and Efficiancy Regression: Predicting Pace
+
+```{r}
+strava_df3 <- strava_df2 %>% #Interchangable with  mutate(Avg.Pace = as.numeric(Avg.Pace, units = "mins"))
+separate(Avg.Pace, into = c("Minutes", "Seconds", "Milliseconds"), sep = ":", convert = TRUE) %>%
+  mutate(
+    Avg.Pace = (Minutes * 60) + Seconds + (Milliseconds / 1000)
+  ) %>%
+  select(-Minutes, -Seconds, -Milliseconds)  # Remove intermediate columns
+
+pc_model_fit1 <- 
+  lm(Avg.Pace ~ Avg.HR, data = strava_df3)
+pc_model_fit2 <-
+  lm(Avg.Pace ~ Avg.HR + Avg.Stride.Length, data = strava_df3)
+pc_model_fit3 <-
+  lm(Avg.Pace ~ Avg.HR + Avg.Stride.Length + Avg.Run.Cadence, data = strava_df3)
+pc_model_fit4 <-
+  lm(Avg.Pace ~ Avg.HR + Avg.Stride.Length + Avg.Run.Cadence + Total.Ascent, data = strava_df3)
+
+pc_model_fit1 %>% glance() %>% 
+  add_row(pc_model_fit2 %>% glance()) %>%
+  add_row(pc_model_fit3 %>% glance()) %>% 
+  add_row(pc_model_fit4 %>% glance()) %>% 
+  select(c(1:2,4:5)) %>% 
+  mutate(model = paste0("Is model ", row_number()," significant to measuring performance?")) %>% 
+  select(model, everything()) %>% 
+  gt() %>% 
+  fmt_percent(columns = !matches("statistical|model"), decimals = 2) %>% 
+  fmt_number(columns = matches("statistic"), decimals = 0) %>% 
+  fmt_percent(columns = matches("p.value"), decimals = 3)
+  
+  
+
+```
+
+### Based off the Regression we can determine that Avg. HR is not significant to pace. However, Avg.Stride.Length and Avg.Run.Cadence are. Thus we will incluce them in the model. The model 4 included total Ascent, that change was almost insignificant, but we will still test it independantly on pace below. While it does seem to explain some variance and 
+
+```{r}
+pc_model_Ascent <- 
+  lm(Avg.Pace ~ Total.Ascent, data = strava_df3)
+
+pc_model_Ascent %>% glance() %>% 
+  select(c(1:2,4:5)) %>% 
+  mutate(model = paste0("Is Total Ascent ", row_number()," significant to measuring performance?")) %>% 
+  select(model, everything()) %>% 
+  gt() %>% 
+  fmt_percent(columns = !matches("statistical|model"), decimals = 2) %>% 
+  fmt_number(columns = matches("statistic"), decimals = 0) %>% 
+  fmt_percent(columns = matches("p.value"), decimals = 3)
+
+
+```
+
+### While it does seem to explain some variance and is significant, there is no overwhelming need to inlude it. 
+
+#### We will now test for multicollinearity in to ensure the variables are not to correleted. 
+
+```{r}
+vif(pc_model_fit3)
+
+```
+#### The VIF scores all fall below 5 and are therefore acceptable
+
+### Best Model
+
+```{r}
+pc_model_fit3_Opt <-
+  lm(Avg.Pace ~ Avg.Stride.Length + Avg.Run.Cadence, data = strava_df3)
+
+pc_model_fit3_Opt %>% glance() %>% 
+  select(c(1:2,4:5)) %>% 
+  mutate(model = paste0("Is Total Ascent ", row_number()," significant to measuring performance?")) %>% 
+  select(model, everything()) %>% 
+  gt() %>% 
+  fmt_percent(columns = !matches("statistical|model"), decimals = 2) %>% 
+  fmt_number(columns = matches("statistic"), decimals = 0) %>% 
+  fmt_percent(columns = matches("p.value"), decimals = 3)
+
+```
+
+## Graphs of Pace
+
+```{r}
+
+prog_pace <- strava_df3%>% 
+  select(Runner,Date,Avg.Pace,Activity.Type)
+prog_pace
+
+prog_pace_plot <- prog_pace %>% 
+  ggplot(aes(x= Date, y=Avg.Pace, color = Activity.Type)) +
+           geom_line(size = 1)+
+           facet_wrap(~Runner, ncol = 1, scales = "free")+
+           scale_x_date(date_labels = "%Y")+
+           labs(
+             title = "Runner progression over time (Pace by Activity Type)",
+             subtitle = "",
+             y = "Avg. Pace (Seconds/KM)",
+             x= "Date",
+             color = "Activity Type"
+           )
+
+prog_pace_plot %>% ggplotly()
+
+
+```
+
+# Endurance
+```{r}
+
+endurance_dat <- strava_df3%>% 
+  select(Runner,Date,Aerobic.TE,Activity.Type)
+endurance_dat
+
+endurance_plot <- endurance_dat %>% 
+  ggplot(aes(x= Date, y=Aerobic.TE, color = Activity.Type)) +
+           geom_line(size = 1)+
+           facet_wrap(~Runner, ncol = 1, scales = "free")+
+           scale_x_date(date_labels = "%Y")+
+           labs(
+             title = "Runner progression over time (Aerobic Training Effect)",
+             subtitle = "",
+             y = "Aerobic Training Effect",
+             x= "Date",
+             color = "Activity Type"
+           )
+
+endurance_plot %>% ggplotly()
+
+
+```
+
