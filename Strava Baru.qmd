@@ -1,0 +1,180 @@
+---
+title: "Who is the fittest runner ?"
+format: html
+editor: visual
+author: "Yoan Lianto"
+---
+Fitness is the ability to endure long distance running for the longest time, while staying at a zone where heart rate is below it's maximum capacity.
+70 - 90 % is generally a good indicator. The higher the percentage, the more strenous it is to the heart.
+
+```{r, echo=FALSE, results='hide', message=FALSE}
+
+library(devtools) 
+library(RTLedu)
+library(shiny)
+library(usethis)
+library(tidyverse)
+library(dplyr)
+library(gt)
+
+```
+
+```{r, echo=FALSE, results='hide', message=FALSE}
+strava <-RTLedu::strava
+```
+
+```{r, echo=FALSE, results='hide', message=FALSE}
+strava_related <- strava %>%
+  dplyr::mutate(Favorite = NULL, Avg.Vertical.Ratio = NULL , Avg.Vertical.Oscillation = NULL, Avg.Ground.Contact.Time = NULL, Max.Power = NULL , Flow = NULL , Avg..Swolf = NULL , Avg.Stroke.Rate = NULL , Dive.Time = NULL , Avg.Resp = NULL , Min.Resp = NULL , Max.Resp = NULL, Decompression = NULL , Surface.Interval = NULL, Calories = NULL, Training.Stress.Score. = NULL, Avg.Power = NULL)
+
+strava_3categories <- strava_related %>% 
+  dplyr::mutate(Distance = if_else(Distance > 100, Distance / 1000, Distance),
+                Avg.Pace = if_else(Avg.Pace > 60, Avg.Pace/60 , Avg.Pace),
+                Avg.HR = as.numeric(Avg.HR)) %>%
+  dplyr::group_by(Activity.Type) %>% 
+  dplyr::filter(n_distinct(Runner) > 1) %>%
+  filter(Total.Ascent != "--" ,
+         Total.Descent != "--",
+         Min.Elevation != "--",
+         Max.Elevation != "--") %>% 
+  ungroup() %>% 
+  dplyr::filter(Activity.Type != "Treadmill Running")
+  
+
+
+
+```
+
+```{r, echo=FALSE, results='hide', message=FALSE}
+#making sure that we are comparing running and trail running only
+hound <- strava_3categories %>% filter(Runner == "Hound") 
+
+collie <- strava_3categories %>% filter(Runner == "Collie") 
+
+  
+table(hound$Activity.Type)
+table(collie$Activity.Type)
+
+```
+Who is the fittest?
+The fittest runner would be the one who can endure longest distance running
+
+Heart Rate Zones:
+
+```{r, echo=FALSE, message=FALSE}
+hr.zone <- tibble(
+  Zone = c("Zone 5", "Zone 4", "Zone 3", "Zone 2", "Zone 1"),
+  Max.HR = c("90-100%", "80-90%", "70-80%", "60-70%", "50-60%")) 
+
+gt(hr.zone)
+
+dhr <- strava_3categories %>% 
+  dplyr::group_by(Runner) %>% 
+  ggplot(aes(x = Distance, y = Avg.HR, colour = Runner)) + geom_line() + labs(title = "Average Heart Rate over Distance")
+
+plotly::ggplotly(dhr)
+
+```
+
+Measurement of progression :
+```{r, echo=FALSE, message=FALSE}
+dot <- ggplot(strava_3categories, aes(x = Date, y = Distance, color = Runner)) +
+  geom_line() +
+  labs(title = "Endurance Progress: Distance Over Time", 
+       x = "Date", 
+       y = "Distance (km)") 
+
+plotly::ggplotly(dot)
+#If they can cover more distance, their endurance is improving
+```
+```{r, echo=FALSE, message=FALSE}
+tod <- ggplot(strava_3categories, aes(x = Time/60, y = Distance, color = Runner)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(title = "Time Spent Running vs. Distance", 
+       x = "Time (minutes)", 
+       y = "Distance (km)") 
+
+plotly::ggplotly(tod)
+#if they can cover more distance within the same time, they have improved their endurance
+
+
+```
+
+
+```{r, echo=FALSE , message=TRUE}
+#measuring distance over speed
+ggplot(strava_3categories, aes(x = Distance , y = Avg.Pace , colour = Runner)) + geom_line() + labs(title = "Speed Progress : Speed over Distance", y = "Average Pace (m/km)",x = "Distance (km)")
+
+# how to convert pace to minutes
+```
+
+```{r}
+#pace improvement, cum.ret.HR collie and hound
+library(zoo)
+roll <- strava_3categories %>%
+  arrange(Date) %>%
+  group_by(Runner) %>%
+  mutate(Rolling_HR = zoo::rollmean(Avg.HR, k = 5, fill = NA)) %>%
+  ggplot(aes(x = Date, y = Rolling_HR, color = Runner)) +
+  geom_line() +
+  labs(title = "Rolling Average Heart Rate Over Time",
+       x = "Date",
+       y = "Rolling Avg Heart Rate")
+plotly::ggplotly(roll)
+
+strava_3categories%>%
+  mutate(HR_per_km = Avg.HR / Distance) %>%
+  ggplot(aes(x = Date, y = HR_per_km, color = Runner)) +
+  geom_line() +
+  labs(title = "Heart Rate per km Over Time",
+       x = "Date",
+       y = "Avg Heart Rate per km")
+
+```
+
+```{r, echo=FALSE}
+#performing regressions to see what affects hr
+library(broom)
+fit1 <- lm(Avg.HR ~ Avg.Pace ,strava_3categories)
+fit2 <- lm(Avg.HR ~ Avg.Pace + Distance,strava_3categories)
+fit3 <- lm(Avg.HR ~ Avg.Pace + Distance + Aerobic.TE, strava_3categories)
+fit4 <- lm(Avg.HR ~ Avg.Pace + Distance + Aerobic.TE + Time ,strava_3categories)
+
+fit1 %>% broom::glance() %>% 
+  dplyr::add_row(fit2 %>% broom::glance()) %>% 
+  dplyr::add_row(fit3 %>% broom::glance()) %>% 
+  dplyr::add_row(fit4 %>% broom::glance()) %>% 
+  dplyr::select(c(1:2,4:5)) %>% 
+  dplyr::mutate(model = paste0("Model Avg.HR",dplyr::row_number())) %>% 
+  dplyr::select(model, everything()) %>% 
+  gt() %>% 
+  gt::fmt_percent(columns = !matches("statistic|model"), decimals = 1) %>% 
+  gt::fmt_number(columns = matches("statistic"), decimals = 0) %>% 
+  gt::fmt_percent(columns = matches("p.value"), decimals = 3)
+
+#result of r2 and all is unsatisfactory
+```
+
+```{r, echo=FALSE}
+#regression to see what affects Aerobic.TE
+fita <- lm(Aerobic.TE ~ Avg.Pace ,strava_3categories)
+fitb <- lm(Aerobic.TE ~ Avg.Pace + Distance,strava_3categories)
+fitc <- lm(Aerobic.TE ~ Avg.Pace + Distance + Avg.HR, strava_3categories)
+
+fita %>% broom::glance() %>% 
+  dplyr::add_row(fitb %>% broom::glance()) %>% 
+  dplyr::add_row(fitc %>%  broom::glance()) %>% 
+  dplyr::select(c(1:2,4:5)) %>%
+  dplyr::mutate(model = paste0("Model Aerobic.TE", dplyr::row_number())) %>% 
+  dplyr::select(model, everything()) %>% 
+  gt() %>% 
+  gt::fmt_percent(columns = !matches("statistic|model"), decimals = 1) %>% 
+  gt::fmt_number(columns = matches("statistic"), decimals = 0) %>% 
+  gt::fmt_percent(columns = matches("p.value"), decimals = 3)
+
+  
+
+```
+
+
