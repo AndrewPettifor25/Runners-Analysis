@@ -1,0 +1,2086 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.57">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Yoan Lianto">
+
+<title>Who is the fittest runner ?</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="Strava Baru_files/libs/clipboard/clipboard.min.js"></script>
+<script src="Strava Baru_files/libs/quarto-html/quarto.js"></script>
+<script src="Strava Baru_files/libs/quarto-html/popper.min.js"></script>
+<script src="Strava Baru_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="Strava Baru_files/libs/quarto-html/anchor.min.js"></script>
+<link href="Strava Baru_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="Strava Baru_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="Strava Baru_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="Strava Baru_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="Strava Baru_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="Strava Baru_files/libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet">
+<script src="Strava Baru_files/libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<script src="Strava Baru_files/libs/plotly-binding-4.10.4/plotly.js"></script>
+<script src="Strava Baru_files/libs/typedarray-0.1/typedarray.min.js"></script>
+<script src="Strava Baru_files/libs/jquery-3.5.1/jquery.min.js"></script>
+<link href="Strava Baru_files/libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet">
+<script src="Strava Baru_files/libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
+<link href="Strava Baru_files/libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet">
+<script src="Strava Baru_files/libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Who is the fittest runner ?</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Yoan Lianto </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>Fitness is the ability to endure long distance running for the longest time, while staying at a zone where heart rate is below it’s maximum capacity. 70 - 90 % is generally a good indicator. The higher the percentage, the more strenous it is to the heart.</p>
+<p>Who is the fittest? The fittest runner would be the one who can endure longest distance running</p>
+<p>Heart Rate Zones:</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="elhvkoetxi" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#elhvkoetxi table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#elhvkoetxi thead, #elhvkoetxi tbody, #elhvkoetxi tfoot, #elhvkoetxi tr, #elhvkoetxi td, #elhvkoetxi th {
+  border-style: none;
+}
+
+#elhvkoetxi p {
+  margin: 0;
+  padding: 0;
+}
+
+#elhvkoetxi .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#elhvkoetxi .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#elhvkoetxi .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#elhvkoetxi .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#elhvkoetxi .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#elhvkoetxi .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#elhvkoetxi .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#elhvkoetxi .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#elhvkoetxi .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#elhvkoetxi .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#elhvkoetxi .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#elhvkoetxi .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#elhvkoetxi .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#elhvkoetxi .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#elhvkoetxi .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#elhvkoetxi .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#elhvkoetxi .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#elhvkoetxi .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#elhvkoetxi .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#elhvkoetxi .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#elhvkoetxi .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#elhvkoetxi .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#elhvkoetxi .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#elhvkoetxi .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#elhvkoetxi .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#elhvkoetxi .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#elhvkoetxi .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#elhvkoetxi .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#elhvkoetxi .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#elhvkoetxi .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#elhvkoetxi .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#elhvkoetxi .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#elhvkoetxi .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#elhvkoetxi .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#elhvkoetxi .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#elhvkoetxi .gt_left {
+  text-align: left;
+}
+
+#elhvkoetxi .gt_center {
+  text-align: center;
+}
+
+#elhvkoetxi .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#elhvkoetxi .gt_font_normal {
+  font-weight: normal;
+}
+
+#elhvkoetxi .gt_font_bold {
+  font-weight: bold;
+}
+
+#elhvkoetxi .gt_font_italic {
+  font-style: italic;
+}
+
+#elhvkoetxi .gt_super {
+  font-size: 65%;
+}
+
+#elhvkoetxi .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#elhvkoetxi .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#elhvkoetxi .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#elhvkoetxi .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#elhvkoetxi .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#elhvkoetxi .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#elhvkoetxi .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#elhvkoetxi .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#elhvkoetxi div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead>
+<tr class="header gt_col_headings">
+<th id="Zone" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Zone</th>
+<th id="Max.HR" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Max.HR</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_left" headers="Zone">Zone 5</td>
+<td class="gt_row gt_right" headers="Max.HR">90-100%</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Zone">Zone 4</td>
+<td class="gt_row gt_right" headers="Max.HR">80-90%</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Zone">Zone 3</td>
+<td class="gt_row gt_right" headers="Max.HR">70-80%</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Zone">Zone 2</td>
+<td class="gt_row gt_right" headers="Max.HR">60-70%</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Zone">Zone 1</td>
+<td class="gt_row gt_right" headers="Max.HR">50-60%</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+<div class="cell-output-display">
+<div class="plotly html-widget html-fill-item" id="htmlwidget-1915aaf38f5b47d6e68f" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-1915aaf38f5b47d6e68f">{"x":{"data":[{"x":[2.7999999999999998,3.52,4.3899999999999997,4.5800000000000001,4.7199999999999998,4.8499999999999996,4.96,5.0199999999999996,5.0199999999999996,5.0199999999999996,5.1100000000000003,5.2300000000000004,5.4000000000000004,5.4100000000000001,5.5599999999999996,5.5700000000000003,5.6600000000000001,5.6600000000000001,5.6900000000000004,5.7400000000000002,5.7699999999999996,5.9199999999999999,5.9299999999999997,5.9299999999999997,5.9400000000000004,6.0099999999999998,6.0199999999999996,6.0199999999999996,6.04,6.0499999999999998,6.0899999999999999,6.1100000000000003,6.2000000000000002,6.2000000000000002,6.3200000000000003,6.3399999999999999,6.3399999999999999,6.3799999999999999,6.4299999999999997,6.5099999999999998,6.5199999999999996,6.5300000000000002,6.6100000000000003,6.8399999999999999,6.8499999999999996,6.9400000000000004,7.0099999999999998,7.0199999999999996,7.0300000000000002,7.0499999999999998,7.0700000000000003,7.0800000000000001,7.0899999999999999,7.1200000000000001,7.21,7.3200000000000003,7.4299999999999997,7.4800000000000004,7.5,7.5899999999999999,7.6200000000000001,7.6799999999999997,7.7599999999999998,7.8399999999999999,8.0199999999999996,8.0299999999999994,8.0500000000000007,8.0700000000000003,8.0999999999999996,8.1999999999999993,8.2200000000000006,8.3300000000000001,8.3900000000000006,8.4000000000000004,8.4700000000000006,8.5600000000000005,8.7400000000000002,8.8300000000000001,8.9199999999999999,9.0099999999999998,9.0199999999999996,9.0899999999999999,9.0999999999999996,9.1300000000000008,10.01,10.01,10.01,10.01,10.01,10.01,10.01,10.01,10.01,10.01,10.02,10.02,10.02,10.02,10.02,10.02,10.02,10.02,10.02,10.029999999999999,10.029999999999999,10.029999999999999,10.029999999999999,10.029999999999999,10.029999999999999,10.029999999999999,10.039999999999999,10.039999999999999,10.039999999999999,10.039999999999999,10.039999999999999,10.039999999999999,10.039999999999999,10.039999999999999,10.06,10.06,10.07,10.1,10.15,10.18,10.27,10.27,10.33,10.33,10.35,10.35,10.359999999999999,10.380000000000001,10.43,10.44,10.529999999999999,10.57,10.58,10.68,10.98,11.01,11.029999999999999,11.23,11.27,11.33,11.359999999999999,12.01,12.02,12.02,12.02,12.02,12.02,12.02,12.050000000000001,12.17,12.220000000000001,12.44,12.56,12.58,12.779999999999999,13.300000000000001,13.49,14.02,14.4,15.029999999999999,15.130000000000001,17.010000000000002,17.449999999999999,18.02,19.18,20.010000000000002,20.010000000000002,21.120000000000001,21.16,21.440000000000001,22.100000000000001,23.02],"y":[140,135,133,152,143,142,148,158,136,150,145,138,168,137,154,144,148,153,145,137,142,155,154,142,138,138,141,151,152,155,143,136,151,148,142,146,154,142,150,161,166,141,147,136,156,137,146,136,143,144,141,141,140,136,149,137,141,146,137,148,143,141,138,140,141,146,143,152,140,138,139,161,138,152,144,157,138,149,143,138,150,148,144,150,153,149,145,152,149,156,145,152,155,152,146,147,142,146,141,144,150,146,154,147,144,142,151,132,140,137,133,144,141,145,142,139,135,142,144,149,144,144,143,140,139,144,147,144,143,148,141,154,139,146,136,147,150,150,141,148,151,145,143,144,150,146,137,137,152,142,146,146,134,151,147,133,140,145,141,142,138,143,138,142,140,143,137,155,148,143,145,149,145,144,131,131],"text":["Distance:  2.80<br />Avg.HR: 140<br />Runner: Collie","Distance:  3.52<br />Avg.HR: 135<br />Runner: Collie","Distance:  4.39<br />Avg.HR: 133<br />Runner: Collie","Distance:  4.58<br />Avg.HR: 152<br />Runner: Collie","Distance:  4.72<br />Avg.HR: 143<br />Runner: Collie","Distance:  4.85<br />Avg.HR: 142<br />Runner: Collie","Distance:  4.96<br />Avg.HR: 148<br />Runner: Collie","Distance:  5.02<br />Avg.HR: 158<br />Runner: Collie","Distance:  5.02<br />Avg.HR: 136<br />Runner: Collie","Distance:  5.02<br />Avg.HR: 150<br />Runner: Collie","Distance:  5.11<br />Avg.HR: 145<br />Runner: Collie","Distance:  5.23<br />Avg.HR: 138<br />Runner: Collie","Distance:  5.40<br />Avg.HR: 168<br />Runner: Collie","Distance:  5.41<br />Avg.HR: 137<br />Runner: Collie","Distance:  5.56<br />Avg.HR: 154<br />Runner: Collie","Distance:  5.57<br />Avg.HR: 144<br />Runner: Collie","Distance:  5.66<br />Avg.HR: 148<br />Runner: Collie","Distance:  5.66<br />Avg.HR: 153<br />Runner: Collie","Distance:  5.69<br />Avg.HR: 145<br />Runner: Collie","Distance:  5.74<br />Avg.HR: 137<br />Runner: Collie","Distance:  5.77<br />Avg.HR: 142<br />Runner: Collie","Distance:  5.92<br />Avg.HR: 155<br />Runner: Collie","Distance:  5.93<br />Avg.HR: 154<br />Runner: Collie","Distance:  5.93<br />Avg.HR: 142<br />Runner: Collie","Distance:  5.94<br />Avg.HR: 138<br />Runner: Collie","Distance:  6.01<br />Avg.HR: 138<br />Runner: Collie","Distance:  6.02<br />Avg.HR: 141<br />Runner: Collie","Distance:  6.02<br />Avg.HR: 151<br />Runner: Collie","Distance:  6.04<br />Avg.HR: 152<br />Runner: Collie","Distance:  6.05<br />Avg.HR: 155<br />Runner: Collie","Distance:  6.09<br />Avg.HR: 143<br />Runner: Collie","Distance:  6.11<br />Avg.HR: 136<br />Runner: Collie","Distance:  6.20<br />Avg.HR: 151<br />Runner: Collie","Distance:  6.20<br />Avg.HR: 148<br />Runner: Collie","Distance:  6.32<br />Avg.HR: 142<br />Runner: Collie","Distance:  6.34<br />Avg.HR: 146<br />Runner: Collie","Distance:  6.34<br />Avg.HR: 154<br />Runner: Collie","Distance:  6.38<br />Avg.HR: 142<br />Runner: Collie","Distance:  6.43<br />Avg.HR: 150<br />Runner: Collie","Distance:  6.51<br />Avg.HR: 161<br />Runner: Collie","Distance:  6.52<br />Avg.HR: 166<br />Runner: Collie","Distance:  6.53<br />Avg.HR: 141<br />Runner: Collie","Distance:  6.61<br />Avg.HR: 147<br />Runner: Collie","Distance:  6.84<br />Avg.HR: 136<br />Runner: Collie","Distance:  6.85<br />Avg.HR: 156<br />Runner: Collie","Distance:  6.94<br />Avg.HR: 137<br />Runner: Collie","Distance:  7.01<br />Avg.HR: 146<br />Runner: Collie","Distance:  7.02<br />Avg.HR: 136<br />Runner: Collie","Distance:  7.03<br />Avg.HR: 143<br />Runner: Collie","Distance:  7.05<br />Avg.HR: 144<br />Runner: Collie","Distance:  7.07<br />Avg.HR: 141<br />Runner: Collie","Distance:  7.08<br />Avg.HR: 141<br />Runner: Collie","Distance:  7.09<br />Avg.HR: 140<br />Runner: Collie","Distance:  7.12<br />Avg.HR: 136<br />Runner: Collie","Distance:  7.21<br />Avg.HR: 149<br />Runner: Collie","Distance:  7.32<br />Avg.HR: 137<br />Runner: Collie","Distance:  7.43<br />Avg.HR: 141<br />Runner: Collie","Distance:  7.48<br />Avg.HR: 146<br />Runner: Collie","Distance:  7.50<br />Avg.HR: 137<br />Runner: Collie","Distance:  7.59<br />Avg.HR: 148<br />Runner: Collie","Distance:  7.62<br />Avg.HR: 143<br />Runner: Collie","Distance:  7.68<br />Avg.HR: 141<br />Runner: Collie","Distance:  7.76<br />Avg.HR: 138<br />Runner: Collie","Distance:  7.84<br />Avg.HR: 140<br />Runner: Collie","Distance:  8.02<br />Avg.HR: 141<br />Runner: Collie","Distance:  8.03<br />Avg.HR: 146<br />Runner: Collie","Distance:  8.05<br />Avg.HR: 143<br />Runner: Collie","Distance:  8.07<br />Avg.HR: 152<br />Runner: Collie","Distance:  8.10<br />Avg.HR: 140<br />Runner: Collie","Distance:  8.20<br />Avg.HR: 138<br />Runner: Collie","Distance:  8.22<br />Avg.HR: 139<br />Runner: Collie","Distance:  8.33<br />Avg.HR: 161<br />Runner: Collie","Distance:  8.39<br />Avg.HR: 138<br />Runner: Collie","Distance:  8.40<br />Avg.HR: 152<br />Runner: Collie","Distance:  8.47<br />Avg.HR: 144<br />Runner: Collie","Distance:  8.56<br />Avg.HR: 157<br />Runner: Collie","Distance:  8.74<br />Avg.HR: 138<br />Runner: Collie","Distance:  8.83<br />Avg.HR: 149<br />Runner: Collie","Distance:  8.92<br />Avg.HR: 143<br />Runner: Collie","Distance:  9.01<br />Avg.HR: 138<br />Runner: Collie","Distance:  9.02<br />Avg.HR: 150<br />Runner: Collie","Distance:  9.09<br />Avg.HR: 148<br />Runner: Collie","Distance:  9.10<br />Avg.HR: 144<br />Runner: Collie","Distance:  9.13<br />Avg.HR: 150<br />Runner: Collie","Distance: 10.01<br />Avg.HR: 153<br />Runner: Collie","Distance: 10.01<br />Avg.HR: 149<br />Runner: Collie","Distance: 10.01<br />Avg.HR: 145<br />Runner: Collie","Distance: 10.01<br />Avg.HR: 152<br />Runner: Collie","Distance: 10.01<br />Avg.HR: 149<br />Runner: Collie","Distance: 10.01<br />Avg.HR: 156<br />Runner: Collie","Distance: 10.01<br />Avg.HR: 145<br />Runner: Collie","Distance: 10.01<br />Avg.HR: 152<br />Runner: Collie","Distance: 10.01<br />Avg.HR: 155<br />Runner: Collie","Distance: 10.01<br />Avg.HR: 152<br />Runner: Collie","Distance: 10.02<br />Avg.HR: 146<br />Runner: Collie","Distance: 10.02<br />Avg.HR: 147<br />Runner: Collie","Distance: 10.02<br />Avg.HR: 142<br />Runner: Collie","Distance: 10.02<br />Avg.HR: 146<br />Runner: Collie","Distance: 10.02<br />Avg.HR: 141<br />Runner: Collie","Distance: 10.02<br />Avg.HR: 144<br />Runner: Collie","Distance: 10.02<br />Avg.HR: 150<br />Runner: Collie","Distance: 10.02<br />Avg.HR: 146<br />Runner: Collie","Distance: 10.02<br />Avg.HR: 154<br />Runner: Collie","Distance: 10.03<br />Avg.HR: 147<br />Runner: Collie","Distance: 10.03<br />Avg.HR: 144<br />Runner: Collie","Distance: 10.03<br />Avg.HR: 142<br />Runner: Collie","Distance: 10.03<br />Avg.HR: 151<br />Runner: Collie","Distance: 10.03<br />Avg.HR: 132<br />Runner: Collie","Distance: 10.03<br />Avg.HR: 140<br />Runner: Collie","Distance: 10.03<br />Avg.HR: 137<br />Runner: Collie","Distance: 10.04<br />Avg.HR: 133<br />Runner: Collie","Distance: 10.04<br />Avg.HR: 144<br />Runner: Collie","Distance: 10.04<br />Avg.HR: 141<br />Runner: Collie","Distance: 10.04<br />Avg.HR: 145<br />Runner: Collie","Distance: 10.04<br />Avg.HR: 142<br />Runner: Collie","Distance: 10.04<br />Avg.HR: 139<br />Runner: Collie","Distance: 10.04<br />Avg.HR: 135<br />Runner: Collie","Distance: 10.04<br />Avg.HR: 142<br />Runner: Collie","Distance: 10.06<br />Avg.HR: 144<br />Runner: Collie","Distance: 10.06<br />Avg.HR: 149<br />Runner: Collie","Distance: 10.07<br />Avg.HR: 144<br />Runner: Collie","Distance: 10.10<br />Avg.HR: 144<br />Runner: Collie","Distance: 10.15<br />Avg.HR: 143<br />Runner: Collie","Distance: 10.18<br />Avg.HR: 140<br />Runner: Collie","Distance: 10.27<br />Avg.HR: 139<br />Runner: Collie","Distance: 10.27<br />Avg.HR: 144<br />Runner: Collie","Distance: 10.33<br />Avg.HR: 147<br />Runner: Collie","Distance: 10.33<br />Avg.HR: 144<br />Runner: Collie","Distance: 10.35<br />Avg.HR: 143<br />Runner: Collie","Distance: 10.35<br />Avg.HR: 148<br />Runner: Collie","Distance: 10.36<br />Avg.HR: 141<br />Runner: Collie","Distance: 10.38<br />Avg.HR: 154<br />Runner: Collie","Distance: 10.43<br />Avg.HR: 139<br />Runner: Collie","Distance: 10.44<br />Avg.HR: 146<br />Runner: Collie","Distance: 10.53<br />Avg.HR: 136<br />Runner: Collie","Distance: 10.57<br />Avg.HR: 147<br />Runner: Collie","Distance: 10.58<br />Avg.HR: 150<br />Runner: Collie","Distance: 10.68<br />Avg.HR: 150<br />Runner: Collie","Distance: 10.98<br />Avg.HR: 141<br />Runner: Collie","Distance: 11.01<br />Avg.HR: 148<br />Runner: Collie","Distance: 11.03<br />Avg.HR: 151<br />Runner: Collie","Distance: 11.23<br />Avg.HR: 145<br />Runner: Collie","Distance: 11.27<br />Avg.HR: 143<br />Runner: Collie","Distance: 11.33<br />Avg.HR: 144<br />Runner: Collie","Distance: 11.36<br />Avg.HR: 150<br />Runner: Collie","Distance: 12.01<br />Avg.HR: 146<br />Runner: Collie","Distance: 12.02<br />Avg.HR: 137<br />Runner: Collie","Distance: 12.02<br />Avg.HR: 137<br />Runner: Collie","Distance: 12.02<br />Avg.HR: 152<br />Runner: Collie","Distance: 12.02<br />Avg.HR: 142<br />Runner: Collie","Distance: 12.02<br />Avg.HR: 146<br />Runner: Collie","Distance: 12.02<br />Avg.HR: 146<br />Runner: Collie","Distance: 12.05<br />Avg.HR: 134<br />Runner: Collie","Distance: 12.17<br />Avg.HR: 151<br />Runner: Collie","Distance: 12.22<br />Avg.HR: 147<br />Runner: Collie","Distance: 12.44<br />Avg.HR: 133<br />Runner: Collie","Distance: 12.56<br />Avg.HR: 140<br />Runner: Collie","Distance: 12.58<br />Avg.HR: 145<br />Runner: Collie","Distance: 12.78<br />Avg.HR: 141<br />Runner: Collie","Distance: 13.30<br />Avg.HR: 142<br />Runner: Collie","Distance: 13.49<br />Avg.HR: 138<br />Runner: Collie","Distance: 14.02<br />Avg.HR: 143<br />Runner: Collie","Distance: 14.40<br />Avg.HR: 138<br />Runner: Collie","Distance: 15.03<br />Avg.HR: 142<br />Runner: Collie","Distance: 15.13<br />Avg.HR: 140<br />Runner: Collie","Distance: 17.01<br />Avg.HR: 143<br />Runner: Collie","Distance: 17.45<br />Avg.HR: 137<br />Runner: Collie","Distance: 18.02<br />Avg.HR: 155<br />Runner: Collie","Distance: 19.18<br />Avg.HR: 148<br />Runner: Collie","Distance: 20.01<br />Avg.HR: 143<br />Runner: Collie","Distance: 20.01<br />Avg.HR: 145<br />Runner: Collie","Distance: 21.12<br />Avg.HR: 149<br />Runner: Collie","Distance: 21.16<br />Avg.HR: 145<br />Runner: Collie","Distance: 21.44<br />Avg.HR: 144<br />Runner: Collie","Distance: 22.10<br />Avg.HR: 131<br />Runner: Collie","Distance: 23.02<br />Avg.HR: 131<br />Runner: Collie"],"type":"scatter","mode":"lines","line":{"width":1.8897637795275593,"color":"rgba(248,118,109,1)","dash":"solid"},"hoveron":"points","name":"Collie","legendgroup":"Collie","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[6.0099999999999998,6.0800000000000001,6.0899999999999999,6.1299999999999999,6.21,6.2599999999999998,6.29,6.3300000000000001,6.4300000000000006,6.4400000000000004,6.46,6.5499999999999998,6.6299999999999999,6.75,7.25,7.5,7.5,7.5800000000000001,7.5800000000000001,7.5899999999999999,7.7000000000000002,8,8.0500000000000007,8.0500000000000007,8.0500000000000007,8.0600000000000005,8.0600000000000005,8.0600000000000005,8.0600000000000005,8.0600000000000005,8.0999999999999996,8.2399999999999984,8.4399999999999995,8.5600000000000005,8.8600000000000012,9.3000000000000007,9.9100000000000001,10,10,10.02,10.06,10.07,10.139999999999999,10.16,10.84,11.02,11.029999999999999,11.050000000000001,11.219999999999999,11.27,11.27,11.289999999999999,11.619999999999999,11.629999999999999,11.69,12,12.01,12.050000000000001,12.119999999999999,12.119999999999999,12.470000000000001,12.58,12.699999999999999,12.709999999999999,12.880000000000001,13,13,13.15,13.83,13.91,14.119999999999999,14.139999999999999,14.16,14.5,16,16.010000000000002,16.07,16.079999999999998,16.09,16.100000000000001,16.199999999999999,16.239999999999998,16.300000000000001,16.300000000000001,16.350000000000001,16.489999999999998,16.559999999999999,16.800000000000001,16.830000000000002,17.510000000000002,17.600000000000001,17.600000000000001,17.600000000000001,17.699999999999999,18,18.150000000000002,18.719999999999999,19.030000000000001,19.199999999999999,19.210000000000001,19.219999999999999,19.310000000000002,19.310000000000002,19.310000000000002,19.32,19.77,20.010000000000002,20.02,20.050000000000001,20.079999999999998,20.190000000000001,20.199999999999999,21.010000000000002,22.530000000000001,25.259999999999998,26.030000000000001,42.420000000000002],"y":[149,137,149,153,140,141,162,144,157,162,150,138,155,137,153,151,139,147,156,140,141,144,142,138,137,139,139,140,150,143,138,146,142,140,144,145,173,147,160,142,140,146,143,137,139,141,164,139,142,146,148,137,145,145,140,140,145,137,141,147,138,138,145,143,140,146,144,145,145,144,147,145,147,142,143,140,143,138,137,137,137,137,152,139,153,148,148,145,142,143,145,137,149,144,139,146,138,152,139,149,148,155,145,141,142,147,143,143,143,138,153,137,138,137,140,149,148],"text":["Distance:  6.01<br />Avg.HR: 149<br />Runner: Hound","Distance:  6.08<br />Avg.HR: 137<br />Runner: Hound","Distance:  6.09<br />Avg.HR: 149<br />Runner: Hound","Distance:  6.13<br />Avg.HR: 153<br />Runner: Hound","Distance:  6.21<br />Avg.HR: 140<br />Runner: Hound","Distance:  6.26<br />Avg.HR: 141<br />Runner: Hound","Distance:  6.29<br />Avg.HR: 162<br />Runner: Hound","Distance:  6.33<br />Avg.HR: 144<br />Runner: Hound","Distance:  6.43<br />Avg.HR: 157<br />Runner: Hound","Distance:  6.44<br />Avg.HR: 162<br />Runner: Hound","Distance:  6.46<br />Avg.HR: 150<br />Runner: Hound","Distance:  6.55<br />Avg.HR: 138<br />Runner: Hound","Distance:  6.63<br />Avg.HR: 155<br />Runner: Hound","Distance:  6.75<br />Avg.HR: 137<br />Runner: Hound","Distance:  7.25<br />Avg.HR: 153<br />Runner: Hound","Distance:  7.50<br />Avg.HR: 151<br />Runner: Hound","Distance:  7.50<br />Avg.HR: 139<br />Runner: Hound","Distance:  7.58<br />Avg.HR: 147<br />Runner: Hound","Distance:  7.58<br />Avg.HR: 156<br />Runner: Hound","Distance:  7.59<br />Avg.HR: 140<br />Runner: Hound","Distance:  7.70<br />Avg.HR: 141<br />Runner: Hound","Distance:  8.00<br />Avg.HR: 144<br />Runner: Hound","Distance:  8.05<br />Avg.HR: 142<br />Runner: Hound","Distance:  8.05<br />Avg.HR: 138<br />Runner: Hound","Distance:  8.05<br />Avg.HR: 137<br />Runner: Hound","Distance:  8.06<br />Avg.HR: 139<br />Runner: Hound","Distance:  8.06<br />Avg.HR: 139<br />Runner: Hound","Distance:  8.06<br />Avg.HR: 140<br />Runner: Hound","Distance:  8.06<br />Avg.HR: 150<br />Runner: Hound","Distance:  8.06<br />Avg.HR: 143<br />Runner: Hound","Distance:  8.10<br />Avg.HR: 138<br />Runner: Hound","Distance:  8.24<br />Avg.HR: 146<br />Runner: Hound","Distance:  8.44<br />Avg.HR: 142<br />Runner: Hound","Distance:  8.56<br />Avg.HR: 140<br />Runner: Hound","Distance:  8.86<br />Avg.HR: 144<br />Runner: Hound","Distance:  9.30<br />Avg.HR: 145<br />Runner: Hound","Distance:  9.91<br />Avg.HR: 173<br />Runner: Hound","Distance: 10.00<br />Avg.HR: 147<br />Runner: Hound","Distance: 10.00<br />Avg.HR: 160<br />Runner: Hound","Distance: 10.02<br />Avg.HR: 142<br />Runner: Hound","Distance: 10.06<br />Avg.HR: 140<br />Runner: Hound","Distance: 10.07<br />Avg.HR: 146<br />Runner: Hound","Distance: 10.14<br />Avg.HR: 143<br />Runner: Hound","Distance: 10.16<br />Avg.HR: 137<br />Runner: Hound","Distance: 10.84<br />Avg.HR: 139<br />Runner: Hound","Distance: 11.02<br />Avg.HR: 141<br />Runner: Hound","Distance: 11.03<br />Avg.HR: 164<br />Runner: Hound","Distance: 11.05<br />Avg.HR: 139<br />Runner: Hound","Distance: 11.22<br />Avg.HR: 142<br />Runner: Hound","Distance: 11.27<br />Avg.HR: 146<br />Runner: Hound","Distance: 11.27<br />Avg.HR: 148<br />Runner: Hound","Distance: 11.29<br />Avg.HR: 137<br />Runner: Hound","Distance: 11.62<br />Avg.HR: 145<br />Runner: Hound","Distance: 11.63<br />Avg.HR: 145<br />Runner: Hound","Distance: 11.69<br />Avg.HR: 140<br />Runner: Hound","Distance: 12.00<br />Avg.HR: 140<br />Runner: Hound","Distance: 12.01<br />Avg.HR: 145<br />Runner: Hound","Distance: 12.05<br />Avg.HR: 137<br />Runner: Hound","Distance: 12.12<br />Avg.HR: 141<br />Runner: Hound","Distance: 12.12<br />Avg.HR: 147<br />Runner: Hound","Distance: 12.47<br />Avg.HR: 138<br />Runner: Hound","Distance: 12.58<br />Avg.HR: 138<br />Runner: Hound","Distance: 12.70<br />Avg.HR: 145<br />Runner: Hound","Distance: 12.71<br />Avg.HR: 143<br />Runner: Hound","Distance: 12.88<br />Avg.HR: 140<br />Runner: Hound","Distance: 13.00<br />Avg.HR: 146<br />Runner: Hound","Distance: 13.00<br />Avg.HR: 144<br />Runner: Hound","Distance: 13.15<br />Avg.HR: 145<br />Runner: Hound","Distance: 13.83<br />Avg.HR: 145<br />Runner: Hound","Distance: 13.91<br />Avg.HR: 144<br />Runner: Hound","Distance: 14.12<br />Avg.HR: 147<br />Runner: Hound","Distance: 14.14<br />Avg.HR: 145<br />Runner: Hound","Distance: 14.16<br />Avg.HR: 147<br />Runner: Hound","Distance: 14.50<br />Avg.HR: 142<br />Runner: Hound","Distance: 16.00<br />Avg.HR: 143<br />Runner: Hound","Distance: 16.01<br />Avg.HR: 140<br />Runner: Hound","Distance: 16.07<br />Avg.HR: 143<br />Runner: Hound","Distance: 16.08<br />Avg.HR: 138<br />Runner: Hound","Distance: 16.09<br />Avg.HR: 137<br />Runner: Hound","Distance: 16.10<br />Avg.HR: 137<br />Runner: Hound","Distance: 16.20<br />Avg.HR: 137<br />Runner: Hound","Distance: 16.24<br />Avg.HR: 137<br />Runner: Hound","Distance: 16.30<br />Avg.HR: 152<br />Runner: Hound","Distance: 16.30<br />Avg.HR: 139<br />Runner: Hound","Distance: 16.35<br />Avg.HR: 153<br />Runner: Hound","Distance: 16.49<br />Avg.HR: 148<br />Runner: Hound","Distance: 16.56<br />Avg.HR: 148<br />Runner: Hound","Distance: 16.80<br />Avg.HR: 145<br />Runner: Hound","Distance: 16.83<br />Avg.HR: 142<br />Runner: Hound","Distance: 17.51<br />Avg.HR: 143<br />Runner: Hound","Distance: 17.60<br />Avg.HR: 145<br />Runner: Hound","Distance: 17.60<br />Avg.HR: 137<br />Runner: Hound","Distance: 17.60<br />Avg.HR: 149<br />Runner: Hound","Distance: 17.70<br />Avg.HR: 144<br />Runner: Hound","Distance: 18.00<br />Avg.HR: 139<br />Runner: Hound","Distance: 18.15<br />Avg.HR: 146<br />Runner: Hound","Distance: 18.72<br />Avg.HR: 138<br />Runner: Hound","Distance: 19.03<br />Avg.HR: 152<br />Runner: Hound","Distance: 19.20<br />Avg.HR: 139<br />Runner: Hound","Distance: 19.21<br />Avg.HR: 149<br />Runner: Hound","Distance: 19.22<br />Avg.HR: 148<br />Runner: Hound","Distance: 19.31<br />Avg.HR: 155<br />Runner: Hound","Distance: 19.31<br />Avg.HR: 145<br />Runner: Hound","Distance: 19.31<br />Avg.HR: 141<br />Runner: Hound","Distance: 19.32<br />Avg.HR: 142<br />Runner: Hound","Distance: 19.77<br />Avg.HR: 147<br />Runner: Hound","Distance: 20.01<br />Avg.HR: 143<br />Runner: Hound","Distance: 20.02<br />Avg.HR: 143<br />Runner: Hound","Distance: 20.05<br />Avg.HR: 143<br />Runner: Hound","Distance: 20.08<br />Avg.HR: 138<br />Runner: Hound","Distance: 20.19<br />Avg.HR: 153<br />Runner: Hound","Distance: 20.20<br />Avg.HR: 137<br />Runner: Hound","Distance: 21.01<br />Avg.HR: 138<br />Runner: Hound","Distance: 22.53<br />Avg.HR: 137<br />Runner: Hound","Distance: 25.26<br />Avg.HR: 140<br />Runner: Hound","Distance: 26.03<br />Avg.HR: 149<br />Runner: Hound","Distance: 42.42<br />Avg.HR: 148<br />Runner: Hound"],"type":"scatter","mode":"lines","line":{"width":1.8897637795275593,"color":"rgba(0,191,196,1)","dash":"solid"},"hoveron":"points","name":"Hound","legendgroup":"Hound","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":43.762557077625573,"r":7.3059360730593621,"b":40.182648401826498,"l":43.105022831050235},"plot_bgcolor":"rgba(235,235,235,1)","paper_bgcolor":"rgba(255,255,255,1)","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724},"title":{"text":"Average Heart Rate over Distance","font":{"color":"rgba(0,0,0,1)","family":"","size":17.534246575342465},"x":0,"xref":"paper"},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[0.81899999999999951,44.401000000000003],"tickmode":"array","ticktext":["10","20","30","40"],"tickvals":[10,20,30.000000000000004,40],"categoryorder":"array","categoryarray":["10","20","30","40"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.6529680365296811,"tickwidth":0.66417600664176002,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.68949771689498},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(255,255,255,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"y","title":{"text":"Distance","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[128.90000000000001,175.09999999999999],"tickmode":"array","ticktext":["130","140","150","160","170"],"tickvals":[130,140,150,160,170],"categoryorder":"array","categoryarray":["130","140","150","160","170"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.6529680365296811,"tickwidth":0.66417600664176002,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.68949771689498},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(255,255,255,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"x","title":{"text":"Avg.HR","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":true,"legend":{"bgcolor":"rgba(255,255,255,1)","bordercolor":"transparent","borderwidth":1.8897637795275593,"font":{"color":"rgba(0,0,0,1)","family":"","size":11.68949771689498},"title":{"text":"Runner","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}}},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"source":"A","attrs":{"2f0768ce4caf":{"x":{},"y":{},"colour":{},"type":"scatter"}},"cur_data":"2f0768ce4caf","visdat":{"2f0768ce4caf":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<p>Measurement of progression :</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="plotly html-widget html-fill-item" id="htmlwidget-c663da9b8ba69f91f853" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-c663da9b8ba69f91f853">{"x":{"data":[{"x":[18421,18423,18427,18428,18430,18434,18439,18444,18448,18453,18456,18462,18463,18467,18468,18473,18475,18481,18491,18495,18497,18498,18500,18502,18504,18511,18515,18516,18519,18522,18526,18530,18533,18537,18539,18545,18546,18551,18575,18595,18629,18631,18632,18633,18637,18645,18656,18660,18673,18679,18686,18690,18693,18697,18699,18706,18712,18714,18728,18733,18734,18743,18749,18751,18754,18757,18759,18767,18770,18782,18787,18793,18795,18797,18800,18805,18813,18817,18819,18821,18835,18839,18845,18848,18850,18852,18857,18861,18864,18866,18868,18873,18877,18879,18883,18886,18889,18894,18901,18909,18911,18915,18917,18919,18921,18925,18928,18931,18933,18938,18957,18969,19002,19004,19006,19104,19155,19281,19294,19378,19381,19392,19457,19463,19470,19474,19477,19484,19488,19491,19498,19501,19505,19507,19510,19512,19515,19517,19521,19524,19528,19530,19532,19534,19535,19538,19542,19545,19550,19554,19556,19558,19560,19565,19570,19576,19578,19584,19590,19592,19595,19597,19601,19602,19604,19609,19612,19614,19617,19622,19624,19626,19629,19631,19633,19637],"y":[10.01,6.1100000000000003,10.039999999999999,10.039999999999999,19.18,10.27,10.1,10.01,14.02,4.8499999999999996,18.02,6.5099999999999998,11.23,10.01,6.3200000000000003,10.01,11.359999999999999,10.02,2.7999999999999998,8.0700000000000003,7.21,8.3300000000000001,5.1100000000000003,12.56,12.050000000000001,10.02,6.5199999999999996,8.4000000000000004,6.5300000000000002,6.4299999999999997,5.6600000000000001,6.6100000000000003,5.5599999999999996,4.5800000000000001,7.5899999999999999,6.2000000000000002,6.8499999999999996,7.0300000000000002,6.3399999999999999,5.5700000000000003,5.6900000000000004,7.6799999999999997,10.029999999999999,6.0499999999999998,10.039999999999999,8.5600000000000005,7.5,5.9299999999999997,10.039999999999999,10.02,10.039999999999999,5.6600000000000001,8.9199999999999999,10.06,9.0899999999999999,8.3900000000000006,7.6200000000000001,10.33,10.18,10.029999999999999,10.029999999999999,6.04,8.1999999999999993,8.0299999999999994,10.02,5.9299999999999997,5.0199999999999996,7.0099999999999998,10.15,9.0999999999999996,10.58,6.3799999999999999,11.029999999999999,15.029999999999999,6.0199999999999996,5.0199999999999996,10.029999999999999,12.02,12.44,5.9199999999999999,10.33,11.27,5.0199999999999996,6.2000000000000002,9.1300000000000008,5.4000000000000004,10.57,20.010000000000002,8.8300000000000001,10.029999999999999,23.02,10.029999999999999,6.0099999999999998,9.0099999999999998,10.27,10.44,6.8399999999999999,8.2200000000000006,7.4800000000000004,5.7699999999999996,7.0199999999999996,6.0899999999999999,7.3200000000000003,6.0199999999999996,7.4299999999999997,7.0899999999999999,5.2300000000000004,7.8399999999999999,4.7199999999999998,10.02,5.9400000000000004,5.4100000000000001,5.7400000000000002,8.0500000000000007,7.7599999999999998,4.3899999999999997,4.96,7.1200000000000001,6.3399999999999999,7.0800000000000001,7.0499999999999998,6.9400000000000004,8.0999999999999996,10.039999999999999,12.02,8.0199999999999996,10.35,12.02,8.7400000000000002,12.02,12.01,20.010000000000002,13.49,12.02,12.02,12.779999999999999,11.33,3.52,10.039999999999999,21.440000000000001,11.01,10.02,14.4,10.35,17.010000000000002,10.359999999999999,10.529999999999999,21.16,10.039999999999999,15.130000000000001,8.4700000000000006,12.17,10.43,22.100000000000001,10.98,10.380000000000001,10.01,10.06,10.01,10.02,12.220000000000001,10.02,10.07,17.449999999999999,21.120000000000001,10.68,10.029999999999999,10.01,13.300000000000001,10.01,7.0700000000000003,9.0199999999999996,10.01,12.58,10.01,10.02],"text":["Date: 2020-06-08<br />Distance: 10.01<br />Runner: Collie","Date: 2020-06-10<br />Distance:  6.11<br />Runner: Collie","Date: 2020-06-14<br />Distance: 10.04<br />Runner: Collie","Date: 2020-06-15<br />Distance: 10.04<br />Runner: Collie","Date: 2020-06-17<br />Distance: 19.18<br />Runner: Collie","Date: 2020-06-21<br />Distance: 10.27<br />Runner: Collie","Date: 2020-06-26<br />Distance: 10.10<br />Runner: Collie","Date: 2020-07-01<br />Distance: 10.01<br />Runner: Collie","Date: 2020-07-05<br />Distance: 14.02<br />Runner: Collie","Date: 2020-07-10<br />Distance:  4.85<br />Runner: Collie","Date: 2020-07-13<br />Distance: 18.02<br />Runner: Collie","Date: 2020-07-19<br />Distance:  6.51<br />Runner: Collie","Date: 2020-07-20<br />Distance: 11.23<br />Runner: Collie","Date: 2020-07-24<br />Distance: 10.01<br />Runner: Collie","Date: 2020-07-25<br />Distance:  6.32<br />Runner: Collie","Date: 2020-07-30<br />Distance: 10.01<br />Runner: Collie","Date: 2020-08-01<br />Distance: 11.36<br />Runner: Collie","Date: 2020-08-07<br />Distance: 10.02<br />Runner: Collie","Date: 2020-08-17<br />Distance:  2.80<br />Runner: Collie","Date: 2020-08-21<br />Distance:  8.07<br />Runner: Collie","Date: 2020-08-23<br />Distance:  7.21<br />Runner: Collie","Date: 2020-08-24<br />Distance:  8.33<br />Runner: Collie","Date: 2020-08-26<br />Distance:  5.11<br />Runner: Collie","Date: 2020-08-28<br />Distance: 12.56<br />Runner: Collie","Date: 2020-08-30<br />Distance: 12.05<br />Runner: Collie","Date: 2020-09-06<br />Distance: 10.02<br />Runner: Collie","Date: 2020-09-10<br />Distance:  6.52<br />Runner: Collie","Date: 2020-09-11<br />Distance:  8.40<br />Runner: Collie","Date: 2020-09-14<br />Distance:  6.53<br />Runner: Collie","Date: 2020-09-17<br />Distance:  6.43<br />Runner: Collie","Date: 2020-09-21<br />Distance:  5.66<br />Runner: Collie","Date: 2020-09-25<br />Distance:  6.61<br />Runner: Collie","Date: 2020-09-28<br />Distance:  5.56<br />Runner: Collie","Date: 2020-10-02<br />Distance:  4.58<br />Runner: Collie","Date: 2020-10-04<br />Distance:  7.59<br />Runner: Collie","Date: 2020-10-10<br />Distance:  6.20<br />Runner: Collie","Date: 2020-10-11<br />Distance:  6.85<br />Runner: Collie","Date: 2020-10-16<br />Distance:  7.03<br />Runner: Collie","Date: 2020-11-09<br />Distance:  6.34<br />Runner: Collie","Date: 2020-11-29<br />Distance:  5.57<br />Runner: Collie","Date: 2021-01-02<br />Distance:  5.69<br />Runner: Collie","Date: 2021-01-04<br />Distance:  7.68<br />Runner: Collie","Date: 2021-01-05<br />Distance: 10.03<br />Runner: Collie","Date: 2021-01-06<br />Distance:  6.05<br />Runner: Collie","Date: 2021-01-10<br />Distance: 10.04<br />Runner: Collie","Date: 2021-01-18<br />Distance:  8.56<br />Runner: Collie","Date: 2021-01-29<br />Distance:  7.50<br />Runner: Collie","Date: 2021-02-02<br />Distance:  5.93<br />Runner: Collie","Date: 2021-02-15<br />Distance: 10.04<br />Runner: Collie","Date: 2021-02-21<br />Distance: 10.02<br />Runner: Collie","Date: 2021-02-28<br />Distance: 10.04<br />Runner: Collie","Date: 2021-03-04<br />Distance:  5.66<br />Runner: Collie","Date: 2021-03-07<br />Distance:  8.92<br />Runner: Collie","Date: 2021-03-11<br />Distance: 10.06<br />Runner: Collie","Date: 2021-03-13<br />Distance:  9.09<br />Runner: Collie","Date: 2021-03-20<br />Distance:  8.39<br />Runner: Collie","Date: 2021-03-26<br />Distance:  7.62<br />Runner: Collie","Date: 2021-03-28<br />Distance: 10.33<br />Runner: Collie","Date: 2021-04-11<br />Distance: 10.18<br />Runner: Collie","Date: 2021-04-16<br />Distance: 10.03<br />Runner: Collie","Date: 2021-04-17<br />Distance: 10.03<br />Runner: Collie","Date: 2021-04-26<br />Distance:  6.04<br />Runner: Collie","Date: 2021-05-02<br />Distance:  8.20<br />Runner: Collie","Date: 2021-05-04<br />Distance:  8.03<br />Runner: Collie","Date: 2021-05-07<br />Distance: 10.02<br />Runner: Collie","Date: 2021-05-10<br />Distance:  5.93<br />Runner: Collie","Date: 2021-05-12<br />Distance:  5.02<br />Runner: Collie","Date: 2021-05-20<br />Distance:  7.01<br />Runner: Collie","Date: 2021-05-23<br />Distance: 10.15<br />Runner: Collie","Date: 2021-06-04<br />Distance:  9.10<br />Runner: Collie","Date: 2021-06-09<br />Distance: 10.58<br />Runner: Collie","Date: 2021-06-15<br />Distance:  6.38<br />Runner: Collie","Date: 2021-06-17<br />Distance: 11.03<br />Runner: Collie","Date: 2021-06-19<br />Distance: 15.03<br />Runner: Collie","Date: 2021-06-22<br />Distance:  6.02<br />Runner: Collie","Date: 2021-06-27<br />Distance:  5.02<br />Runner: Collie","Date: 2021-07-05<br />Distance: 10.03<br />Runner: Collie","Date: 2021-07-09<br />Distance: 12.02<br />Runner: Collie","Date: 2021-07-11<br />Distance: 12.44<br />Runner: Collie","Date: 2021-07-13<br />Distance:  5.92<br />Runner: Collie","Date: 2021-07-27<br />Distance: 10.33<br />Runner: Collie","Date: 2021-07-31<br />Distance: 11.27<br />Runner: Collie","Date: 2021-08-06<br />Distance:  5.02<br />Runner: Collie","Date: 2021-08-09<br />Distance:  6.20<br />Runner: Collie","Date: 2021-08-11<br />Distance:  9.13<br />Runner: Collie","Date: 2021-08-13<br />Distance:  5.40<br />Runner: Collie","Date: 2021-08-18<br />Distance: 10.57<br />Runner: Collie","Date: 2021-08-22<br />Distance: 20.01<br />Runner: Collie","Date: 2021-08-25<br />Distance:  8.83<br />Runner: Collie","Date: 2021-08-27<br />Distance: 10.03<br />Runner: Collie","Date: 2021-08-29<br />Distance: 23.02<br />Runner: Collie","Date: 2021-09-03<br />Distance: 10.03<br />Runner: Collie","Date: 2021-09-07<br />Distance:  6.01<br />Runner: Collie","Date: 2021-09-09<br />Distance:  9.01<br />Runner: Collie","Date: 2021-09-13<br />Distance: 10.27<br />Runner: Collie","Date: 2021-09-16<br />Distance: 10.44<br />Runner: Collie","Date: 2021-09-19<br />Distance:  6.84<br />Runner: Collie","Date: 2021-09-24<br />Distance:  8.22<br />Runner: Collie","Date: 2021-10-01<br />Distance:  7.48<br />Runner: Collie","Date: 2021-10-09<br />Distance:  5.77<br />Runner: Collie","Date: 2021-10-11<br />Distance:  7.02<br />Runner: Collie","Date: 2021-10-15<br />Distance:  6.09<br />Runner: Collie","Date: 2021-10-17<br />Distance:  7.32<br />Runner: Collie","Date: 2021-10-19<br />Distance:  6.02<br />Runner: Collie","Date: 2021-10-21<br />Distance:  7.43<br />Runner: Collie","Date: 2021-10-25<br />Distance:  7.09<br />Runner: Collie","Date: 2021-10-28<br />Distance:  5.23<br />Runner: Collie","Date: 2021-10-31<br />Distance:  7.84<br />Runner: Collie","Date: 2021-11-02<br />Distance:  4.72<br />Runner: Collie","Date: 2021-11-07<br />Distance: 10.02<br />Runner: Collie","Date: 2021-11-26<br />Distance:  5.94<br />Runner: Collie","Date: 2021-12-08<br />Distance:  5.41<br />Runner: Collie","Date: 2022-01-10<br />Distance:  5.74<br />Runner: Collie","Date: 2022-01-12<br />Distance:  8.05<br />Runner: Collie","Date: 2022-01-14<br />Distance:  7.76<br />Runner: Collie","Date: 2022-04-22<br />Distance:  4.39<br />Runner: Collie","Date: 2022-06-12<br />Distance:  4.96<br />Runner: Collie","Date: 2022-10-16<br />Distance:  7.12<br />Runner: Collie","Date: 2022-10-29<br />Distance:  6.34<br />Runner: Collie","Date: 2023-01-21<br />Distance:  7.08<br />Runner: Collie","Date: 2023-01-24<br />Distance:  7.05<br />Runner: Collie","Date: 2023-02-04<br />Distance:  6.94<br />Runner: Collie","Date: 2023-04-10<br />Distance:  8.10<br />Runner: Collie","Date: 2023-04-16<br />Distance: 10.04<br />Runner: Collie","Date: 2023-04-23<br />Distance: 12.02<br />Runner: Collie","Date: 2023-04-27<br />Distance:  8.02<br />Runner: Collie","Date: 2023-04-30<br />Distance: 10.35<br />Runner: Collie","Date: 2023-05-07<br />Distance: 12.02<br />Runner: Collie","Date: 2023-05-11<br />Distance:  8.74<br />Runner: Collie","Date: 2023-05-14<br />Distance: 12.02<br />Runner: Collie","Date: 2023-05-21<br />Distance: 12.01<br />Runner: Collie","Date: 2023-05-24<br />Distance: 20.01<br />Runner: Collie","Date: 2023-05-28<br />Distance: 13.49<br />Runner: Collie","Date: 2023-05-30<br />Distance: 12.02<br />Runner: Collie","Date: 2023-06-02<br />Distance: 12.02<br />Runner: Collie","Date: 2023-06-04<br />Distance: 12.78<br />Runner: Collie","Date: 2023-06-07<br />Distance: 11.33<br />Runner: Collie","Date: 2023-06-09<br />Distance:  3.52<br />Runner: Collie","Date: 2023-06-13<br />Distance: 10.04<br />Runner: Collie","Date: 2023-06-16<br />Distance: 21.44<br />Runner: Collie","Date: 2023-06-20<br />Distance: 11.01<br />Runner: Collie","Date: 2023-06-22<br />Distance: 10.02<br />Runner: Collie","Date: 2023-06-24<br />Distance: 14.40<br />Runner: Collie","Date: 2023-06-26<br />Distance: 10.35<br />Runner: Collie","Date: 2023-06-27<br />Distance: 17.01<br />Runner: Collie","Date: 2023-06-30<br />Distance: 10.36<br />Runner: Collie","Date: 2023-07-04<br />Distance: 10.53<br />Runner: Collie","Date: 2023-07-07<br />Distance: 21.16<br />Runner: Collie","Date: 2023-07-12<br />Distance: 10.04<br />Runner: Collie","Date: 2023-07-16<br />Distance: 15.13<br />Runner: Collie","Date: 2023-07-18<br />Distance:  8.47<br />Runner: Collie","Date: 2023-07-20<br />Distance: 12.17<br />Runner: Collie","Date: 2023-07-22<br />Distance: 10.43<br />Runner: Collie","Date: 2023-07-27<br />Distance: 22.10<br />Runner: Collie","Date: 2023-08-01<br />Distance: 10.98<br />Runner: Collie","Date: 2023-08-07<br />Distance: 10.38<br />Runner: Collie","Date: 2023-08-09<br />Distance: 10.01<br />Runner: Collie","Date: 2023-08-15<br />Distance: 10.06<br />Runner: Collie","Date: 2023-08-21<br />Distance: 10.01<br />Runner: Collie","Date: 2023-08-23<br />Distance: 10.02<br />Runner: Collie","Date: 2023-08-26<br />Distance: 12.22<br />Runner: Collie","Date: 2023-08-28<br />Distance: 10.02<br />Runner: Collie","Date: 2023-09-01<br />Distance: 10.07<br />Runner: Collie","Date: 2023-09-02<br />Distance: 17.45<br />Runner: Collie","Date: 2023-09-04<br />Distance: 21.12<br />Runner: Collie","Date: 2023-09-09<br />Distance: 10.68<br />Runner: Collie","Date: 2023-09-12<br />Distance: 10.03<br />Runner: Collie","Date: 2023-09-14<br />Distance: 10.01<br />Runner: Collie","Date: 2023-09-17<br />Distance: 13.30<br />Runner: Collie","Date: 2023-09-22<br />Distance: 10.01<br />Runner: Collie","Date: 2023-09-24<br />Distance:  7.07<br />Runner: Collie","Date: 2023-09-26<br />Distance:  9.02<br />Runner: Collie","Date: 2023-09-29<br />Distance: 10.01<br />Runner: Collie","Date: 2023-10-01<br />Distance: 12.58<br />Runner: Collie","Date: 2023-10-03<br />Distance: 10.01<br />Runner: Collie","Date: 2023-10-07<br />Distance: 10.02<br />Runner: Collie"],"type":"scatter","mode":"lines","line":{"width":1.8897637795275593,"color":"rgba(248,118,109,1)","dash":"solid"},"hoveron":"points","name":"Collie","legendgroup":"Collie","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[17713,17720,17724,17727,17731,17738,17757,17773,17776,17778,17780,17785,17787,17792,17794,17811,17825,17832,17846,17847,17867,17873,17881,17888,18008,18010,18035,18041,18047,18048,18093,18098,18100,18112,18116,18150,18154,18157,18161,18164,18174,18182,18203,18210,18238,18252,18253,18259,18308,18342,18350,18386,18388,18399,18409,18413,18417,18427,18441,18448,18455,18462,18510,18521,18525,18528,18532,18533,18556,18574,18712,18726,18726,18733,18733,18740,18764,18770,18774,18775,18804,18812,18822,18832,18849,18854,18857,18868,18874,18887,18895,18903,18930,18935,18966,19169,19183,19188,19189,19197,19217,19232,19309,19323,19358,19463,19477,19484,19491,19522,19531,19532,19533,19540,19568,19613,19616],"y":[16.300000000000001,10.06,11.27,13,11.27,11.619999999999999,16.559999999999999,17.699999999999999,16.199999999999999,16.010000000000002,17.600000000000001,16.800000000000001,19.219999999999999,17.600000000000001,19.210000000000001,42.420000000000002,6.5499999999999998,10,14.5,12.699999999999999,16.07,25.259999999999998,16.079999999999998,19.199999999999999,8.2399999999999984,6.0899999999999999,13,8.0500000000000007,8.0500000000000007,8.0600000000000005,17.600000000000001,19.310000000000002,16.830000000000002,19.310000000000002,12.880000000000001,7.5800000000000001,10.16,6.6299999999999999,12.119999999999999,6.0099999999999998,6.0800000000000001,12.470000000000001,18,20.199999999999999,16.09,16,11.629999999999999,19.310000000000002,13.15,8.0500000000000007,6.75,6.2599999999999998,11.69,13.91,11.289999999999999,10.139999999999999,7.5,8,10,7.7000000000000002,12,7.5,8.0600000000000005,7.5800000000000001,12.01,6.4300000000000006,12.709999999999999,7.5899999999999999,6.1299999999999999,12.58,11.050000000000001,13.83,14.139999999999999,14.16,14.119999999999999,20.050000000000001,6.21,8.0999999999999996,8.0600000000000005,9.3000000000000007,8.8600000000000012,10.84,6.29,16.100000000000001,6.46,21.010000000000002,8.0600000000000005,19.32,8.4399999999999995,8.0600000000000005,18.719999999999999,17.510000000000002,6.4400000000000004,6.3300000000000001,16.489999999999998,19.77,20.079999999999998,12.119999999999999,10.07,20.010000000000002,11.219999999999999,20.190000000000001,16.239999999999998,20.02,16.300000000000001,16.350000000000001,18.150000000000002,8.5600000000000005,22.530000000000001,10.02,12.050000000000001,11.02,19.030000000000001,9.9100000000000001,26.030000000000001,7.25,11.029999999999999],"text":["Date: 2018-07-01<br />Distance: 16.30<br />Runner: Hound","Date: 2018-07-08<br />Distance: 10.06<br />Runner: Hound","Date: 2018-07-12<br />Distance: 11.27<br />Runner: Hound","Date: 2018-07-15<br />Distance: 13.00<br />Runner: Hound","Date: 2018-07-19<br />Distance: 11.27<br />Runner: Hound","Date: 2018-07-26<br />Distance: 11.62<br />Runner: Hound","Date: 2018-08-14<br />Distance: 16.56<br />Runner: Hound","Date: 2018-08-30<br />Distance: 17.70<br />Runner: Hound","Date: 2018-09-02<br />Distance: 16.20<br />Runner: Hound","Date: 2018-09-04<br />Distance: 16.01<br />Runner: Hound","Date: 2018-09-06<br />Distance: 17.60<br />Runner: Hound","Date: 2018-09-11<br />Distance: 16.80<br />Runner: Hound","Date: 2018-09-13<br />Distance: 19.22<br />Runner: Hound","Date: 2018-09-18<br />Distance: 17.60<br />Runner: Hound","Date: 2018-09-20<br />Distance: 19.21<br />Runner: Hound","Date: 2018-10-07<br />Distance: 42.42<br />Runner: Hound","Date: 2018-10-21<br />Distance:  6.55<br />Runner: Hound","Date: 2018-10-28<br />Distance: 10.00<br />Runner: Hound","Date: 2018-11-11<br />Distance: 14.50<br />Runner: Hound","Date: 2018-11-12<br />Distance: 12.70<br />Runner: Hound","Date: 2018-12-02<br />Distance: 16.07<br />Runner: Hound","Date: 2018-12-08<br />Distance: 25.26<br />Runner: Hound","Date: 2018-12-16<br />Distance: 16.08<br />Runner: Hound","Date: 2018-12-23<br />Distance: 19.20<br />Runner: Hound","Date: 2019-04-22<br />Distance:  8.24<br />Runner: Hound","Date: 2019-04-24<br />Distance:  6.09<br />Runner: Hound","Date: 2019-05-19<br />Distance: 13.00<br />Runner: Hound","Date: 2019-05-25<br />Distance:  8.05<br />Runner: Hound","Date: 2019-05-31<br />Distance:  8.05<br />Runner: Hound","Date: 2019-06-01<br />Distance:  8.06<br />Runner: Hound","Date: 2019-07-16<br />Distance: 17.60<br />Runner: Hound","Date: 2019-07-21<br />Distance: 19.31<br />Runner: Hound","Date: 2019-07-23<br />Distance: 16.83<br />Runner: Hound","Date: 2019-08-04<br />Distance: 19.31<br />Runner: Hound","Date: 2019-08-08<br />Distance: 12.88<br />Runner: Hound","Date: 2019-09-11<br />Distance:  7.58<br />Runner: Hound","Date: 2019-09-15<br />Distance: 10.16<br />Runner: Hound","Date: 2019-09-18<br />Distance:  6.63<br />Runner: Hound","Date: 2019-09-22<br />Distance: 12.12<br />Runner: Hound","Date: 2019-09-25<br />Distance:  6.01<br />Runner: Hound","Date: 2019-10-05<br />Distance:  6.08<br />Runner: Hound","Date: 2019-10-13<br />Distance: 12.47<br />Runner: Hound","Date: 2019-11-03<br />Distance: 18.00<br />Runner: Hound","Date: 2019-11-10<br />Distance: 20.20<br />Runner: Hound","Date: 2019-12-08<br />Distance: 16.09<br />Runner: Hound","Date: 2019-12-22<br />Distance: 16.00<br />Runner: Hound","Date: 2019-12-23<br />Distance: 11.63<br />Runner: Hound","Date: 2019-12-29<br />Distance: 19.31<br />Runner: Hound","Date: 2020-02-16<br />Distance: 13.15<br />Runner: Hound","Date: 2020-03-21<br />Distance:  8.05<br />Runner: Hound","Date: 2020-03-29<br />Distance:  6.75<br />Runner: Hound","Date: 2020-05-04<br />Distance:  6.26<br />Runner: Hound","Date: 2020-05-06<br />Distance: 11.69<br />Runner: Hound","Date: 2020-05-17<br />Distance: 13.91<br />Runner: Hound","Date: 2020-05-27<br />Distance: 11.29<br />Runner: Hound","Date: 2020-05-31<br />Distance: 10.14<br />Runner: Hound","Date: 2020-06-04<br />Distance:  7.50<br />Runner: Hound","Date: 2020-06-14<br />Distance:  8.00<br />Runner: Hound","Date: 2020-06-28<br />Distance: 10.00<br />Runner: Hound","Date: 2020-07-05<br />Distance:  7.70<br />Runner: Hound","Date: 2020-07-12<br />Distance: 12.00<br />Runner: Hound","Date: 2020-07-19<br />Distance:  7.50<br />Runner: Hound","Date: 2020-09-05<br />Distance:  8.06<br />Runner: Hound","Date: 2020-09-16<br />Distance:  7.58<br />Runner: Hound","Date: 2020-09-20<br />Distance: 12.01<br />Runner: Hound","Date: 2020-09-23<br />Distance:  6.43<br />Runner: Hound","Date: 2020-09-27<br />Distance: 12.71<br />Runner: Hound","Date: 2020-09-28<br />Distance:  7.59<br />Runner: Hound","Date: 2020-10-21<br />Distance:  6.13<br />Runner: Hound","Date: 2020-11-08<br />Distance: 12.58<br />Runner: Hound","Date: 2021-03-26<br />Distance: 11.05<br />Runner: Hound","Date: 2021-04-09<br />Distance: 13.83<br />Runner: Hound","Date: 2021-04-09<br />Distance: 14.14<br />Runner: Hound","Date: 2021-04-16<br />Distance: 14.16<br />Runner: Hound","Date: 2021-04-16<br />Distance: 14.12<br />Runner: Hound","Date: 2021-04-23<br />Distance: 20.05<br />Runner: Hound","Date: 2021-05-17<br />Distance:  6.21<br />Runner: Hound","Date: 2021-05-23<br />Distance:  8.10<br />Runner: Hound","Date: 2021-05-27<br />Distance:  8.06<br />Runner: Hound","Date: 2021-05-28<br />Distance:  9.30<br />Runner: Hound","Date: 2021-06-26<br />Distance:  8.86<br />Runner: Hound","Date: 2021-07-04<br />Distance: 10.84<br />Runner: Hound","Date: 2021-07-14<br />Distance:  6.29<br />Runner: Hound","Date: 2021-07-24<br />Distance: 16.10<br />Runner: Hound","Date: 2021-08-10<br />Distance:  6.46<br />Runner: Hound","Date: 2021-08-15<br />Distance: 21.01<br />Runner: Hound","Date: 2021-08-18<br />Distance:  8.06<br />Runner: Hound","Date: 2021-08-29<br />Distance: 19.32<br />Runner: Hound","Date: 2021-09-04<br />Distance:  8.44<br />Runner: Hound","Date: 2021-09-17<br />Distance:  8.06<br />Runner: Hound","Date: 2021-09-25<br />Distance: 18.72<br />Runner: Hound","Date: 2021-10-03<br />Distance: 17.51<br />Runner: Hound","Date: 2021-10-30<br />Distance:  6.44<br />Runner: Hound","Date: 2021-11-04<br />Distance:  6.33<br />Runner: Hound","Date: 2021-12-05<br />Distance: 16.49<br />Runner: Hound","Date: 2022-06-26<br />Distance: 19.77<br />Runner: Hound","Date: 2022-07-10<br />Distance: 20.08<br />Runner: Hound","Date: 2022-07-15<br />Distance: 12.12<br />Runner: Hound","Date: 2022-07-16<br />Distance: 10.07<br />Runner: Hound","Date: 2022-07-24<br />Distance: 20.01<br />Runner: Hound","Date: 2022-08-13<br />Distance: 11.22<br />Runner: Hound","Date: 2022-08-28<br />Distance: 20.19<br />Runner: Hound","Date: 2022-11-13<br />Distance: 16.24<br />Runner: Hound","Date: 2022-11-27<br />Distance: 20.02<br />Runner: Hound","Date: 2023-01-01<br />Distance: 16.30<br />Runner: Hound","Date: 2023-04-16<br />Distance: 16.35<br />Runner: Hound","Date: 2023-04-30<br />Distance: 18.15<br />Runner: Hound","Date: 2023-05-07<br />Distance:  8.56<br />Runner: Hound","Date: 2023-05-14<br />Distance: 22.53<br />Runner: Hound","Date: 2023-06-14<br />Distance: 10.02<br />Runner: Hound","Date: 2023-06-23<br />Distance: 12.05<br />Runner: Hound","Date: 2023-06-24<br />Distance: 11.02<br />Runner: Hound","Date: 2023-06-25<br />Distance: 19.03<br />Runner: Hound","Date: 2023-07-02<br />Distance:  9.91<br />Runner: Hound","Date: 2023-07-30<br />Distance: 26.03<br />Runner: Hound","Date: 2023-09-13<br />Distance:  7.25<br />Runner: Hound","Date: 2023-09-16<br />Distance: 11.03<br />Runner: Hound"],"type":"scatter","mode":"lines","line":{"width":1.8897637795275593,"color":"rgba(0,191,196,1)","dash":"solid"},"hoveron":"points","name":"Hound","legendgroup":"Hound","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":43.762557077625573,"r":7.3059360730593621,"b":40.182648401826498,"l":37.260273972602747},"plot_bgcolor":"rgba(235,235,235,1)","paper_bgcolor":"rgba(255,255,255,1)","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724},"title":{"text":"Endurance Progress: Distance Over Time","font":{"color":"rgba(0,0,0,1)","family":"","size":17.534246575342465},"x":0,"xref":"paper"},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[17616.799999999999,19733.200000000001],"tickmode":"array","ticktext":["2020","2022","2024"],"tickvals":[18262,18993,19723],"categoryorder":"array","categoryarray":["2020","2022","2024"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.6529680365296811,"tickwidth":0.66417600664176002,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.68949771689498},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(255,255,255,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"y","title":{"text":"Date","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[0.81899999999999951,44.401000000000003],"tickmode":"array","ticktext":["10","20","30","40"],"tickvals":[10,20,30.000000000000004,40],"categoryorder":"array","categoryarray":["10","20","30","40"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.6529680365296811,"tickwidth":0.66417600664176002,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.68949771689498},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(255,255,255,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"x","title":{"text":"Distance (km)","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":true,"legend":{"bgcolor":"rgba(255,255,255,1)","bordercolor":"transparent","borderwidth":1.8897637795275593,"font":{"color":"rgba(0,0,0,1)","family":"","size":11.68949771689498},"title":{"text":"Runner","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}}},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"source":"A","attrs":{"2f0712e957d6":{"x":{},"y":{},"colour":{},"type":"scatter"}},"cur_data":"2f0712e957d6","visdat":{"2f0712e957d6":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div class="plotly html-widget html-fill-item" id="htmlwidget-4edaf48c65629ae1ed08" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-4edaf48c65629ae1ed08">{"x":{"data":[{"x":[44.93333333333333,42.833333333333336,56.483333333333334,44.56666666666667,40.833333333333336,32.700000000000003,46.283333333333331,75.183333333333337,43.216666666666669,47.533333333333331,49.733333333333334,95.166666666666671,100.03333333333333,48.18333333333333,47.883333333333333,59.716666666666669,49.06666666666667,45.766666666666666,49.233333333333334,46.81666666666667,51.31666666666667,54.233333333333334,127.3,49.466666666666669,56.983333333333334,40.43333333333333,72.583333333333329,55.083333333333336,99.033333333333331,51.766666666666666,51.450000000000003,87.216666666666669,49.966666666666669,80.316666666666663,48.06666666666667,53.366666666666667,103.68333333333334,48.483333333333334,18.266666666666666,54.283333333333331,63.18333333333333,64.266666666666666,81.666666666666671,70.933333333333337,103.59999999999999,58.18333333333333,59.450000000000003,46.633333333333333,62.450000000000003,50.850000000000001,39.533333333333331,60.033333333333331,51.333333333333336,43.533333333333331,39.666666666666664,39.333333333333336,38.266666666666666,32.399999999999999,42.083333333333336,51.983333333333334,28.116666666666667,44.716666666666669,46.783333333333331,34.56666666666667,32.116666666666667,32.516666666666666,51.983333333333334,26.166666666666668,39.883333333333333,29.25,37.766666666666666,39.049999999999997,30.366666666666667,39.549999999999997,31.666666666666668,35.81666666666667,28.783333333333335,37.983333333333334,43.200000000000003,35.350000000000001,53.299999999999997,52.43333333333333,45.25,31.366666666666667,48.166666666666664,120.33333333333333,50.899999999999999,49.083333333333336,98.849999999999994,50.983333333333334,27.816666666666666,45.700000000000003,30.75,24.883333333333333,54.399999999999999,50.850000000000001,30.5,71.049999999999997,56.850000000000001,47.416666666666664,24.566666666666666,31.916666666666668,76.283333333333331,51.116666666666667,33,51.600000000000001,47.283333333333331,51.033333333333331,37.06666666666667,26.066666666666666,27.699999999999999,50.516666666666666,41.416666666666664,43.116666666666667,32.350000000000001,58.466666666666669,51.549999999999997,59.133333333333333,52.783333333333331,41.399999999999999,43.049999999999997,45.43333333333333,51.666666666666664,46.533333333333331,28.566666666666666,50.200000000000003,52.416666666666664,49.68333333333333,36.283333333333331,40.850000000000001,41.93333333333333,52.450000000000003,27.866666666666667,56.533333333333331,40.649999999999999,28.850000000000001,27.300000000000001,29.600000000000001,34.966666666666669,32.616666666666667,30.066666666666666,40.633333333333333,23.083333333333332,28.533333333333335,36.25,27.183333333333334,31.333333333333332,32.016666666666666,43.583333333333336,30.5,49.466666666666669,77.983333333333334,73.599999999999994,27.766666666666666,39.283333333333331,35.299999999999997,42.166666666666664,15.183333333333334,46.633333333333333,53.283333333333331,51.366666666666667,35.06666666666667,50.583333333333336,55.033333333333331,34.516666666666666,87.049999999999997,26.550000000000001,84.966666666666669,47.200000000000003,54.916666666666664,53.366666666666667,96.833333333333329,69.966666666666669,51.350000000000001,32.866666666666667,47.100000000000001],"y":[10.02,10.01,12.58,10.01,9.0199999999999996,7.0700000000000003,10.01,13.300000000000001,10.01,10.029999999999999,10.68,21.120000000000001,17.449999999999999,10.07,10.02,12.220000000000001,10.02,10.01,10.06,10.01,10.380000000000001,10.98,22.100000000000001,10.43,12.17,8.4700000000000006,15.130000000000001,10.039999999999999,21.16,10.529999999999999,10.359999999999999,17.010000000000002,10.35,14.4,10.02,11.01,21.440000000000001,10.039999999999999,3.52,11.33,12.779999999999999,12.02,12.02,13.49,20.010000000000002,12.01,12.02,8.7400000000000002,12.02,10.35,8.0199999999999996,12.02,10.039999999999999,8.0999999999999996,6.9400000000000004,7.0499999999999998,7.0800000000000001,6.3399999999999999,7.1200000000000001,4.96,4.3899999999999997,7.7599999999999998,8.0500000000000007,5.7400000000000002,5.4100000000000001,5.9400000000000004,10.02,4.7199999999999998,7.8399999999999999,5.2300000000000004,7.0899999999999999,7.4299999999999997,6.0199999999999996,7.3200000000000003,6.0899999999999999,7.0199999999999996,5.7699999999999996,7.4800000000000004,8.2200000000000006,6.8399999999999999,10.44,10.27,9.0099999999999998,6.0099999999999998,10.029999999999999,23.02,10.029999999999999,8.8300000000000001,20.010000000000002,10.57,5.4000000000000004,9.1300000000000008,6.2000000000000002,5.0199999999999996,11.27,10.33,5.9199999999999999,12.44,12.02,10.029999999999999,5.0199999999999996,6.0199999999999996,15.029999999999999,11.029999999999999,6.3799999999999999,10.58,9.0999999999999996,10.15,7.0099999999999998,5.0199999999999996,5.9299999999999997,10.02,8.0299999999999994,8.1999999999999993,6.04,10.029999999999999,10.029999999999999,10.18,10.33,7.6200000000000001,8.3900000000000006,9.0899999999999999,10.06,8.9199999999999999,5.6600000000000001,10.039999999999999,10.02,10.039999999999999,5.9299999999999997,7.5,8.5600000000000005,10.039999999999999,6.0499999999999998,10.029999999999999,7.6799999999999997,5.6900000000000004,5.5700000000000003,6.3399999999999999,7.0300000000000002,6.8499999999999996,6.2000000000000002,7.5899999999999999,4.5800000000000001,5.5599999999999996,6.6100000000000003,5.6600000000000001,6.4299999999999997,6.5300000000000002,8.4000000000000004,6.5199999999999996,10.02,12.050000000000001,12.56,5.1100000000000003,8.3300000000000001,7.21,8.0700000000000003,2.7999999999999998,10.02,11.359999999999999,10.01,6.3200000000000003,10.01,11.23,6.5099999999999998,18.02,4.8499999999999996,14.02,10.01,10.1,10.27,19.18,10.039999999999999,10.039999999999999,6.1100000000000003,10.01],"text":["Time/60:  44.93333 secs<br />Distance: 10.02<br />Runner: Collie","Time/60:  42.83333 secs<br />Distance: 10.01<br />Runner: Collie","Time/60:  56.48333 secs<br />Distance: 12.58<br />Runner: Collie","Time/60:  44.56667 secs<br />Distance: 10.01<br />Runner: Collie","Time/60:  40.83333 secs<br />Distance:  9.02<br />Runner: Collie","Time/60:  32.70000 secs<br />Distance:  7.07<br />Runner: Collie","Time/60:  46.28333 secs<br />Distance: 10.01<br />Runner: Collie","Time/60:  75.18333 secs<br />Distance: 13.30<br />Runner: Collie","Time/60:  43.21667 secs<br />Distance: 10.01<br />Runner: Collie","Time/60:  47.53333 secs<br />Distance: 10.03<br />Runner: Collie","Time/60:  49.73333 secs<br />Distance: 10.68<br />Runner: Collie","Time/60:  95.16667 secs<br />Distance: 21.12<br />Runner: Collie","Time/60: 100.03333 secs<br />Distance: 17.45<br />Runner: Collie","Time/60:  48.18333 secs<br />Distance: 10.07<br />Runner: Collie","Time/60:  47.88333 secs<br />Distance: 10.02<br />Runner: Collie","Time/60:  59.71667 secs<br />Distance: 12.22<br />Runner: Collie","Time/60:  49.06667 secs<br />Distance: 10.02<br />Runner: Collie","Time/60:  45.76667 secs<br />Distance: 10.01<br />Runner: Collie","Time/60:  49.23333 secs<br />Distance: 10.06<br />Runner: Collie","Time/60:  46.81667 secs<br />Distance: 10.01<br />Runner: Collie","Time/60:  51.31667 secs<br />Distance: 10.38<br />Runner: Collie","Time/60:  54.23333 secs<br />Distance: 10.98<br />Runner: Collie","Time/60: 127.30000 secs<br />Distance: 22.10<br />Runner: Collie","Time/60:  49.46667 secs<br />Distance: 10.43<br />Runner: Collie","Time/60:  56.98333 secs<br />Distance: 12.17<br />Runner: Collie","Time/60:  40.43333 secs<br />Distance:  8.47<br />Runner: Collie","Time/60:  72.58333 secs<br />Distance: 15.13<br />Runner: Collie","Time/60:  55.08333 secs<br />Distance: 10.04<br />Runner: Collie","Time/60:  99.03333 secs<br />Distance: 21.16<br />Runner: Collie","Time/60:  51.76667 secs<br />Distance: 10.53<br />Runner: Collie","Time/60:  51.45000 secs<br />Distance: 10.36<br />Runner: Collie","Time/60:  87.21667 secs<br />Distance: 17.01<br />Runner: Collie","Time/60:  49.96667 secs<br />Distance: 10.35<br />Runner: Collie","Time/60:  80.31667 secs<br />Distance: 14.40<br />Runner: Collie","Time/60:  48.06667 secs<br />Distance: 10.02<br />Runner: Collie","Time/60:  53.36667 secs<br />Distance: 11.01<br />Runner: Collie","Time/60: 103.68333 secs<br />Distance: 21.44<br />Runner: Collie","Time/60:  48.48333 secs<br />Distance: 10.04<br />Runner: Collie","Time/60:  18.26667 secs<br />Distance:  3.52<br />Runner: Collie","Time/60:  54.28333 secs<br />Distance: 11.33<br />Runner: Collie","Time/60:  63.18333 secs<br />Distance: 12.78<br />Runner: Collie","Time/60:  64.26667 secs<br />Distance: 12.02<br />Runner: Collie","Time/60:  81.66667 secs<br />Distance: 12.02<br />Runner: Collie","Time/60:  70.93333 secs<br />Distance: 13.49<br />Runner: Collie","Time/60: 103.60000 secs<br />Distance: 20.01<br />Runner: Collie","Time/60:  58.18333 secs<br />Distance: 12.01<br />Runner: Collie","Time/60:  59.45000 secs<br />Distance: 12.02<br />Runner: Collie","Time/60:  46.63333 secs<br />Distance:  8.74<br />Runner: Collie","Time/60:  62.45000 secs<br />Distance: 12.02<br />Runner: Collie","Time/60:  50.85000 secs<br />Distance: 10.35<br />Runner: Collie","Time/60:  39.53333 secs<br />Distance:  8.02<br />Runner: Collie","Time/60:  60.03333 secs<br />Distance: 12.02<br />Runner: Collie","Time/60:  51.33333 secs<br />Distance: 10.04<br />Runner: Collie","Time/60:  43.53333 secs<br />Distance:  8.10<br />Runner: Collie","Time/60:  39.66667 secs<br />Distance:  6.94<br />Runner: Collie","Time/60:  39.33333 secs<br />Distance:  7.05<br />Runner: Collie","Time/60:  38.26667 secs<br />Distance:  7.08<br />Runner: Collie","Time/60:  32.40000 secs<br />Distance:  6.34<br />Runner: Collie","Time/60:  42.08333 secs<br />Distance:  7.12<br />Runner: Collie","Time/60:  51.98333 secs<br />Distance:  4.96<br />Runner: Collie","Time/60:  28.11667 secs<br />Distance:  4.39<br />Runner: Collie","Time/60:  44.71667 secs<br />Distance:  7.76<br />Runner: Collie","Time/60:  46.78333 secs<br />Distance:  8.05<br />Runner: Collie","Time/60:  34.56667 secs<br />Distance:  5.74<br />Runner: Collie","Time/60:  32.11667 secs<br />Distance:  5.41<br />Runner: Collie","Time/60:  32.51667 secs<br />Distance:  5.94<br />Runner: Collie","Time/60:  51.98333 secs<br />Distance: 10.02<br />Runner: Collie","Time/60:  26.16667 secs<br />Distance:  4.72<br />Runner: Collie","Time/60:  39.88333 secs<br />Distance:  7.84<br />Runner: Collie","Time/60:  29.25000 secs<br />Distance:  5.23<br />Runner: Collie","Time/60:  37.76667 secs<br />Distance:  7.09<br />Runner: Collie","Time/60:  39.05000 secs<br />Distance:  7.43<br />Runner: Collie","Time/60:  30.36667 secs<br />Distance:  6.02<br />Runner: Collie","Time/60:  39.55000 secs<br />Distance:  7.32<br />Runner: Collie","Time/60:  31.66667 secs<br />Distance:  6.09<br />Runner: Collie","Time/60:  35.81667 secs<br />Distance:  7.02<br />Runner: Collie","Time/60:  28.78333 secs<br />Distance:  5.77<br />Runner: Collie","Time/60:  37.98333 secs<br />Distance:  7.48<br />Runner: Collie","Time/60:  43.20000 secs<br />Distance:  8.22<br />Runner: Collie","Time/60:  35.35000 secs<br />Distance:  6.84<br />Runner: Collie","Time/60:  53.30000 secs<br />Distance: 10.44<br />Runner: Collie","Time/60:  52.43333 secs<br />Distance: 10.27<br />Runner: Collie","Time/60:  45.25000 secs<br />Distance:  9.01<br />Runner: Collie","Time/60:  31.36667 secs<br />Distance:  6.01<br />Runner: Collie","Time/60:  48.16667 secs<br />Distance: 10.03<br />Runner: Collie","Time/60: 120.33333 secs<br />Distance: 23.02<br />Runner: Collie","Time/60:  50.90000 secs<br />Distance: 10.03<br />Runner: Collie","Time/60:  49.08333 secs<br />Distance:  8.83<br />Runner: Collie","Time/60:  98.85000 secs<br />Distance: 20.01<br />Runner: Collie","Time/60:  50.98333 secs<br />Distance: 10.57<br />Runner: Collie","Time/60:  27.81667 secs<br />Distance:  5.40<br />Runner: Collie","Time/60:  45.70000 secs<br />Distance:  9.13<br />Runner: Collie","Time/60:  30.75000 secs<br />Distance:  6.20<br />Runner: Collie","Time/60:  24.88333 secs<br />Distance:  5.02<br />Runner: Collie","Time/60:  54.40000 secs<br />Distance: 11.27<br />Runner: Collie","Time/60:  50.85000 secs<br />Distance: 10.33<br />Runner: Collie","Time/60:  30.50000 secs<br />Distance:  5.92<br />Runner: Collie","Time/60:  71.05000 secs<br />Distance: 12.44<br />Runner: Collie","Time/60:  56.85000 secs<br />Distance: 12.02<br />Runner: Collie","Time/60:  47.41667 secs<br />Distance: 10.03<br />Runner: Collie","Time/60:  24.56667 secs<br />Distance:  5.02<br />Runner: Collie","Time/60:  31.91667 secs<br />Distance:  6.02<br />Runner: Collie","Time/60:  76.28333 secs<br />Distance: 15.03<br />Runner: Collie","Time/60:  51.11667 secs<br />Distance: 11.03<br />Runner: Collie","Time/60:  33.00000 secs<br />Distance:  6.38<br />Runner: Collie","Time/60:  51.60000 secs<br />Distance: 10.58<br />Runner: Collie","Time/60:  47.28333 secs<br />Distance:  9.10<br />Runner: Collie","Time/60:  51.03333 secs<br />Distance: 10.15<br />Runner: Collie","Time/60:  37.06667 secs<br />Distance:  7.01<br />Runner: Collie","Time/60:  26.06667 secs<br />Distance:  5.02<br />Runner: Collie","Time/60:  27.70000 secs<br />Distance:  5.93<br />Runner: Collie","Time/60:  50.51667 secs<br />Distance: 10.02<br />Runner: Collie","Time/60:  41.41667 secs<br />Distance:  8.03<br />Runner: Collie","Time/60:  43.11667 secs<br />Distance:  8.20<br />Runner: Collie","Time/60:  32.35000 secs<br />Distance:  6.04<br />Runner: Collie","Time/60:  58.46667 secs<br />Distance: 10.03<br />Runner: Collie","Time/60:  51.55000 secs<br />Distance: 10.03<br />Runner: Collie","Time/60:  59.13333 secs<br />Distance: 10.18<br />Runner: Collie","Time/60:  52.78333 secs<br />Distance: 10.33<br />Runner: Collie","Time/60:  41.40000 secs<br />Distance:  7.62<br />Runner: Collie","Time/60:  43.05000 secs<br />Distance:  8.39<br />Runner: Collie","Time/60:  45.43333 secs<br />Distance:  9.09<br />Runner: Collie","Time/60:  51.66667 secs<br />Distance: 10.06<br />Runner: Collie","Time/60:  46.53333 secs<br />Distance:  8.92<br />Runner: Collie","Time/60:  28.56667 secs<br />Distance:  5.66<br />Runner: Collie","Time/60:  50.20000 secs<br />Distance: 10.04<br />Runner: Collie","Time/60:  52.41667 secs<br />Distance: 10.02<br />Runner: Collie","Time/60:  49.68333 secs<br />Distance: 10.04<br />Runner: Collie","Time/60:  36.28333 secs<br />Distance:  5.93<br />Runner: Collie","Time/60:  40.85000 secs<br />Distance:  7.50<br />Runner: Collie","Time/60:  41.93333 secs<br />Distance:  8.56<br />Runner: Collie","Time/60:  52.45000 secs<br />Distance: 10.04<br />Runner: Collie","Time/60:  27.86667 secs<br />Distance:  6.05<br />Runner: Collie","Time/60:  56.53333 secs<br />Distance: 10.03<br />Runner: Collie","Time/60:  40.65000 secs<br />Distance:  7.68<br />Runner: Collie","Time/60:  28.85000 secs<br />Distance:  5.69<br />Runner: Collie","Time/60:  27.30000 secs<br />Distance:  5.57<br />Runner: Collie","Time/60:  29.60000 secs<br />Distance:  6.34<br />Runner: Collie","Time/60:  34.96667 secs<br />Distance:  7.03<br />Runner: Collie","Time/60:  32.61667 secs<br />Distance:  6.85<br />Runner: Collie","Time/60:  30.06667 secs<br />Distance:  6.20<br />Runner: Collie","Time/60:  40.63333 secs<br />Distance:  7.59<br />Runner: Collie","Time/60:  23.08333 secs<br />Distance:  4.58<br />Runner: Collie","Time/60:  28.53333 secs<br />Distance:  5.56<br />Runner: Collie","Time/60:  36.25000 secs<br />Distance:  6.61<br />Runner: Collie","Time/60:  27.18333 secs<br />Distance:  5.66<br />Runner: Collie","Time/60:  31.33333 secs<br />Distance:  6.43<br />Runner: Collie","Time/60:  32.01667 secs<br />Distance:  6.53<br />Runner: Collie","Time/60:  43.58333 secs<br />Distance:  8.40<br />Runner: Collie","Time/60:  30.50000 secs<br />Distance:  6.52<br />Runner: Collie","Time/60:  49.46667 secs<br />Distance: 10.02<br />Runner: Collie","Time/60:  77.98333 secs<br />Distance: 12.05<br />Runner: Collie","Time/60:  73.60000 secs<br />Distance: 12.56<br />Runner: Collie","Time/60:  27.76667 secs<br />Distance:  5.11<br />Runner: Collie","Time/60:  39.28333 secs<br />Distance:  8.33<br />Runner: Collie","Time/60:  35.30000 secs<br />Distance:  7.21<br />Runner: Collie","Time/60:  42.16667 secs<br />Distance:  8.07<br />Runner: Collie","Time/60:  15.18333 secs<br />Distance:  2.80<br />Runner: Collie","Time/60:  46.63333 secs<br />Distance: 10.02<br />Runner: Collie","Time/60:  53.28333 secs<br />Distance: 11.36<br />Runner: Collie","Time/60:  51.36667 secs<br />Distance: 10.01<br />Runner: Collie","Time/60:  35.06667 secs<br />Distance:  6.32<br />Runner: Collie","Time/60:  50.58333 secs<br />Distance: 10.01<br />Runner: Collie","Time/60:  55.03333 secs<br />Distance: 11.23<br />Runner: Collie","Time/60:  34.51667 secs<br />Distance:  6.51<br />Runner: Collie","Time/60:  87.05000 secs<br />Distance: 18.02<br />Runner: Collie","Time/60:  26.55000 secs<br />Distance:  4.85<br />Runner: Collie","Time/60:  84.96667 secs<br />Distance: 14.02<br />Runner: Collie","Time/60:  47.20000 secs<br />Distance: 10.01<br />Runner: Collie","Time/60:  54.91667 secs<br />Distance: 10.10<br />Runner: Collie","Time/60:  53.36667 secs<br />Distance: 10.27<br />Runner: Collie","Time/60:  96.83333 secs<br />Distance: 19.18<br />Runner: Collie","Time/60:  69.96667 secs<br />Distance: 10.04<br />Runner: Collie","Time/60:  51.35000 secs<br />Distance: 10.04<br />Runner: Collie","Time/60:  32.86667 secs<br />Distance:  6.11<br />Runner: Collie","Time/60:  47.10000 secs<br />Distance: 10.01<br />Runner: Collie"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(248,118,109,1)","opacity":1,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(248,118,109,1)"}},"hoveron":"points","name":"Collie","legendgroup":"Collie","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[73.88333333333334,42.93333333333333,187.38333333333333,53.649999999999999,135.31666666666666,75.016666666666666,81.816666666666663,59.583333333333336,161.96666666666667,55.533333333333331,116.21666666666667,99.266666666666666,119.76666666666667,142.19999999999999,107.3,140.48333333333332,78.733333333333334,143.68333333333334,59.200000000000003,88.11666666666666,140.75,140.81666666666666,122.95,49.299999999999997,45.68333333333333,124,133.98333333333332,55.5,59.600000000000001,125.08333333333333,46.666666666666664,139.13333333333333,36.266666666666666,107.16666666666667,39.166666666666664,75.516666666666666,63.116666666666667,65.099999999999994,56.166666666666664,56.333333333333336,45.100000000000001,128.13333333333333,94.916666666666671,94.950000000000003,95.150000000000006,95.11666666666666,70.816666666666663,99.083333333333329,35.93333333333333,50.399999999999999,91.916666666666671,33.983333333333334,85.25,45.799999999999997,49.766666666666666,53.416666666666664,82.016666666666666,52.549999999999997,68.416666666666671,54.100000000000001,54.75,78.016666666666666,76.033333333333331,90.900000000000006,79.983333333333334,48.216666666666669,53.533333333333331,61.583333333333336,101.78333333333333,143.98333333333332,91.266666666666666,115.95,110.34999999999999,143.81666666666666,117.91666666666667,84.816666666666663,47.366666666666667,41.93333333333333,84.683333333333337,35.68333333333333,74.716666666666669,44.06666666666667,81.916666666666671,139.13333333333333,106.73333333333333,148.16666666666666,104.86666666666666,50.93333333333333,52.016666666666666,53.81666666666667,85.63333333333334,37.416666666666664,55.93333333333333,130.40000000000001,106.7,184.96666666666667,120.13333333333334,84.599999999999994,96.61666666666666,65.700000000000003,43.083333333333336,237.26666666666668,102.88333333333334,100.81666666666666,107.23333333333333,97.666666666666671,101.75,101.88333333333334,106.45,108.46666666666667,97.150000000000006,73.75,69.783333333333331,85.416666666666671,71.849999999999994,63.466666666666669,106.8],"y":[11.029999999999999,7.25,26.030000000000001,9.9100000000000001,19.030000000000001,11.02,12.050000000000001,10.02,22.530000000000001,8.5600000000000005,18.150000000000002,16.350000000000001,16.300000000000001,20.02,16.239999999999998,20.190000000000001,11.219999999999999,20.010000000000002,10.07,12.119999999999999,20.079999999999998,19.77,16.489999999999998,6.3300000000000001,6.4400000000000004,17.510000000000002,18.719999999999999,8.0600000000000005,8.4399999999999995,19.32,8.0600000000000005,21.010000000000002,6.46,16.100000000000001,6.29,10.84,8.8600000000000012,9.3000000000000007,8.0600000000000005,8.0999999999999996,6.21,20.050000000000001,14.16,14.119999999999999,13.83,14.139999999999999,11.050000000000001,12.58,6.1299999999999999,7.5899999999999999,12.709999999999999,6.4300000000000006,12.01,7.5800000000000001,8.0600000000000005,7.5,12,7.7000000000000002,10,8,7.5,10.139999999999999,11.289999999999999,13.91,11.69,6.2599999999999998,6.75,8.0500000000000007,13.15,19.310000000000002,11.629999999999999,16,16.09,20.199999999999999,18,12.470000000000001,6.0800000000000001,6.0099999999999998,12.119999999999999,6.6299999999999999,10.16,7.5800000000000001,12.880000000000001,19.310000000000002,16.830000000000002,19.310000000000002,17.600000000000001,8.0600000000000005,8.0500000000000007,8.0500000000000007,13,6.0899999999999999,8.2399999999999984,19.199999999999999,16.079999999999998,25.259999999999998,16.07,12.699999999999999,14.5,10,6.5499999999999998,42.420000000000002,19.210000000000001,17.600000000000001,19.219999999999999,16.800000000000001,17.600000000000001,16.010000000000002,16.199999999999999,17.699999999999999,16.559999999999999,11.619999999999999,11.27,13,11.27,10.06,16.300000000000001],"text":["Time/60:  73.88333 secs<br />Distance: 11.03<br />Runner: Hound","Time/60:  42.93333 secs<br />Distance:  7.25<br />Runner: Hound","Time/60: 187.38333 secs<br />Distance: 26.03<br />Runner: Hound","Time/60:  53.65000 secs<br />Distance:  9.91<br />Runner: Hound","Time/60: 135.31667 secs<br />Distance: 19.03<br />Runner: Hound","Time/60:  75.01667 secs<br />Distance: 11.02<br />Runner: Hound","Time/60:  81.81667 secs<br />Distance: 12.05<br />Runner: Hound","Time/60:  59.58333 secs<br />Distance: 10.02<br />Runner: Hound","Time/60: 161.96667 secs<br />Distance: 22.53<br />Runner: Hound","Time/60:  55.53333 secs<br />Distance:  8.56<br />Runner: Hound","Time/60: 116.21667 secs<br />Distance: 18.15<br />Runner: Hound","Time/60:  99.26667 secs<br />Distance: 16.35<br />Runner: Hound","Time/60: 119.76667 secs<br />Distance: 16.30<br />Runner: Hound","Time/60: 142.20000 secs<br />Distance: 20.02<br />Runner: Hound","Time/60: 107.30000 secs<br />Distance: 16.24<br />Runner: Hound","Time/60: 140.48333 secs<br />Distance: 20.19<br />Runner: Hound","Time/60:  78.73333 secs<br />Distance: 11.22<br />Runner: Hound","Time/60: 143.68333 secs<br />Distance: 20.01<br />Runner: Hound","Time/60:  59.20000 secs<br />Distance: 10.07<br />Runner: Hound","Time/60:  88.11667 secs<br />Distance: 12.12<br />Runner: Hound","Time/60: 140.75000 secs<br />Distance: 20.08<br />Runner: Hound","Time/60: 140.81667 secs<br />Distance: 19.77<br />Runner: Hound","Time/60: 122.95000 secs<br />Distance: 16.49<br />Runner: Hound","Time/60:  49.30000 secs<br />Distance:  6.33<br />Runner: Hound","Time/60:  45.68333 secs<br />Distance:  6.44<br />Runner: Hound","Time/60: 124.00000 secs<br />Distance: 17.51<br />Runner: Hound","Time/60: 133.98333 secs<br />Distance: 18.72<br />Runner: Hound","Time/60:  55.50000 secs<br />Distance:  8.06<br />Runner: Hound","Time/60:  59.60000 secs<br />Distance:  8.44<br />Runner: Hound","Time/60: 125.08333 secs<br />Distance: 19.32<br />Runner: Hound","Time/60:  46.66667 secs<br />Distance:  8.06<br />Runner: Hound","Time/60: 139.13333 secs<br />Distance: 21.01<br />Runner: Hound","Time/60:  36.26667 secs<br />Distance:  6.46<br />Runner: Hound","Time/60: 107.16667 secs<br />Distance: 16.10<br />Runner: Hound","Time/60:  39.16667 secs<br />Distance:  6.29<br />Runner: Hound","Time/60:  75.51667 secs<br />Distance: 10.84<br />Runner: Hound","Time/60:  63.11667 secs<br />Distance:  8.86<br />Runner: Hound","Time/60:  65.10000 secs<br />Distance:  9.30<br />Runner: Hound","Time/60:  56.16667 secs<br />Distance:  8.06<br />Runner: Hound","Time/60:  56.33333 secs<br />Distance:  8.10<br />Runner: Hound","Time/60:  45.10000 secs<br />Distance:  6.21<br />Runner: Hound","Time/60: 128.13333 secs<br />Distance: 20.05<br />Runner: Hound","Time/60:  94.91667 secs<br />Distance: 14.16<br />Runner: Hound","Time/60:  94.95000 secs<br />Distance: 14.12<br />Runner: Hound","Time/60:  95.15000 secs<br />Distance: 13.83<br />Runner: Hound","Time/60:  95.11667 secs<br />Distance: 14.14<br />Runner: Hound","Time/60:  70.81667 secs<br />Distance: 11.05<br />Runner: Hound","Time/60:  99.08333 secs<br />Distance: 12.58<br />Runner: Hound","Time/60:  35.93333 secs<br />Distance:  6.13<br />Runner: Hound","Time/60:  50.40000 secs<br />Distance:  7.59<br />Runner: Hound","Time/60:  91.91667 secs<br />Distance: 12.71<br />Runner: Hound","Time/60:  33.98333 secs<br />Distance:  6.43<br />Runner: Hound","Time/60:  85.25000 secs<br />Distance: 12.01<br />Runner: Hound","Time/60:  45.80000 secs<br />Distance:  7.58<br />Runner: Hound","Time/60:  49.76667 secs<br />Distance:  8.06<br />Runner: Hound","Time/60:  53.41667 secs<br />Distance:  7.50<br />Runner: Hound","Time/60:  82.01667 secs<br />Distance: 12.00<br />Runner: Hound","Time/60:  52.55000 secs<br />Distance:  7.70<br />Runner: Hound","Time/60:  68.41667 secs<br />Distance: 10.00<br />Runner: Hound","Time/60:  54.10000 secs<br />Distance:  8.00<br />Runner: Hound","Time/60:  54.75000 secs<br />Distance:  7.50<br />Runner: Hound","Time/60:  78.01667 secs<br />Distance: 10.14<br />Runner: Hound","Time/60:  76.03333 secs<br />Distance: 11.29<br />Runner: Hound","Time/60:  90.90000 secs<br />Distance: 13.91<br />Runner: Hound","Time/60:  79.98333 secs<br />Distance: 11.69<br />Runner: Hound","Time/60:  48.21667 secs<br />Distance:  6.26<br />Runner: Hound","Time/60:  53.53333 secs<br />Distance:  6.75<br />Runner: Hound","Time/60:  61.58333 secs<br />Distance:  8.05<br />Runner: Hound","Time/60: 101.78333 secs<br />Distance: 13.15<br />Runner: Hound","Time/60: 143.98333 secs<br />Distance: 19.31<br />Runner: Hound","Time/60:  91.26667 secs<br />Distance: 11.63<br />Runner: Hound","Time/60: 115.95000 secs<br />Distance: 16.00<br />Runner: Hound","Time/60: 110.35000 secs<br />Distance: 16.09<br />Runner: Hound","Time/60: 143.81667 secs<br />Distance: 20.20<br />Runner: Hound","Time/60: 117.91667 secs<br />Distance: 18.00<br />Runner: Hound","Time/60:  84.81667 secs<br />Distance: 12.47<br />Runner: Hound","Time/60:  47.36667 secs<br />Distance:  6.08<br />Runner: Hound","Time/60:  41.93333 secs<br />Distance:  6.01<br />Runner: Hound","Time/60:  84.68333 secs<br />Distance: 12.12<br />Runner: Hound","Time/60:  35.68333 secs<br />Distance:  6.63<br />Runner: Hound","Time/60:  74.71667 secs<br />Distance: 10.16<br />Runner: Hound","Time/60:  44.06667 secs<br />Distance:  7.58<br />Runner: Hound","Time/60:  81.91667 secs<br />Distance: 12.88<br />Runner: Hound","Time/60: 139.13333 secs<br />Distance: 19.31<br />Runner: Hound","Time/60: 106.73333 secs<br />Distance: 16.83<br />Runner: Hound","Time/60: 148.16667 secs<br />Distance: 19.31<br />Runner: Hound","Time/60: 104.86667 secs<br />Distance: 17.60<br />Runner: Hound","Time/60:  50.93333 secs<br />Distance:  8.06<br />Runner: Hound","Time/60:  52.01667 secs<br />Distance:  8.05<br />Runner: Hound","Time/60:  53.81667 secs<br />Distance:  8.05<br />Runner: Hound","Time/60:  85.63333 secs<br />Distance: 13.00<br />Runner: Hound","Time/60:  37.41667 secs<br />Distance:  6.09<br />Runner: Hound","Time/60:  55.93333 secs<br />Distance:  8.24<br />Runner: Hound","Time/60: 130.40000 secs<br />Distance: 19.20<br />Runner: Hound","Time/60: 106.70000 secs<br />Distance: 16.08<br />Runner: Hound","Time/60: 184.96667 secs<br />Distance: 25.26<br />Runner: Hound","Time/60: 120.13333 secs<br />Distance: 16.07<br />Runner: Hound","Time/60:  84.60000 secs<br />Distance: 12.70<br />Runner: Hound","Time/60:  96.61667 secs<br />Distance: 14.50<br />Runner: Hound","Time/60:  65.70000 secs<br />Distance: 10.00<br />Runner: Hound","Time/60:  43.08333 secs<br />Distance:  6.55<br />Runner: Hound","Time/60: 237.26667 secs<br />Distance: 42.42<br />Runner: Hound","Time/60: 102.88333 secs<br />Distance: 19.21<br />Runner: Hound","Time/60: 100.81667 secs<br />Distance: 17.60<br />Runner: Hound","Time/60: 107.23333 secs<br />Distance: 19.22<br />Runner: Hound","Time/60:  97.66667 secs<br />Distance: 16.80<br />Runner: Hound","Time/60: 101.75000 secs<br />Distance: 17.60<br />Runner: Hound","Time/60: 101.88333 secs<br />Distance: 16.01<br />Runner: Hound","Time/60: 106.45000 secs<br />Distance: 16.20<br />Runner: Hound","Time/60: 108.46667 secs<br />Distance: 17.70<br />Runner: Hound","Time/60:  97.15000 secs<br />Distance: 16.56<br />Runner: Hound","Time/60:  73.75000 secs<br />Distance: 11.62<br />Runner: Hound","Time/60:  69.78333 secs<br />Distance: 11.27<br />Runner: Hound","Time/60:  85.41667 secs<br />Distance: 13.00<br />Runner: Hound","Time/60:  71.85000 secs<br />Distance: 11.27<br />Runner: Hound","Time/60:  63.46667 secs<br />Distance: 10.06<br />Runner: Hound","Time/60: 106.80000 secs<br />Distance: 16.30<br />Runner: Hound"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,191,196,1)","opacity":1,"size":5.6692913385826778,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(0,191,196,1)"}},"hoveron":"points","name":"Hound","legendgroup":"Hound","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[15.183333333333334,16.60253164556962,18.021729957805906,19.440928270042193,20.860126582278482,22.279324894514765,23.698523206751055,25.117721518987342,26.536919831223628,27.956118143459914,29.375316455696201,30.79451476793249,32.213713080168773,33.632911392405063,35.052109704641353,36.471308016877636,37.890506329113919,39.309704641350208,40.728902953586498,42.148101265822781,43.567299578059064,44.986497890295354,46.405696202531644,47.824894514767934,49.244092827004224,50.663291139240499,52.082489451476789,53.501687763713079,54.920886075949369,56.340084388185645,57.759282700421934,59.178481012658224,60.597679324894514,62.016877637130804,63.43607594936708,64.85527426160337,66.27447257383966,67.69367088607595,69.112869198312225,70.532067510548515,71.951265822784805,73.370464135021095,74.789662447257385,76.20886075949366,77.62805907172995,79.04725738396624,80.46645569620253,81.88565400843882,83.30485232067511,84.724050632911386,86.143248945147675,87.562447257383965,88.981645569620255,90.400843881856531,91.820042194092821,93.239240506329111,94.658438818565401,96.077637130801691,97.496835443037966,98.916033755274256,100.33523206751055,101.75443037974684,103.17362869198311,104.5928270042194,106.01202531645569,107.43122362869198,108.85042194092827,110.26962025316455,111.68881856540084,113.10801687763713,114.52721518987342,115.94641350210969,117.36561181434598,118.78481012658227,120.20400843881856,121.62320675105485,123.04240506329113,124.46160337552742,125.88080168776371,127.3],"y":[3.219205173732548,3.4848943211790395,3.750583468625531,4.0162726160720226,4.281961763518515,4.5476509109650056,4.813340058411498,5.0790292058579896,5.3447183533044811,5.6104075007509726,5.8760966481974641,6.1417857956439565,6.4074749430904472,6.6731640905369396,6.938853237983432,7.2045423854299226,7.4702315328764133,7.7359206803229057,8.0016098277693981,8.2672989752158887,8.5329881226623794,8.7986772701088718,9.0643664175553642,9.3300555650018566,9.595744712448349,9.8614338598948379,10.12712300734133,10.392812154787823,10.658501302234315,10.924190449680804,11.189879597127296,11.455568744573789,11.721257892020281,11.986947039466774,12.252636186913263,12.518325334359755,12.784014481806247,13.04970362925274,13.315392776699229,13.581081924145721,13.846771071592213,14.112460219038706,14.378149366485198,14.643838513931687,14.90952766137818,15.175216808824672,15.440905956271164,15.706595103717657,15.972284251164149,16.237973398610638,16.503662546057129,16.769351693503623,17.035040840950114,17.300729988396604,17.566419135843098,17.832108283289589,18.09779743073608,18.363486578182574,18.629175725629064,18.894864873075555,19.160554020522046,19.42624316796854,19.691932315415031,19.957621462861521,20.223310610308015,20.488999757754506,20.754688905200997,21.020378052647487,21.286067200093981,21.551756347540472,21.817445494986963,22.083134642433453,22.348823789879948,22.614512937326438,22.880202084772929,23.145891232219423,23.411580379665914,23.677269527112404,23.942958674558898,24.208647822005389],"text":["Time/60:  15.18333<br />Distance:  3.219205<br />Runner: Collie","Time/60:  16.60253<br />Distance:  3.484894<br />Runner: Collie","Time/60:  18.02173<br />Distance:  3.750583<br />Runner: Collie","Time/60:  19.44093<br />Distance:  4.016273<br />Runner: Collie","Time/60:  20.86013<br />Distance:  4.281962<br />Runner: Collie","Time/60:  22.27932<br />Distance:  4.547651<br />Runner: Collie","Time/60:  23.69852<br />Distance:  4.813340<br />Runner: Collie","Time/60:  25.11772<br />Distance:  5.079029<br />Runner: Collie","Time/60:  26.53692<br />Distance:  5.344718<br />Runner: Collie","Time/60:  27.95612<br />Distance:  5.610408<br />Runner: Collie","Time/60:  29.37532<br />Distance:  5.876097<br />Runner: Collie","Time/60:  30.79451<br />Distance:  6.141786<br />Runner: Collie","Time/60:  32.21371<br />Distance:  6.407475<br />Runner: Collie","Time/60:  33.63291<br />Distance:  6.673164<br />Runner: Collie","Time/60:  35.05211<br />Distance:  6.938853<br />Runner: Collie","Time/60:  36.47131<br />Distance:  7.204542<br />Runner: Collie","Time/60:  37.89051<br />Distance:  7.470232<br />Runner: Collie","Time/60:  39.30970<br />Distance:  7.735921<br />Runner: Collie","Time/60:  40.72890<br />Distance:  8.001610<br />Runner: Collie","Time/60:  42.14810<br />Distance:  8.267299<br />Runner: Collie","Time/60:  43.56730<br />Distance:  8.532988<br />Runner: Collie","Time/60:  44.98650<br />Distance:  8.798677<br />Runner: Collie","Time/60:  46.40570<br />Distance:  9.064366<br />Runner: Collie","Time/60:  47.82489<br />Distance:  9.330056<br />Runner: Collie","Time/60:  49.24409<br />Distance:  9.595745<br />Runner: Collie","Time/60:  50.66329<br />Distance:  9.861434<br />Runner: Collie","Time/60:  52.08249<br />Distance: 10.127123<br />Runner: Collie","Time/60:  53.50169<br />Distance: 10.392812<br />Runner: Collie","Time/60:  54.92089<br />Distance: 10.658501<br />Runner: Collie","Time/60:  56.34008<br />Distance: 10.924190<br />Runner: Collie","Time/60:  57.75928<br />Distance: 11.189880<br />Runner: Collie","Time/60:  59.17848<br />Distance: 11.455569<br />Runner: Collie","Time/60:  60.59768<br />Distance: 11.721258<br />Runner: Collie","Time/60:  62.01688<br />Distance: 11.986947<br />Runner: Collie","Time/60:  63.43608<br />Distance: 12.252636<br />Runner: Collie","Time/60:  64.85527<br />Distance: 12.518325<br />Runner: Collie","Time/60:  66.27447<br />Distance: 12.784014<br />Runner: Collie","Time/60:  67.69367<br />Distance: 13.049704<br />Runner: Collie","Time/60:  69.11287<br />Distance: 13.315393<br />Runner: Collie","Time/60:  70.53207<br />Distance: 13.581082<br />Runner: Collie","Time/60:  71.95127<br />Distance: 13.846771<br />Runner: Collie","Time/60:  73.37046<br />Distance: 14.112460<br />Runner: Collie","Time/60:  74.78966<br />Distance: 14.378149<br />Runner: Collie","Time/60:  76.20886<br />Distance: 14.643839<br />Runner: Collie","Time/60:  77.62806<br />Distance: 14.909528<br />Runner: Collie","Time/60:  79.04726<br />Distance: 15.175217<br />Runner: Collie","Time/60:  80.46646<br />Distance: 15.440906<br />Runner: Collie","Time/60:  81.88565<br />Distance: 15.706595<br />Runner: Collie","Time/60:  83.30485<br />Distance: 15.972284<br />Runner: Collie","Time/60:  84.72405<br />Distance: 16.237973<br />Runner: Collie","Time/60:  86.14325<br />Distance: 16.503663<br />Runner: Collie","Time/60:  87.56245<br />Distance: 16.769352<br />Runner: Collie","Time/60:  88.98165<br />Distance: 17.035041<br />Runner: Collie","Time/60:  90.40084<br />Distance: 17.300730<br />Runner: Collie","Time/60:  91.82004<br />Distance: 17.566419<br />Runner: Collie","Time/60:  93.23924<br />Distance: 17.832108<br />Runner: Collie","Time/60:  94.65844<br />Distance: 18.097797<br />Runner: Collie","Time/60:  96.07764<br />Distance: 18.363487<br />Runner: Collie","Time/60:  97.49684<br />Distance: 18.629176<br />Runner: Collie","Time/60:  98.91603<br />Distance: 18.894865<br />Runner: Collie","Time/60: 100.33523<br />Distance: 19.160554<br />Runner: Collie","Time/60: 101.75443<br />Distance: 19.426243<br />Runner: Collie","Time/60: 103.17363<br />Distance: 19.691932<br />Runner: Collie","Time/60: 104.59283<br />Distance: 19.957621<br />Runner: Collie","Time/60: 106.01203<br />Distance: 20.223311<br />Runner: Collie","Time/60: 107.43122<br />Distance: 20.489000<br />Runner: Collie","Time/60: 108.85042<br />Distance: 20.754689<br />Runner: Collie","Time/60: 110.26962<br />Distance: 21.020378<br />Runner: Collie","Time/60: 111.68882<br />Distance: 21.286067<br />Runner: Collie","Time/60: 113.10802<br />Distance: 21.551756<br />Runner: Collie","Time/60: 114.52722<br />Distance: 21.817445<br />Runner: Collie","Time/60: 115.94641<br />Distance: 22.083135<br />Runner: Collie","Time/60: 117.36561<br />Distance: 22.348824<br />Runner: Collie","Time/60: 118.78481<br />Distance: 22.614513<br />Runner: Collie","Time/60: 120.20401<br />Distance: 22.880202<br />Runner: Collie","Time/60: 121.62321<br />Distance: 23.145891<br />Runner: Collie","Time/60: 123.04241<br />Distance: 23.411580<br />Runner: Collie","Time/60: 124.46160<br />Distance: 23.677270<br />Runner: Collie","Time/60: 125.88080<br />Distance: 23.942959<br />Runner: Collie","Time/60: 127.30000<br />Distance: 24.208648<br />Runner: Collie"],"type":"scatter","mode":"lines","name":"Collie","line":{"width":3.7795275590551185,"color":"rgba(248,118,109,1)","dash":"solid"},"hoveron":"points","legendgroup":"Collie","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[33.983333333333334,36.556540084388189,39.129746835443044,41.702953586497891,44.276160337552746,46.8493670886076,49.422573839662448,51.995780590717303,54.568987341772157,57.142194092827012,59.715400843881866,62.288607594936714,64.861814345991576,67.435021097046416,70.008227848101271,72.581434599156125,75.15464135021098,77.727848101265835,80.301054852320689,82.874261603375544,85.447468354430384,88.020675105485253,90.593881856540094,93.167088607594948,95.740295358649803,98.313502109704658,100.88670886075951,103.45991561181437,106.03312236286921,108.60632911392406,111.17953586497892,113.75274261603377,116.32594936708863,118.89915611814348,121.47236286919834,124.04556962025319,126.61877637130804,129.1919831223629,131.76518987341774,134.33839662447258,136.91160337552745,139.48481012658232,142.05801687763716,144.631223628692,147.20443037974684,149.77763713080171,152.35084388185658,154.92405063291142,157.49725738396626,160.07046413502113,162.64367088607599,165.21687763713084,167.79008438818568,170.36329113924052,172.93649789029541,175.50970464135025,178.08291139240509,180.65611814345993,183.22932489451478,185.80253164556967,188.37573839662451,190.94894514767935,193.52215189873419,196.09535864978909,198.66856540084393,201.24177215189877,203.81497890295361,206.38818565400845,208.96139240506335,211.53459915611819,214.10780590717303,216.68101265822787,219.25421940928277,221.82742616033761,224.40063291139245,226.97383966244729,229.54704641350213,232.12025316455703,234.69345991561187,237.26666666666668],"y":[5.2397651920700703,5.6156036431342287,5.991442094198387,6.3672805452625445,6.7431189963267038,7.1189574473908621,7.4947958984550196,7.870634349519178,8.2464728005833372,8.6223112516474956,8.9981497027116539,9.3739881537758105,9.7498266048399707,10.125665055904127,10.501503506968286,10.877341958032444,11.253180409096602,11.629018860160761,12.004857311224919,12.380695762289077,12.756534213353234,13.132372664417396,13.508211115481551,13.884049566545711,14.259888017609869,14.635726468674028,15.011564919738186,15.387403370802344,15.763241821866501,16.139080272930659,16.514918723994818,16.890757175058976,17.266595626123134,17.642434077187293,18.018272528251451,18.394110979315609,18.769949430379768,19.145787881443926,19.521626332508085,19.897464783572239,20.273303234636401,20.649141685700563,21.024980136764718,21.400818587828873,21.776657038893031,22.152495489957193,22.528333941021351,22.90417239208551,23.280010843149665,23.655849294213827,24.031687745277985,24.407526196342143,24.783364647406298,25.159203098470456,25.535041549534622,25.910880000598777,26.286718451662932,26.66255690272709,27.038395353791245,27.41423380485541,27.790072255919569,28.165910706983723,28.541749158047882,28.917587609112044,29.293426060176202,29.669264511240357,30.045102962304515,30.42094141336867,30.796779864432835,31.17261831549699,31.548456766561149,31.924295217625303,32.300133668689469,32.675972119753624,33.051810570817786,33.42764902188194,33.803487472946095,34.179325924010257,34.555164375074419,34.931002826138567],"text":["Time/60:  33.98333<br />Distance:  5.239765<br />Runner: Hound","Time/60:  36.55654<br />Distance:  5.615604<br />Runner: Hound","Time/60:  39.12975<br />Distance:  5.991442<br />Runner: Hound","Time/60:  41.70295<br />Distance:  6.367281<br />Runner: Hound","Time/60:  44.27616<br />Distance:  6.743119<br />Runner: Hound","Time/60:  46.84937<br />Distance:  7.118957<br />Runner: Hound","Time/60:  49.42257<br />Distance:  7.494796<br />Runner: Hound","Time/60:  51.99578<br />Distance:  7.870634<br />Runner: Hound","Time/60:  54.56899<br />Distance:  8.246473<br />Runner: Hound","Time/60:  57.14219<br />Distance:  8.622311<br />Runner: Hound","Time/60:  59.71540<br />Distance:  8.998150<br />Runner: Hound","Time/60:  62.28861<br />Distance:  9.373988<br />Runner: Hound","Time/60:  64.86181<br />Distance:  9.749827<br />Runner: Hound","Time/60:  67.43502<br />Distance: 10.125665<br />Runner: Hound","Time/60:  70.00823<br />Distance: 10.501504<br />Runner: Hound","Time/60:  72.58143<br />Distance: 10.877342<br />Runner: Hound","Time/60:  75.15464<br />Distance: 11.253180<br />Runner: Hound","Time/60:  77.72785<br />Distance: 11.629019<br />Runner: Hound","Time/60:  80.30105<br />Distance: 12.004857<br />Runner: Hound","Time/60:  82.87426<br />Distance: 12.380696<br />Runner: Hound","Time/60:  85.44747<br />Distance: 12.756534<br />Runner: Hound","Time/60:  88.02068<br />Distance: 13.132373<br />Runner: Hound","Time/60:  90.59388<br />Distance: 13.508211<br />Runner: Hound","Time/60:  93.16709<br />Distance: 13.884050<br />Runner: Hound","Time/60:  95.74030<br />Distance: 14.259888<br />Runner: Hound","Time/60:  98.31350<br />Distance: 14.635726<br />Runner: Hound","Time/60: 100.88671<br />Distance: 15.011565<br />Runner: Hound","Time/60: 103.45992<br />Distance: 15.387403<br />Runner: Hound","Time/60: 106.03312<br />Distance: 15.763242<br />Runner: Hound","Time/60: 108.60633<br />Distance: 16.139080<br />Runner: Hound","Time/60: 111.17954<br />Distance: 16.514919<br />Runner: Hound","Time/60: 113.75274<br />Distance: 16.890757<br />Runner: Hound","Time/60: 116.32595<br />Distance: 17.266596<br />Runner: Hound","Time/60: 118.89916<br />Distance: 17.642434<br />Runner: Hound","Time/60: 121.47236<br />Distance: 18.018273<br />Runner: Hound","Time/60: 124.04557<br />Distance: 18.394111<br />Runner: Hound","Time/60: 126.61878<br />Distance: 18.769949<br />Runner: Hound","Time/60: 129.19198<br />Distance: 19.145788<br />Runner: Hound","Time/60: 131.76519<br />Distance: 19.521626<br />Runner: Hound","Time/60: 134.33840<br />Distance: 19.897465<br />Runner: Hound","Time/60: 136.91160<br />Distance: 20.273303<br />Runner: Hound","Time/60: 139.48481<br />Distance: 20.649142<br />Runner: Hound","Time/60: 142.05802<br />Distance: 21.024980<br />Runner: Hound","Time/60: 144.63122<br />Distance: 21.400819<br />Runner: Hound","Time/60: 147.20443<br />Distance: 21.776657<br />Runner: Hound","Time/60: 149.77764<br />Distance: 22.152495<br />Runner: Hound","Time/60: 152.35084<br />Distance: 22.528334<br />Runner: Hound","Time/60: 154.92405<br />Distance: 22.904172<br />Runner: Hound","Time/60: 157.49726<br />Distance: 23.280011<br />Runner: Hound","Time/60: 160.07046<br />Distance: 23.655849<br />Runner: Hound","Time/60: 162.64367<br />Distance: 24.031688<br />Runner: Hound","Time/60: 165.21688<br />Distance: 24.407526<br />Runner: Hound","Time/60: 167.79008<br />Distance: 24.783365<br />Runner: Hound","Time/60: 170.36329<br />Distance: 25.159203<br />Runner: Hound","Time/60: 172.93650<br />Distance: 25.535042<br />Runner: Hound","Time/60: 175.50970<br />Distance: 25.910880<br />Runner: Hound","Time/60: 178.08291<br />Distance: 26.286718<br />Runner: Hound","Time/60: 180.65612<br />Distance: 26.662557<br />Runner: Hound","Time/60: 183.22932<br />Distance: 27.038395<br />Runner: Hound","Time/60: 185.80253<br />Distance: 27.414234<br />Runner: Hound","Time/60: 188.37574<br />Distance: 27.790072<br />Runner: Hound","Time/60: 190.94895<br />Distance: 28.165911<br />Runner: Hound","Time/60: 193.52215<br />Distance: 28.541749<br />Runner: Hound","Time/60: 196.09536<br />Distance: 28.917588<br />Runner: Hound","Time/60: 198.66857<br />Distance: 29.293426<br />Runner: Hound","Time/60: 201.24177<br />Distance: 29.669265<br />Runner: Hound","Time/60: 203.81498<br />Distance: 30.045103<br />Runner: Hound","Time/60: 206.38819<br />Distance: 30.420941<br />Runner: Hound","Time/60: 208.96139<br />Distance: 30.796780<br />Runner: Hound","Time/60: 211.53460<br />Distance: 31.172618<br />Runner: Hound","Time/60: 214.10781<br />Distance: 31.548457<br />Runner: Hound","Time/60: 216.68101<br />Distance: 31.924295<br />Runner: Hound","Time/60: 219.25422<br />Distance: 32.300134<br />Runner: Hound","Time/60: 221.82743<br />Distance: 32.675972<br />Runner: Hound","Time/60: 224.40063<br />Distance: 33.051811<br />Runner: Hound","Time/60: 226.97384<br />Distance: 33.427649<br />Runner: Hound","Time/60: 229.54705<br />Distance: 33.803487<br />Runner: Hound","Time/60: 232.12025<br />Distance: 34.179326<br />Runner: Hound","Time/60: 234.69346<br />Distance: 34.555164<br />Runner: Hound","Time/60: 237.26667<br />Distance: 34.931003<br />Runner: Hound"],"type":"scatter","mode":"lines","name":"Hound","line":{"width":3.7795275590551185,"color":"rgba(0,191,196,1)","dash":"solid"},"hoveron":"points","legendgroup":"Hound","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":43.762557077625573,"r":7.3059360730593621,"b":40.182648401826498,"l":37.260273972602747},"plot_bgcolor":"rgba(235,235,235,1)","paper_bgcolor":"rgba(255,255,255,1)","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724},"title":{"text":"Time Spent Running vs. Distance","font":{"color":"rgba(0,0,0,1)","family":"","size":17.534246575342465},"x":0,"xref":"paper"},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[4.0791666666666657,248.37083333333334],"tickmode":"array","ticktext":["50","100","150","200"],"tickvals":[50,100,150,200],"categoryorder":"array","categoryarray":["50","100","150","200"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.6529680365296811,"tickwidth":0.66417600664176002,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.68949771689498},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(255,255,255,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"y","title":{"text":"Time (minutes)","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[0.81899999999999951,44.401000000000003],"tickmode":"array","ticktext":["10","20","30","40"],"tickvals":[10,20,30.000000000000004,40],"categoryorder":"array","categoryarray":["10","20","30","40"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.6529680365296811,"tickwidth":0.66417600664176002,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.68949771689498},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(255,255,255,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"x","title":{"text":"Distance (km)","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":true,"legend":{"bgcolor":"rgba(255,255,255,1)","bordercolor":"transparent","borderwidth":1.8897637795275593,"font":{"color":"rgba(0,0,0,1)","family":"","size":11.68949771689498},"title":{"text":"Runner","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}}},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"source":"A","attrs":{"2f077640e9a9":{"x":{},"y":{},"colour":{},"type":"scatter"},"2f071fac92e6":{"x":{},"y":{},"colour":{}}},"cur_data":"2f077640e9a9","visdat":{"2f077640e9a9":["function (y) ","x"],"2f071fac92e6":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Strava-Baru_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#pace improvement, cum.ret.HR collie and hound</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(zoo)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'zoo'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:base':
+
+    as.Date, as.Date.numeric</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>roll <span class="ot">&lt;-</span> strava_3categories <span class="sc">%&gt;%</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(Date) <span class="sc">%&gt;%</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Runner) <span class="sc">%&gt;%</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Rolling_HR =</span> zoo<span class="sc">::</span><span class="fu">rollmean</span>(Avg.HR, <span class="at">k =</span> <span class="dv">5</span>, <span class="at">fill =</span> <span class="cn">NA</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Date, <span class="at">y =</span> Rolling_HR, <span class="at">color =</span> Runner)) <span class="sc">+</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Rolling Average Heart Rate Over Time"</span>,</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Date"</span>,</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Rolling Avg Heart Rate"</span>)</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>plotly<span class="sc">::</span><span class="fu">ggplotly</span>(roll)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="plotly html-widget html-fill-item" id="htmlwidget-de57d0690a55d38f48db" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-de57d0690a55d38f48db">{"x":{"data":[{"x":[18421,18423,18427,18428,18430,18434,18439,18444,18448,18453,18456,18462,18463,18467,18468,18473,18475,18481,18491,18495,18497,18498,18500,18502,18504,18511,18515,18516,18519,18522,18526,18530,18533,18537,18539,18545,18546,18551,18575,18595,18629,18631,18632,18633,18637,18645,18656,18660,18673,18679,18686,18690,18693,18697,18699,18706,18712,18714,18728,18733,18734,18743,18749,18751,18754,18757,18759,18767,18770,18782,18787,18793,18795,18797,18800,18805,18813,18817,18819,18821,18835,18839,18845,18848,18850,18852,18857,18861,18864,18866,18868,18873,18877,18879,18883,18886,18889,18894,18901,18909,18911,18915,18917,18919,18921,18925,18928,18931,18933,18938,18957,18969,19002,19004,19006,19104,19155,19281,19294,19378,19381,19392,19457,19463,19470,19474,19477,19484,19488,19491,19498,19501,19505,19507,19510,19512,19515,19517,19521,19524,19528,19530,19532,19534,19535,19538,19542,19545,19550,19554,19556,19558,19560,19565,19570,19576,19578,19584,19590,19592,19595,19597,19601,19602,19604,19609,19612,19614,19617,19622,19624,19626,19629,19631,19633,19637],"y":[null,null,142.59999999999999,141,142.59999999999999,145.19999999999999,146.80000000000001,145.59999999999999,147.80000000000001,151.19999999999999,149.19999999999999,151,151,149,146.80000000000001,148.59999999999999,146.19999999999999,148.19999999999999,149,151.19999999999999,149.40000000000001,149.40000000000001,145.80000000000001,145.19999999999999,146.19999999999999,147.59999999999999,147.80000000000001,151,152.40000000000001,148.59999999999999,149,151.19999999999999,150.80000000000001,149.80000000000001,151.59999999999999,149.40000000000001,149.80000000000001,149,148.40000000000001,145.40000000000001,144.19999999999999,144.40000000000001,143.40000000000001,145.80000000000001,145,146,143.40000000000001,145.59999999999999,143.19999999999999,145.40000000000001,145.59999999999999,147,146.59999999999999,145.19999999999999,144.19999999999999,144.40000000000001,142.59999999999999,141,139.80000000000001,141.59999999999999,140.40000000000001,141.59999999999999,142.40000000000001,146.80000000000001,146.40000000000001,148,147.40000000000001,147.40000000000001,146.59999999999999,145,146,145.80000000000001,147.19999999999999,144.40000000000001,146.19999999999999,145.19999999999999,143.40000000000001,144.19999999999999,146.40000000000001,144.80000000000001,147.19999999999999,150.80000000000001,149.80000000000001,154,154.80000000000001,152.19999999999999,151.80000000000001,150.19999999999999,142.80000000000001,142.19999999999999,140.80000000000001,138.59999999999999,138,141,139.40000000000001,139.59999999999999,141.19999999999999,141.80000000000001,139.80000000000001,141.19999999999999,140.80000000000001,139.80000000000001,139.59999999999999,140.40000000000001,139.40000000000001,140,140.40000000000001,140.40000000000001,140,139.80000000000001,139.19999999999999,139.19999999999999,138.59999999999999,137.59999999999999,139.80000000000001,139.59999999999999,140.19999999999999,140.80000000000001,143,140.80000000000001,141.59999999999999,140.59999999999999,141.59999999999999,141,143.19999999999999,143.59999999999999,143,144.19999999999999,145.19999999999999,144.19999999999999,143.40000000000001,143.19999999999999,140.19999999999999,139.19999999999999,139.40000000000001,138.80000000000001,140.19999999999999,141.59999999999999,143,143.40000000000001,144,143.80000000000001,143.59999999999999,142.19999999999999,140.19999999999999,141.59999999999999,139.59999999999999,139,139.59999999999999,142.59999999999999,141.40000000000001,141,141.19999999999999,143.19999999999999,144.19999999999999,145.19999999999999,148.80000000000001,149,147.59999999999999,145.80000000000001,145.80000000000001,143.40000000000001,144.80000000000001,145.40000000000001,145.40000000000001,147,148,147.19999999999999,145.40000000000001,146,145.40000000000001,146,147.59999999999999,148.59999999999999,null,null],"text":["Date: 2020-06-08<br />Rolling_HR:    NA<br />Runner: Collie","Date: 2020-06-10<br />Rolling_HR:    NA<br />Runner: Collie","Date: 2020-06-14<br />Rolling_HR: 142.6<br />Runner: Collie","Date: 2020-06-15<br />Rolling_HR: 141.0<br />Runner: Collie","Date: 2020-06-17<br />Rolling_HR: 142.6<br />Runner: Collie","Date: 2020-06-21<br />Rolling_HR: 145.2<br />Runner: Collie","Date: 2020-06-26<br />Rolling_HR: 146.8<br />Runner: Collie","Date: 2020-07-01<br />Rolling_HR: 145.6<br />Runner: Collie","Date: 2020-07-05<br />Rolling_HR: 147.8<br />Runner: Collie","Date: 2020-07-10<br />Rolling_HR: 151.2<br />Runner: Collie","Date: 2020-07-13<br />Rolling_HR: 149.2<br />Runner: Collie","Date: 2020-07-19<br />Rolling_HR: 151.0<br />Runner: Collie","Date: 2020-07-20<br />Rolling_HR: 151.0<br />Runner: Collie","Date: 2020-07-24<br />Rolling_HR: 149.0<br />Runner: Collie","Date: 2020-07-25<br />Rolling_HR: 146.8<br />Runner: Collie","Date: 2020-07-30<br />Rolling_HR: 148.6<br />Runner: Collie","Date: 2020-08-01<br />Rolling_HR: 146.2<br />Runner: Collie","Date: 2020-08-07<br />Rolling_HR: 148.2<br />Runner: Collie","Date: 2020-08-17<br />Rolling_HR: 149.0<br />Runner: Collie","Date: 2020-08-21<br />Rolling_HR: 151.2<br />Runner: Collie","Date: 2020-08-23<br />Rolling_HR: 149.4<br />Runner: Collie","Date: 2020-08-24<br />Rolling_HR: 149.4<br />Runner: Collie","Date: 2020-08-26<br />Rolling_HR: 145.8<br />Runner: Collie","Date: 2020-08-28<br />Rolling_HR: 145.2<br />Runner: Collie","Date: 2020-08-30<br />Rolling_HR: 146.2<br />Runner: Collie","Date: 2020-09-06<br />Rolling_HR: 147.6<br />Runner: Collie","Date: 2020-09-10<br />Rolling_HR: 147.8<br />Runner: Collie","Date: 2020-09-11<br />Rolling_HR: 151.0<br />Runner: Collie","Date: 2020-09-14<br />Rolling_HR: 152.4<br />Runner: Collie","Date: 2020-09-17<br />Rolling_HR: 148.6<br />Runner: Collie","Date: 2020-09-21<br />Rolling_HR: 149.0<br />Runner: Collie","Date: 2020-09-25<br />Rolling_HR: 151.2<br />Runner: Collie","Date: 2020-09-28<br />Rolling_HR: 150.8<br />Runner: Collie","Date: 2020-10-02<br />Rolling_HR: 149.8<br />Runner: Collie","Date: 2020-10-04<br />Rolling_HR: 151.6<br />Runner: Collie","Date: 2020-10-10<br />Rolling_HR: 149.4<br />Runner: Collie","Date: 2020-10-11<br />Rolling_HR: 149.8<br />Runner: Collie","Date: 2020-10-16<br />Rolling_HR: 149.0<br />Runner: Collie","Date: 2020-11-09<br />Rolling_HR: 148.4<br />Runner: Collie","Date: 2020-11-29<br />Rolling_HR: 145.4<br />Runner: Collie","Date: 2021-01-02<br />Rolling_HR: 144.2<br />Runner: Collie","Date: 2021-01-04<br />Rolling_HR: 144.4<br />Runner: Collie","Date: 2021-01-05<br />Rolling_HR: 143.4<br />Runner: Collie","Date: 2021-01-06<br />Rolling_HR: 145.8<br />Runner: Collie","Date: 2021-01-10<br />Rolling_HR: 145.0<br />Runner: Collie","Date: 2021-01-18<br />Rolling_HR: 146.0<br />Runner: Collie","Date: 2021-01-29<br />Rolling_HR: 143.4<br />Runner: Collie","Date: 2021-02-02<br />Rolling_HR: 145.6<br />Runner: Collie","Date: 2021-02-15<br />Rolling_HR: 143.2<br />Runner: Collie","Date: 2021-02-21<br />Rolling_HR: 145.4<br />Runner: Collie","Date: 2021-02-28<br />Rolling_HR: 145.6<br />Runner: Collie","Date: 2021-03-04<br />Rolling_HR: 147.0<br />Runner: Collie","Date: 2021-03-07<br />Rolling_HR: 146.6<br />Runner: Collie","Date: 2021-03-11<br />Rolling_HR: 145.2<br />Runner: Collie","Date: 2021-03-13<br />Rolling_HR: 144.2<br />Runner: Collie","Date: 2021-03-20<br />Rolling_HR: 144.4<br />Runner: Collie","Date: 2021-03-26<br />Rolling_HR: 142.6<br />Runner: Collie","Date: 2021-03-28<br />Rolling_HR: 141.0<br />Runner: Collie","Date: 2021-04-11<br />Rolling_HR: 139.8<br />Runner: Collie","Date: 2021-04-16<br />Rolling_HR: 141.6<br />Runner: Collie","Date: 2021-04-17<br />Rolling_HR: 140.4<br />Runner: Collie","Date: 2021-04-26<br />Rolling_HR: 141.6<br />Runner: Collie","Date: 2021-05-02<br />Rolling_HR: 142.4<br />Runner: Collie","Date: 2021-05-04<br />Rolling_HR: 146.8<br />Runner: Collie","Date: 2021-05-07<br />Rolling_HR: 146.4<br />Runner: Collie","Date: 2021-05-10<br />Rolling_HR: 148.0<br />Runner: Collie","Date: 2021-05-12<br />Rolling_HR: 147.4<br />Runner: Collie","Date: 2021-05-20<br />Rolling_HR: 147.4<br />Runner: Collie","Date: 2021-05-23<br />Rolling_HR: 146.6<br />Runner: Collie","Date: 2021-06-04<br />Rolling_HR: 145.0<br />Runner: Collie","Date: 2021-06-09<br />Rolling_HR: 146.0<br />Runner: Collie","Date: 2021-06-15<br />Rolling_HR: 145.8<br />Runner: Collie","Date: 2021-06-17<br />Rolling_HR: 147.2<br />Runner: Collie","Date: 2021-06-19<br />Rolling_HR: 144.4<br />Runner: Collie","Date: 2021-06-22<br />Rolling_HR: 146.2<br />Runner: Collie","Date: 2021-06-27<br />Rolling_HR: 145.2<br />Runner: Collie","Date: 2021-07-05<br />Rolling_HR: 143.4<br />Runner: Collie","Date: 2021-07-09<br />Rolling_HR: 144.2<br />Runner: Collie","Date: 2021-07-11<br />Rolling_HR: 146.4<br />Runner: Collie","Date: 2021-07-13<br />Rolling_HR: 144.8<br />Runner: Collie","Date: 2021-07-27<br />Rolling_HR: 147.2<br />Runner: Collie","Date: 2021-07-31<br />Rolling_HR: 150.8<br />Runner: Collie","Date: 2021-08-06<br />Rolling_HR: 149.8<br />Runner: Collie","Date: 2021-08-09<br />Rolling_HR: 154.0<br />Runner: Collie","Date: 2021-08-11<br />Rolling_HR: 154.8<br />Runner: Collie","Date: 2021-08-13<br />Rolling_HR: 152.2<br />Runner: Collie","Date: 2021-08-18<br />Rolling_HR: 151.8<br />Runner: Collie","Date: 2021-08-22<br />Rolling_HR: 150.2<br />Runner: Collie","Date: 2021-08-25<br />Rolling_HR: 142.8<br />Runner: Collie","Date: 2021-08-27<br />Rolling_HR: 142.2<br />Runner: Collie","Date: 2021-08-29<br />Rolling_HR: 140.8<br />Runner: Collie","Date: 2021-09-03<br />Rolling_HR: 138.6<br />Runner: Collie","Date: 2021-09-07<br />Rolling_HR: 138.0<br />Runner: Collie","Date: 2021-09-09<br />Rolling_HR: 141.0<br />Runner: Collie","Date: 2021-09-13<br />Rolling_HR: 139.4<br />Runner: Collie","Date: 2021-09-16<br />Rolling_HR: 139.6<br />Runner: Collie","Date: 2021-09-19<br />Rolling_HR: 141.2<br />Runner: Collie","Date: 2021-09-24<br />Rolling_HR: 141.8<br />Runner: Collie","Date: 2021-10-01<br />Rolling_HR: 139.8<br />Runner: Collie","Date: 2021-10-09<br />Rolling_HR: 141.2<br />Runner: Collie","Date: 2021-10-11<br />Rolling_HR: 140.8<br />Runner: Collie","Date: 2021-10-15<br />Rolling_HR: 139.8<br />Runner: Collie","Date: 2021-10-17<br />Rolling_HR: 139.6<br />Runner: Collie","Date: 2021-10-19<br />Rolling_HR: 140.4<br />Runner: Collie","Date: 2021-10-21<br />Rolling_HR: 139.4<br />Runner: Collie","Date: 2021-10-25<br />Rolling_HR: 140.0<br />Runner: Collie","Date: 2021-10-28<br />Rolling_HR: 140.4<br />Runner: Collie","Date: 2021-10-31<br />Rolling_HR: 140.4<br />Runner: Collie","Date: 2021-11-02<br />Rolling_HR: 140.0<br />Runner: Collie","Date: 2021-11-07<br />Rolling_HR: 139.8<br />Runner: Collie","Date: 2021-11-26<br />Rolling_HR: 139.2<br />Runner: Collie","Date: 2021-12-08<br />Rolling_HR: 139.2<br />Runner: Collie","Date: 2022-01-10<br />Rolling_HR: 138.6<br />Runner: Collie","Date: 2022-01-12<br />Rolling_HR: 137.6<br />Runner: Collie","Date: 2022-01-14<br />Rolling_HR: 139.8<br />Runner: Collie","Date: 2022-04-22<br />Rolling_HR: 139.6<br />Runner: Collie","Date: 2022-06-12<br />Rolling_HR: 140.2<br />Runner: Collie","Date: 2022-10-16<br />Rolling_HR: 140.8<br />Runner: Collie","Date: 2022-10-29<br />Rolling_HR: 143.0<br />Runner: Collie","Date: 2023-01-21<br />Rolling_HR: 140.8<br />Runner: Collie","Date: 2023-01-24<br />Rolling_HR: 141.6<br />Runner: Collie","Date: 2023-02-04<br />Rolling_HR: 140.6<br />Runner: Collie","Date: 2023-04-10<br />Rolling_HR: 141.6<br />Runner: Collie","Date: 2023-04-16<br />Rolling_HR: 141.0<br />Runner: Collie","Date: 2023-04-23<br />Rolling_HR: 143.2<br />Runner: Collie","Date: 2023-04-27<br />Rolling_HR: 143.6<br />Runner: Collie","Date: 2023-04-30<br />Rolling_HR: 143.0<br />Runner: Collie","Date: 2023-05-07<br />Rolling_HR: 144.2<br />Runner: Collie","Date: 2023-05-11<br />Rolling_HR: 145.2<br />Runner: Collie","Date: 2023-05-14<br />Rolling_HR: 144.2<br />Runner: Collie","Date: 2023-05-21<br />Rolling_HR: 143.4<br />Runner: Collie","Date: 2023-05-24<br />Rolling_HR: 143.2<br />Runner: Collie","Date: 2023-05-28<br />Rolling_HR: 140.2<br />Runner: Collie","Date: 2023-05-30<br />Rolling_HR: 139.2<br />Runner: Collie","Date: 2023-06-02<br />Rolling_HR: 139.4<br />Runner: Collie","Date: 2023-06-04<br />Rolling_HR: 138.8<br />Runner: Collie","Date: 2023-06-07<br />Rolling_HR: 140.2<br />Runner: Collie","Date: 2023-06-09<br />Rolling_HR: 141.6<br />Runner: Collie","Date: 2023-06-13<br />Rolling_HR: 143.0<br />Runner: Collie","Date: 2023-06-16<br />Rolling_HR: 143.4<br />Runner: Collie","Date: 2023-06-20<br />Rolling_HR: 144.0<br />Runner: Collie","Date: 2023-06-22<br />Rolling_HR: 143.8<br />Runner: Collie","Date: 2023-06-24<br />Rolling_HR: 143.6<br />Runner: Collie","Date: 2023-06-26<br />Rolling_HR: 142.2<br />Runner: Collie","Date: 2023-06-27<br />Rolling_HR: 140.2<br />Runner: Collie","Date: 2023-06-30<br />Rolling_HR: 141.6<br />Runner: Collie","Date: 2023-07-04<br />Rolling_HR: 139.6<br />Runner: Collie","Date: 2023-07-07<br />Rolling_HR: 139.0<br />Runner: Collie","Date: 2023-07-12<br />Rolling_HR: 139.6<br />Runner: Collie","Date: 2023-07-16<br />Rolling_HR: 142.6<br />Runner: Collie","Date: 2023-07-18<br />Rolling_HR: 141.4<br />Runner: Collie","Date: 2023-07-20<br />Rolling_HR: 141.0<br />Runner: Collie","Date: 2023-07-22<br />Rolling_HR: 141.2<br />Runner: Collie","Date: 2023-07-27<br />Rolling_HR: 143.2<br />Runner: Collie","Date: 2023-08-01<br />Rolling_HR: 144.2<br />Runner: Collie","Date: 2023-08-07<br />Rolling_HR: 145.2<br />Runner: Collie","Date: 2023-08-09<br />Rolling_HR: 148.8<br />Runner: Collie","Date: 2023-08-15<br />Rolling_HR: 149.0<br />Runner: Collie","Date: 2023-08-21<br />Rolling_HR: 147.6<br />Runner: Collie","Date: 2023-08-23<br />Rolling_HR: 145.8<br />Runner: Collie","Date: 2023-08-26<br />Rolling_HR: 145.8<br />Runner: Collie","Date: 2023-08-28<br />Rolling_HR: 143.4<br />Runner: Collie","Date: 2023-09-01<br />Rolling_HR: 144.8<br />Runner: Collie","Date: 2023-09-02<br />Rolling_HR: 145.4<br />Runner: Collie","Date: 2023-09-04<br />Rolling_HR: 145.4<br />Runner: Collie","Date: 2023-09-09<br />Rolling_HR: 147.0<br />Runner: Collie","Date: 2023-09-12<br />Rolling_HR: 148.0<br />Runner: Collie","Date: 2023-09-14<br />Rolling_HR: 147.2<br />Runner: Collie","Date: 2023-09-17<br />Rolling_HR: 145.4<br />Runner: Collie","Date: 2023-09-22<br />Rolling_HR: 146.0<br />Runner: Collie","Date: 2023-09-24<br />Rolling_HR: 145.4<br />Runner: Collie","Date: 2023-09-26<br />Rolling_HR: 146.0<br />Runner: Collie","Date: 2023-09-29<br />Rolling_HR: 147.6<br />Runner: Collie","Date: 2023-10-01<br />Rolling_HR: 148.6<br />Runner: Collie","Date: 2023-10-03<br />Rolling_HR:    NA<br />Runner: Collie","Date: 2023-10-07<br />Rolling_HR:    NA<br />Runner: Collie"],"type":"scatter","mode":"lines","line":{"width":1.8897637795275593,"color":"rgba(248,118,109,1)","dash":"solid"},"hoveron":"points","name":"Collie","legendgroup":"Collie","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[17713,17720,17724,17727,17731,17738,17757,17773,17776,17778,17780,17785,17787,17792,17794,17811,17825,17832,17846,17847,17867,17873,17881,17888,18008,18010,18035,18041,18047,18048,18093,18098,18100,18112,18116,18150,18154,18157,18161,18164,18174,18182,18203,18210,18238,18252,18253,18259,18308,18342,18350,18386,18388,18399,18409,18413,18417,18427,18441,18448,18455,18462,18510,18521,18525,18528,18532,18533,18556,18574,18712,18726,18726,18733,18733,18740,18764,18770,18774,18775,18804,18812,18822,18832,18849,18854,18857,18868,18874,18887,18895,18903,18930,18935,18966,19169,19183,19188,19189,19197,19217,19232,19309,19323,19358,19463,19477,19484,19491,19522,19531,19532,19533,19540,19568,19613,19616],"y":[null,null,143.40000000000001,144.59999999999999,146.19999999999999,145.40000000000001,144,142.80000000000001,143.59999999999999,143,143.80000000000001,143.80000000000001,145.59999999999999,145.40000000000001,144,146.40000000000001,147.40000000000001,146.59999999999999,145.59999999999999,146,141.59999999999999,141,141.19999999999999,142.40000000000001,143.59999999999999,143.40000000000001,143.19999999999999,142.59999999999999,141.80000000000001,140.80000000000001,141.80000000000001,143.19999999999999,142.59999999999999,144.80000000000001,144,146.59999999999999,147,148.80000000000001,145,145.19999999999999,142,140,137.59999999999999,138.80000000000001,140.19999999999999,143.40000000000001,145,146,144.80000000000001,144,141,140.80000000000001,139.80000000000001,141,140.59999999999999,141.40000000000001,142,142.80000000000001,142.19999999999999,144.59999999999999,145.80000000000001,145.80000000000001,146.59999999999999,150,148.40000000000001,146.40000000000001,147.59999999999999,146.19999999999999,142.59999999999999,143,144,142.80000000000001,144.59999999999999,145.40000000000001,144.40000000000001,143,141.59999999999999,141.19999999999999,141.40000000000001,141.19999999999999,146,145.40000000000001,146.40000000000001,145.19999999999999,145.19999999999999,141.19999999999999,142.19999999999999,140,140,140.80000000000001,144.80000000000001,145.19999999999999,147,148.80000000000001,147.80000000000001,143.59999999999999,144,143,142,145,144.19999999999999,143.59999999999999,145.40000000000001,147.59999999999999,146.19999999999999,146.80000000000001,145.59999999999999,143.59999999999999,140.40000000000001,139.40000000000001,141.80000000000001,149,150.40000000000001,153.59999999999999,158.19999999999999,null,null],"text":["Date: 2018-07-01<br />Rolling_HR:    NA<br />Runner: Hound","Date: 2018-07-08<br />Rolling_HR:    NA<br />Runner: Hound","Date: 2018-07-12<br />Rolling_HR: 143.4<br />Runner: Hound","Date: 2018-07-15<br />Rolling_HR: 144.6<br />Runner: Hound","Date: 2018-07-19<br />Rolling_HR: 146.2<br />Runner: Hound","Date: 2018-07-26<br />Rolling_HR: 145.4<br />Runner: Hound","Date: 2018-08-14<br />Rolling_HR: 144.0<br />Runner: Hound","Date: 2018-08-30<br />Rolling_HR: 142.8<br />Runner: Hound","Date: 2018-09-02<br />Rolling_HR: 143.6<br />Runner: Hound","Date: 2018-09-04<br />Rolling_HR: 143.0<br />Runner: Hound","Date: 2018-09-06<br />Rolling_HR: 143.8<br />Runner: Hound","Date: 2018-09-11<br />Rolling_HR: 143.8<br />Runner: Hound","Date: 2018-09-13<br />Rolling_HR: 145.6<br />Runner: Hound","Date: 2018-09-18<br />Rolling_HR: 145.4<br />Runner: Hound","Date: 2018-09-20<br />Rolling_HR: 144.0<br />Runner: Hound","Date: 2018-10-07<br />Rolling_HR: 146.4<br />Runner: Hound","Date: 2018-10-21<br />Rolling_HR: 147.4<br />Runner: Hound","Date: 2018-10-28<br />Rolling_HR: 146.6<br />Runner: Hound","Date: 2018-11-11<br />Rolling_HR: 145.6<br />Runner: Hound","Date: 2018-11-12<br />Rolling_HR: 146.0<br />Runner: Hound","Date: 2018-12-02<br />Rolling_HR: 141.6<br />Runner: Hound","Date: 2018-12-08<br />Rolling_HR: 141.0<br />Runner: Hound","Date: 2018-12-16<br />Rolling_HR: 141.2<br />Runner: Hound","Date: 2018-12-23<br />Rolling_HR: 142.4<br />Runner: Hound","Date: 2019-04-22<br />Rolling_HR: 143.6<br />Runner: Hound","Date: 2019-04-24<br />Rolling_HR: 143.4<br />Runner: Hound","Date: 2019-05-19<br />Rolling_HR: 143.2<br />Runner: Hound","Date: 2019-05-25<br />Rolling_HR: 142.6<br />Runner: Hound","Date: 2019-05-31<br />Rolling_HR: 141.8<br />Runner: Hound","Date: 2019-06-01<br />Rolling_HR: 140.8<br />Runner: Hound","Date: 2019-07-16<br />Rolling_HR: 141.8<br />Runner: Hound","Date: 2019-07-21<br />Rolling_HR: 143.2<br />Runner: Hound","Date: 2019-07-23<br />Rolling_HR: 142.6<br />Runner: Hound","Date: 2019-08-04<br />Rolling_HR: 144.8<br />Runner: Hound","Date: 2019-08-08<br />Rolling_HR: 144.0<br />Runner: Hound","Date: 2019-09-11<br />Rolling_HR: 146.6<br />Runner: Hound","Date: 2019-09-15<br />Rolling_HR: 147.0<br />Runner: Hound","Date: 2019-09-18<br />Rolling_HR: 148.8<br />Runner: Hound","Date: 2019-09-22<br />Rolling_HR: 145.0<br />Runner: Hound","Date: 2019-09-25<br />Rolling_HR: 145.2<br />Runner: Hound","Date: 2019-10-05<br />Rolling_HR: 142.0<br />Runner: Hound","Date: 2019-10-13<br />Rolling_HR: 140.0<br />Runner: Hound","Date: 2019-11-03<br />Rolling_HR: 137.6<br />Runner: Hound","Date: 2019-11-10<br />Rolling_HR: 138.8<br />Runner: Hound","Date: 2019-12-08<br />Rolling_HR: 140.2<br />Runner: Hound","Date: 2019-12-22<br />Rolling_HR: 143.4<br />Runner: Hound","Date: 2019-12-23<br />Rolling_HR: 145.0<br />Runner: Hound","Date: 2019-12-29<br />Rolling_HR: 146.0<br />Runner: Hound","Date: 2020-02-16<br />Rolling_HR: 144.8<br />Runner: Hound","Date: 2020-03-21<br />Rolling_HR: 144.0<br />Runner: Hound","Date: 2020-03-29<br />Rolling_HR: 141.0<br />Runner: Hound","Date: 2020-05-04<br />Rolling_HR: 140.8<br />Runner: Hound","Date: 2020-05-06<br />Rolling_HR: 139.8<br />Runner: Hound","Date: 2020-05-17<br />Rolling_HR: 141.0<br />Runner: Hound","Date: 2020-05-27<br />Rolling_HR: 140.6<br />Runner: Hound","Date: 2020-05-31<br />Rolling_HR: 141.4<br />Runner: Hound","Date: 2020-06-04<br />Rolling_HR: 142.0<br />Runner: Hound","Date: 2020-06-14<br />Rolling_HR: 142.8<br />Runner: Hound","Date: 2020-06-28<br />Rolling_HR: 142.2<br />Runner: Hound","Date: 2020-07-05<br />Rolling_HR: 144.6<br />Runner: Hound","Date: 2020-07-12<br />Rolling_HR: 145.8<br />Runner: Hound","Date: 2020-07-19<br />Rolling_HR: 145.8<br />Runner: Hound","Date: 2020-09-05<br />Rolling_HR: 146.6<br />Runner: Hound","Date: 2020-09-16<br />Rolling_HR: 150.0<br />Runner: Hound","Date: 2020-09-20<br />Rolling_HR: 148.4<br />Runner: Hound","Date: 2020-09-23<br />Rolling_HR: 146.4<br />Runner: Hound","Date: 2020-09-27<br />Rolling_HR: 147.6<br />Runner: Hound","Date: 2020-09-28<br />Rolling_HR: 146.2<br />Runner: Hound","Date: 2020-10-21<br />Rolling_HR: 142.6<br />Runner: Hound","Date: 2020-11-08<br />Rolling_HR: 143.0<br />Runner: Hound","Date: 2021-03-26<br />Rolling_HR: 144.0<br />Runner: Hound","Date: 2021-04-09<br />Rolling_HR: 142.8<br />Runner: Hound","Date: 2021-04-09<br />Rolling_HR: 144.6<br />Runner: Hound","Date: 2021-04-16<br />Rolling_HR: 145.4<br />Runner: Hound","Date: 2021-04-16<br />Rolling_HR: 144.4<br />Runner: Hound","Date: 2021-04-23<br />Rolling_HR: 143.0<br />Runner: Hound","Date: 2021-05-17<br />Rolling_HR: 141.6<br />Runner: Hound","Date: 2021-05-23<br />Rolling_HR: 141.2<br />Runner: Hound","Date: 2021-05-27<br />Rolling_HR: 141.4<br />Runner: Hound","Date: 2021-05-28<br />Rolling_HR: 141.2<br />Runner: Hound","Date: 2021-06-26<br />Rolling_HR: 146.0<br />Runner: Hound","Date: 2021-07-04<br />Rolling_HR: 145.4<br />Runner: Hound","Date: 2021-07-14<br />Rolling_HR: 146.4<br />Runner: Hound","Date: 2021-07-24<br />Rolling_HR: 145.2<br />Runner: Hound","Date: 2021-08-10<br />Rolling_HR: 145.2<br />Runner: Hound","Date: 2021-08-15<br />Rolling_HR: 141.2<br />Runner: Hound","Date: 2021-08-18<br />Rolling_HR: 142.2<br />Runner: Hound","Date: 2021-08-29<br />Rolling_HR: 140.0<br />Runner: Hound","Date: 2021-09-04<br />Rolling_HR: 140.0<br />Runner: Hound","Date: 2021-09-17<br />Rolling_HR: 140.8<br />Runner: Hound","Date: 2021-09-25<br />Rolling_HR: 144.8<br />Runner: Hound","Date: 2021-10-03<br />Rolling_HR: 145.2<br />Runner: Hound","Date: 2021-10-30<br />Rolling_HR: 147.0<br />Runner: Hound","Date: 2021-11-04<br />Rolling_HR: 148.8<br />Runner: Hound","Date: 2021-12-05<br />Rolling_HR: 147.8<br />Runner: Hound","Date: 2022-06-26<br />Rolling_HR: 143.6<br />Runner: Hound","Date: 2022-07-10<br />Rolling_HR: 144.0<br />Runner: Hound","Date: 2022-07-15<br />Rolling_HR: 143.0<br />Runner: Hound","Date: 2022-07-16<br />Rolling_HR: 142.0<br />Runner: Hound","Date: 2022-07-24<br />Rolling_HR: 145.0<br />Runner: Hound","Date: 2022-08-13<br />Rolling_HR: 144.2<br />Runner: Hound","Date: 2022-08-28<br />Rolling_HR: 143.6<br />Runner: Hound","Date: 2022-11-13<br />Rolling_HR: 145.4<br />Runner: Hound","Date: 2022-11-27<br />Rolling_HR: 147.6<br />Runner: Hound","Date: 2023-01-01<br />Rolling_HR: 146.2<br />Runner: Hound","Date: 2023-04-16<br />Rolling_HR: 146.8<br />Runner: Hound","Date: 2023-04-30<br />Rolling_HR: 145.6<br />Runner: Hound","Date: 2023-05-07<br />Rolling_HR: 143.6<br />Runner: Hound","Date: 2023-05-14<br />Rolling_HR: 140.4<br />Runner: Hound","Date: 2023-06-14<br />Rolling_HR: 139.4<br />Runner: Hound","Date: 2023-06-23<br />Rolling_HR: 141.8<br />Runner: Hound","Date: 2023-06-24<br />Rolling_HR: 149.0<br />Runner: Hound","Date: 2023-06-25<br />Rolling_HR: 150.4<br />Runner: Hound","Date: 2023-07-02<br />Rolling_HR: 153.6<br />Runner: Hound","Date: 2023-07-30<br />Rolling_HR: 158.2<br />Runner: Hound","Date: 2023-09-13<br />Rolling_HR:    NA<br />Runner: Hound","Date: 2023-09-16<br />Rolling_HR:    NA<br />Runner: Hound"],"type":"scatter","mode":"lines","line":{"width":1.8897637795275593,"color":"rgba(0,191,196,1)","dash":"solid"},"hoveron":"points","name":"Hound","legendgroup":"Hound","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":43.762557077625573,"r":7.3059360730593621,"b":40.182648401826498,"l":43.105022831050235},"plot_bgcolor":"rgba(235,235,235,1)","paper_bgcolor":"rgba(255,255,255,1)","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724},"title":{"text":"Rolling Average Heart Rate Over Time","font":{"color":"rgba(0,0,0,1)","family":"","size":17.534246575342465},"x":0,"xref":"paper"},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[17616.799999999999,19733.200000000001],"tickmode":"array","ticktext":["2020","2022","2024"],"tickvals":[18262,18993,19723],"categoryorder":"array","categoryarray":["2020","2022","2024"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.6529680365296811,"tickwidth":0.66417600664176002,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.68949771689498},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(255,255,255,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"y","title":{"text":"Date","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[136.56999999999999,159.22999999999999],"tickmode":"array","ticktext":["140","145","150","155"],"tickvals":[140,145,150,155],"categoryorder":"array","categoryarray":["140","145","150","155"],"nticks":null,"ticks":"outside","tickcolor":"rgba(51,51,51,1)","ticklen":3.6529680365296811,"tickwidth":0.66417600664176002,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.68949771689498},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(255,255,255,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"x","title":{"text":"Rolling Avg Heart Rate","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":true,"legend":{"bgcolor":"rgba(255,255,255,1)","bordercolor":"transparent","borderwidth":1.8897637795275593,"font":{"color":"rgba(0,0,0,1)","family":"","size":11.68949771689498},"title":{"text":"Runner","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}}},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"source":"A","attrs":{"2f073712fd09":{"x":{},"y":{},"colour":{},"type":"scatter"}},"cur_data":"2f073712fd09","visdat":{"2f073712fd09":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>strava_3categories<span class="sc">%&gt;%</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">HR_per_km =</span> Avg.HR <span class="sc">/</span> Distance) <span class="sc">%&gt;%</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Date, <span class="at">y =</span> HR_per_km, <span class="at">color =</span> Runner)) <span class="sc">+</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Heart Rate per km Over Time"</span>,</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Date"</span>,</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Avg Heart Rate per km"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Strava-Baru_files/figure-html/unnamed-chunk-9-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div id="zvktphwgpg" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#zvktphwgpg table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#zvktphwgpg thead, #zvktphwgpg tbody, #zvktphwgpg tfoot, #zvktphwgpg tr, #zvktphwgpg td, #zvktphwgpg th {
+  border-style: none;
+}
+
+#zvktphwgpg p {
+  margin: 0;
+  padding: 0;
+}
+
+#zvktphwgpg .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#zvktphwgpg .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#zvktphwgpg .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#zvktphwgpg .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#zvktphwgpg .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#zvktphwgpg .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#zvktphwgpg .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#zvktphwgpg .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#zvktphwgpg .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#zvktphwgpg .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#zvktphwgpg .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#zvktphwgpg .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#zvktphwgpg .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#zvktphwgpg .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#zvktphwgpg .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#zvktphwgpg .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#zvktphwgpg .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#zvktphwgpg .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#zvktphwgpg .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#zvktphwgpg .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#zvktphwgpg .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#zvktphwgpg .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#zvktphwgpg .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#zvktphwgpg .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#zvktphwgpg .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#zvktphwgpg .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#zvktphwgpg .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#zvktphwgpg .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#zvktphwgpg .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#zvktphwgpg .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#zvktphwgpg .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#zvktphwgpg .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#zvktphwgpg .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#zvktphwgpg .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#zvktphwgpg .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#zvktphwgpg .gt_left {
+  text-align: left;
+}
+
+#zvktphwgpg .gt_center {
+  text-align: center;
+}
+
+#zvktphwgpg .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#zvktphwgpg .gt_font_normal {
+  font-weight: normal;
+}
+
+#zvktphwgpg .gt_font_bold {
+  font-weight: bold;
+}
+
+#zvktphwgpg .gt_font_italic {
+  font-style: italic;
+}
+
+#zvktphwgpg .gt_super {
+  font-size: 65%;
+}
+
+#zvktphwgpg .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#zvktphwgpg .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#zvktphwgpg .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#zvktphwgpg .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#zvktphwgpg .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#zvktphwgpg .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#zvktphwgpg .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#zvktphwgpg .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#zvktphwgpg div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead>
+<tr class="header gt_col_headings">
+<th id="model" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">model</th>
+<th id="r.squared" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">r.squared</th>
+<th id="adj.r.squared" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">adj.r.squared</th>
+<th id="statistic" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">statistic</th>
+<th id="p.value" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">p.value</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_left" headers="model">Model Avg.HR1</td>
+<td class="gt_row gt_right" headers="r.squared">5.5%</td>
+<td class="gt_row gt_right" headers="adj.r.squared">5.2%</td>
+<td class="gt_row gt_right" headers="statistic">17</td>
+<td class="gt_row gt_right" headers="p.value">0.005%</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="model">Model Avg.HR2</td>
+<td class="gt_row gt_right" headers="r.squared">5.8%</td>
+<td class="gt_row gt_right" headers="adj.r.squared">5.2%</td>
+<td class="gt_row gt_right" headers="statistic">9</td>
+<td class="gt_row gt_right" headers="p.value">0.016%</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="model">Model Avg.HR3</td>
+<td class="gt_row gt_right" headers="r.squared">37.4%</td>
+<td class="gt_row gt_right" headers="adj.r.squared">31.5%</td>
+<td class="gt_row gt_right" headers="statistic">6</td>
+<td class="gt_row gt_right" headers="p.value">0.000%</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="model">Model Avg.HR4</td>
+<td class="gt_row gt_right" headers="r.squared">39.1%</td>
+<td class="gt_row gt_right" headers="adj.r.squared">33.1%</td>
+<td class="gt_row gt_right" headers="statistic">7</td>
+<td class="gt_row gt_right" headers="p.value">0.000%</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div id="dlgrytoumf" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#dlgrytoumf table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#dlgrytoumf thead, #dlgrytoumf tbody, #dlgrytoumf tfoot, #dlgrytoumf tr, #dlgrytoumf td, #dlgrytoumf th {
+  border-style: none;
+}
+
+#dlgrytoumf p {
+  margin: 0;
+  padding: 0;
+}
+
+#dlgrytoumf .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#dlgrytoumf .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#dlgrytoumf .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#dlgrytoumf .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#dlgrytoumf .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#dlgrytoumf .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#dlgrytoumf .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#dlgrytoumf .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#dlgrytoumf .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#dlgrytoumf .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#dlgrytoumf .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#dlgrytoumf .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#dlgrytoumf .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#dlgrytoumf .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#dlgrytoumf .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#dlgrytoumf .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#dlgrytoumf .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#dlgrytoumf .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#dlgrytoumf .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#dlgrytoumf .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#dlgrytoumf .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#dlgrytoumf .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#dlgrytoumf .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#dlgrytoumf .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#dlgrytoumf .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#dlgrytoumf .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#dlgrytoumf .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#dlgrytoumf .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#dlgrytoumf .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#dlgrytoumf .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#dlgrytoumf .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#dlgrytoumf .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#dlgrytoumf .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#dlgrytoumf .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#dlgrytoumf .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#dlgrytoumf .gt_left {
+  text-align: left;
+}
+
+#dlgrytoumf .gt_center {
+  text-align: center;
+}
+
+#dlgrytoumf .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#dlgrytoumf .gt_font_normal {
+  font-weight: normal;
+}
+
+#dlgrytoumf .gt_font_bold {
+  font-weight: bold;
+}
+
+#dlgrytoumf .gt_font_italic {
+  font-style: italic;
+}
+
+#dlgrytoumf .gt_super {
+  font-size: 65%;
+}
+
+#dlgrytoumf .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#dlgrytoumf .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#dlgrytoumf .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#dlgrytoumf .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#dlgrytoumf .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#dlgrytoumf .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#dlgrytoumf .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#dlgrytoumf .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#dlgrytoumf div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead>
+<tr class="header gt_col_headings">
+<th id="model" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">model</th>
+<th id="r.squared" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">r.squared</th>
+<th id="adj.r.squared" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">adj.r.squared</th>
+<th id="statistic" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">statistic</th>
+<th id="p.value" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">p.value</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_left" headers="model">Model Aerobic.TE1</td>
+<td class="gt_row gt_right" headers="r.squared">30.0%</td>
+<td class="gt_row gt_right" headers="adj.r.squared">29.8%</td>
+<td class="gt_row gt_right" headers="statistic">125</td>
+<td class="gt_row gt_right" headers="p.value">0.000%</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="model">Model Aerobic.TE2</td>
+<td class="gt_row gt_right" headers="r.squared">35.1%</td>
+<td class="gt_row gt_right" headers="adj.r.squared">34.7%</td>
+<td class="gt_row gt_right" headers="statistic">79</td>
+<td class="gt_row gt_right" headers="p.value">0.000%</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="model">Model Aerobic.TE3</td>
+<td class="gt_row gt_right" headers="r.squared">54.2%</td>
+<td class="gt_row gt_right" headers="adj.r.squared">53.7%</td>
+<td class="gt_row gt_right" headers="statistic">114</td>
+<td class="gt_row gt_right" headers="p.value">0.000%</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
