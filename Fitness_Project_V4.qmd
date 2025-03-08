@@ -1,0 +1,502 @@
+---
+title: "Fitness_Project_V2"
+author: "Andrew Pettifor"
+format: html
+editor: visual
+---
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+library(RTL)
+library(tidyverse)
+library(plotly)
+library(ggplot2)
+library(arrow)
+library(patchwork)
+library(tidyquant)
+library(scales)
+library(ggridges)
+library(viridis)
+library(forcats)
+library(scales)
+library(lubridate)
+library(stats)
+library(broom)
+library(gt)
+library(car)
+library(GGally)
+library(rlang)
+library(glue)
+library(purrr)
+library(ggfortify)
+library(ggpmisc)
+
+```
+
+# Collie vs Hound Fitness Project
+
+devtools::install_github("risktoollib/RTLedu")
+
+RTLedu::fitness()
+
+```{r include=FALSE}
+
+RTLedu::strava
+
+strava_df <- RTLedu::strava 
+  
+strava_df
+```
+
+```{r include=FALSE}
+## Refined Data
+
+##### Here we manually remove any unused variables and data, we could remove these using a package like janitor, but by selecting we can visibily see our removed data using a comparitive name function to the oringal dataset. We now have a cleaner dataset to work with before we begin operating on the data.
+
+#### Additionally We have Changed Distance Meters to KM
+
+#### Chnaged Min and Max Elevation to be MEasured in KM
+
+#### We are removing activities that are exclusive to the "Hound" (Street and Track) (These have been removed to ensure fairness in data)
+
+#### Time is the Same sa Elapsed time
+#### Title is useless
+```
+
+```{r include=FALSE}
+strava_df1 <- strava_df %>% 
+  select(Activity.Type,
+         Date,
+         Distance,
+         Calories,
+         Avg.HR,
+         Max.HR,
+         Aerobic.TE,
+         Avg.Run.Cadence,
+         Max.Run.Cadence,
+         Avg.Pace,
+         Best.Pace,
+         Total.Ascent,
+         Total.Descent,
+         Avg.Stride.Length,
+         Min.Temp,
+         Best.Lap.Time,
+         Number.of.Laps,
+         Max.Temp,
+         Moving.Time,
+         Elapsed.Time,
+         Min.Elevation,
+         Max.Elevation,
+         Runner) %>% 
+  relocate(Runner, .before = Activity.Type) %>% 
+  mutate(Distance = ifelse(Distance > 100, Distance / 1000, Distance)) %>% #Converts Distance to KM
+  mutate(Max.Elevation = as.numeric(Max.Elevation) / 1000) %>% #Converts Elevation from meters to KM
+  mutate(Min.Elevation = as.numeric(Min.Elevation) / 1000) %>%   #Converts Elevation from meters to KM
+  separate(Avg.Pace, into = c("Minutes", "Seconds", "Milliseconds"), sep = ":", convert = TRUE) %>%
+  mutate(
+    Avg.Pace = (Minutes * 60) + Seconds + (Milliseconds / 1000)
+  ) %>%
+  select(-Minutes, -Seconds, -Milliseconds)
+  
+strava_df1
+
+strava_df2 <- strava_df1 %>% 
+  filter(!Activity.Type %in% c("Track Running", "Street Running")) # Ensures runners will only be compared on the same activities
+
+strava_df2
+
+```
+
+### What is Fitness?
+
+Fitness is a broad term that that can be applied to many fields. The 400lb powerlifter is more “fit” regarding deadlifting but is “unfit” in regard to cycling. So, to define fitness within the constraints of this assignment, we must specify what fitness is in regard to RUNNING.
+
+```{r echo=FALSE}
+runner_activity <- strava_df2 %>% 
+  group_by(Activity.Type, Runner) %>% 
+  summarise(Count = n(), .groups = "drop") %>% 
+  pivot_wider(names_from = Runner, values_from = Count)
+
+runner_activity_unfiltered <- strava_df %>% 
+  group_by(Activity.Type, Runner) %>% 
+  summarise(Count = n(), .groups = "drop") %>% 
+  pivot_wider(names_from = Runner, values_from = Count)
+
+
+```
+
+Examing our Data we can identify the following activites per Runner:
+
+```{r echo=FALSE}
+runner_activity_unfiltered %>% gt() %>% 
+  opt_interactive()
+```
+
+We notice that Collie does not participate in "Street Running" and "Track Running" as such we will be excluding these activities from our model to gice use the following table:
+
+```{r echo=FALSE}
+
+runner_activity%>% gt() %>% 
+  opt_interactive()
+
+```
+
+Now that we know what activities we will be comparing our Runners on, we can now begin to determine what fitness is. 
+Since Trail Running is the most common activity between the two Runners, we will be basing fitness metrics based around the Activity of Trail Running, and will be using their shared 3 activities to measure the "Fitness" of Each. 
+
+Measurements of Fitness:
+
+To Account for Elevation of Trail Running: Elevation Adjustment = (Total Ascent + Total Descent) / Distance
+
+### Running Efficiency 
+
+Stride Efficiency: (Average Stride Length * Avg Run Cadence)/ (Average Pace * (1+ Elevation Adjustment)
+  A more efficient stride will reduce energy expendeture, in theory reducing the calories burned per km. (Cal / Dist)
+
+### Cardio Vascular Fitness 
+
+VO2 Max: 15.3 * (Max.HR/ Average HR during sustained run)write
+  Compare runners over time, an increase in VO2 max means improved endurance.
+
+
+### Overall Speed
+
+Elevation Adjusted Pace = Avg. Pace * (1+ Elevation Adjustment)
+
+
+### Improvement over time
+
+Aerobic TE Fitness
+
+
+
+```{r echo=FALSE}
+#New Data Frame with Measurements
+
+strava_df_r <- strava_df2 %>% 
+  mutate(Total.Ascent = as.numeric(Total.Ascent),
+         Total.Descent = as.numeric(Total.Descent),
+         Avg.HR = as.numeric(Avg.HR),
+         Max.HR = as.numeric(Max.HR),
+         Avg.Run.Cadence = as.numeric(Avg.Run.Cadence),
+         Max.Run.Cadence = as.numeric(Max.Run.Cadence),
+         Distance = as.numeric(Distance),
+         Calories = as.numeric(Calories),
+         Aerobic.TE= as.numeric(Aerobic.TE)
+         )
+  
+strava_df_r <- strava_df_r %>% 
+  mutate(Elevation.Adjustment = ((Total.Ascent + Total.Descent)/1000) / Distance) %>% 
+  mutate(VO2_Max = 15.3 * (Max.HR / Avg.HR)) %>% 
+  mutate(Stride_Efficiency = (Avg.Stride.Length * Avg.Run.Cadence) / (Avg.Pace * (1 + Elevation.Adjustment))) %>% 
+  mutate(Adj_Pace = Avg.Pace * (1 + Elevation.Adjustment))
+
+strava_trails <- strava_df_r %>% 
+  filter(Activity.Type == "Trail Running")
+
+Hound_trails <- strava_trails %>% 
+  filter(Runner == "Hound")
+
+Collie_trails <- strava_trails %>% 
+  filter(Runner == "Collie")
+
+```
+
+### Which individual has improved more in fitness?
+
+
+```{r echo=FALSE}
+trails_plot <- strava_trails %>% 
+  ggplot(aes(x= Date, y=Adj_Pace, color = Runner )) +
+           geom_line(size = 1)+
+           facet_wrap(~Runner, ncol = 1, scales = "free")+
+           scale_x_date(date_labels = "%Y")+
+  scale_color_manual(values = c("Hound" = "orange", "Collie" = "blue")) +
+           labs(
+             title = "Runner progression over time (Adj.Pace)",
+             subtitle = "",
+             y = "Adj.Pace (Seconds/KM)",
+             x= "Date",
+             color = "Runner"
+           )
+
+trails_plot %>% ggplotly()
+
+```
+
+
+
+
+#### Univariate 
+
+```{r echo=FALSE}
+
+VO2_vs_Runner <- 
+  lm(VO2_Max ~ Date * Runner, data = strava_trails)
+VO2_vs_Runner %>% glance() %>% 
+  select(c(1:2,4:5)) %>% 
+  mutate(model = paste0("Is there a significant interaction term that indicates differences in improvement rates.")) %>% 
+  select(model, everything()) %>% 
+  gt() %>% 
+  fmt_percent(columns = !matches("statistical|model"), decimals = 2) %>% 
+  fmt_number(columns = matches("statistic"), decimals = 0) %>% 
+  fmt_percent(columns = matches("p.value"), decimals = 3)
+
+```
+
+
+The interaction term (Date * Runner) is significant, this means one runner is improving faster than the other.
+(p.value < 0.05)
+
+
+### First Vs Last VO2
+```{r}
+strava_trails %>%
+  group_by(Runner) %>%
+  summarize(
+    Initial_VO2 = first(VO2_Max),
+    Final_VO2 = last(VO2_Max),
+    Improvement = (Final_VO2 - Initial_VO2) / Initial_VO2) %>% 
+  gt() %>% 
+  fmt_percent(columns = matches("Improvement"), decimals = 3)
+```
+
+### VO2 Max Progression Over Time
+```{r echo=FALSE}
+
+vo2_trend_plot <- ggplot(strava_trails, aes(x = Date, y = VO2_Max, color = Runner)) +
+  geom_point(alpha = 0.5) +  # Scatter plot of data points
+  geom_smooth(method = "lm", se = TRUE, formula = y ~ x, size = 1) +  # Linear regression lines
+  labs(title = "VO2 Max Progression Over Time",
+       subtitle = "Comparing Fitness Improvement of Collie vs. Hound",
+       x = "Date", y = "VO2 Max") +
+  scale_color_manual(values = c("Hound" = "orange", "Collie" = "blue"))
+
+vo2_trend_plot %>% ggplotly()
+```
+
+
+### VO2 Regression
+This regression model helps identify what factors drive VO2 max, one of our key indicators of fitness. 
+```{r echo=FALSE}
+
+V02_model_fit1 <- 
+  lm(VO2_Max ~ Distance, data = strava_trails)
+V02_model_fit2 <- 
+  lm(VO2_Max ~ Distance + Avg.HR, data = strava_trails)
+V02_model_fit3 <-
+  lm(VO2_Max ~ Distance + Avg.HR + Elevation.Adjustment, data = strava_trails)
+V02_model_fit4 <-
+  lm(VO2_Max ~ Distance + Avg.HR + Elevation.Adjustment + Aerobic.TE, data = strava_trails)
+V02_model_fit5 <-
+  lm(VO2_Max ~ Distance + Avg.HR + Elevation.Adjustment + Aerobic.TE + Stride_Efficiency, data = strava_trails)
+V02_model_fit6 <-
+  lm(VO2_Max ~ Distance + Avg.HR + Elevation.Adjustment + Aerobic.TE + Stride_Efficiency + Adj_Pace, data = strava_trails)
+
+
+
+V02_model_fit1 %>% glance() %>% 
+  add_row(V02_model_fit2 %>% glance()) %>%
+  add_row(V02_model_fit3 %>% glance()) %>% 
+  add_row(V02_model_fit4 %>% glance()) %>% 
+  add_row(V02_model_fit5 %>% glance()) %>%
+  add_row(V02_model_fit6 %>% glance()) %>%
+  select(c(1:2,4:5)) %>% 
+  mutate(model = paste0("Is model ", row_number()," significant to measuring performance?")) %>% 
+  select(model, everything()) %>% 
+  gt() %>% 
+  fmt_percent(columns = !matches("statistical|model"), decimals = 2) %>% 
+  fmt_number(columns = matches("statistic"), decimals = 0) %>% 
+  fmt_percent(columns = matches("p.value"), decimals = 3)
+  
+  
+
+```
+
+
+```{r}
+
+vif(V02_model_fit5)
+    
+```
+
+
+What these outputs tell us: 
+
+The final model (Model 5) explains nearly 38% of the variance in VO2 Max using Distance, Avg. HR, Elevation Adjustment, Aerobic TE, and Stride Efficiency.
+
+Aerobic TE and Stride Efficiency are the strongest predictors of VO2 Max
+
+Additionally, the VIF scores of around one indicate a lack of multicolinearity. 
+
+Thus We can interperet that if a runner improves their stride and aerobic TE over time, their VO2 max should also improve. 
+
+
+
+```{r echo=FALSE}
+
+Aerobic.TE_trend_plot <-strava_trails %>%
+  ggplot(aes(x = Date, y = Aerobic.TE, color = Runner)) +
+  geom_point(alpha = 0.5) +  
+  geom_smooth(method = "lm", se = TRUE, formula = y ~ x, size = 1) +  
+  labs(title = "Aerobic.TE Progression Over Time",
+       subtitle = "Comparing Aerobic.TE Fitness Improvement of Collie vs. Hound",
+       x = "Date", y = "VO2 Max") +
+  scale_color_manual(values = c("Hound" = "orange", "Collie" = "blue"))
+
+Aerobic.TE_trend_plot %>% ggplotly()
+```
+
+```{r echo=FALSE}
+
+strava_trails %>% 
+  plot_ly(
+    y = ~Aerobic.TE,
+    color = ~Runner,
+    type = "box",
+    colors = c("blue","orange")
+  ) %>% 
+  layout(
+    title = list(text = "Trail Aerobic TE Box Plot"),
+    xaxis = list(title = ""),
+    yaxis = list(
+      title = "Aerobic TE"
+      ))
+
+```
+
+
+```{r}
+Hound_trails <- strava_trails %>% 
+  filter(Runner == "Hound")
+
+Collie_trails <- strava_trails %>% 
+  filter(Runner == "Collie")
+
+p1_hound <-
+  ggplot(Hound_trails, aes(x= Date, y = Aerobic.TE, col= Aerobic.TE))+
+  geom_point() +
+  labs(
+    title = "Hound Aerobic.TE"
+  )
+
+p2_collie <-
+  ggplot(Collie_trails, aes(x= Date, y = Aerobic.TE, col= as.character(Aerobic.TE)))+
+  geom_point()+
+  labs(
+    title = "Collie Aerobic.TE"
+  )
+
+p1_hound|p2_collie
+```
+
+
+
+
+
+```{r echo=FALSE}
+
+stride_trend_plot <-strava_trails %>%
+  ggplot(aes(x = Date, y = Stride_Efficiency, color = Runner)) +
+  geom_point(alpha = 0.5) +  
+  geom_smooth(method = "lm", se = TRUE, formula = y ~ x, size = 1) +  
+  labs(title = "Stride EfficiencyProgression Over Time",
+       subtitle = "Comparing Stride Efficiency Fitness Improvement of Collie vs. Hound",
+       x = "Date", y = "Stride Efficiency") +
+  scale_color_manual(values = c("Hound" = "orange", "Collie" = "blue"))
+
+stride_trend_plot %>% ggplotly()
+```
+
+
+
+### Adjusted Pace Progression Over Time (Line)
+```{r echo=FALSE}
+trails_plot <- strava_trails %>% 
+  ggplot(aes(x= Date, y=Adj_Pace, color = Runner )) +
+           geom_line(size = 1)+
+           facet_wrap(~Runner, ncol = 1, scales = "free")+
+           scale_x_date(date_labels = "%Y")+
+  scale_color_manual(values = c("Hound" = "orange", "Collie" = "blue")) +
+           labs(
+             title = "Runner progression over time (Adj.Pace)",
+             subtitle = "",
+             y = "Adj.Pace (Seconds/KM)",
+             x= "Date",
+             color = "Runner"
+           )
+
+trails_plot %>% ggplotly()
+
+```
+
+
+### Adjusted Pace Progression Over Time (Linear Regression)
+```{r echo=FALSE}
+adj_pace_trend_plot <- strava_trails %>% 
+  ggplot(aes(x = Date, y = Adj_Pace, color = Runner)) +
+  geom_point(alpha = 0.5) +
+  geom_smooth(method = "lm", se = TRUE, formula = y ~ x, size = 1) +
+   stat_poly_eq(aes(label = paste(..eq.label.., sep = "~~~")), 
+               formula = y ~ x, parse = TRUE, size = 5) +
+  labs(title = "Adjusted Pace Progression Over Time",
+       subtitle = "Comparing Pace Improvement of Collie vs. Hound",
+       x = "Date", y = "Adjusted Pace (Seconds/KM)") +
+  scale_color_manual(values = c("Hound" = "orange", "Collie" = "blue"))
+
+adj_pace_trend_plot %>% ggplotly()
+
+
+
+
+```
+
+### Note figure out how to measure the slope of the line to determine improving or not
+
+
+```{r}
+adj_pace_trend_plot <- strava_trails %>% 
+  ggplot(aes(x = Date, y = Adj_Pace, color = Runner)) +
+  geom_point(alpha = 0.5) +
+  geom_smooth(method = "lm", se = TRUE, formula = y ~ x, size = 1) +
+  labs(
+    title = "Adjusted Pace Progression Over Time",
+    subtitle = "Comparing Pace Improvement of Collie vs. Hound",
+    x = "Date", y = "Adjusted Pace (Seconds/KM)"
+  ) +
+  scale_color_manual(values = c("Hound" = "orange", "Collie" = "blue"))
+
+adj_pace_trend_plot %>% ggplotly()
+
+lm(Adj_Pace~ Date, Collie_trails)
+lm(Adj_Pace~ Date, Hound_trails)
+
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
