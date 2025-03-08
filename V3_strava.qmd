@@ -1,0 +1,241 @@
+---
+title: "Collie Vs. Hound Fitness"
+author: "AndrewPettifor,YoanLianto "
+format: html
+editor: visual
+---
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+library(RTL)
+library(tidyverse)
+library(plotly)
+library(ggplot2)
+library(arrow)
+library(patchwork)
+library(tidyquant)
+library(scales)
+library(ggridges)
+library(viridis)
+library(forcats)
+library(scales)
+library(lubridate)
+library(stats)
+library(broom)
+library(gt)
+library(car)
+library(GGally)
+library(rlang)
+library(glue)
+library(purrr)
+library(ggfortify)
+
+```
+
+```{r include=FALSE}
+
+RTLedu::strava
+
+strava_df <- RTLedu::strava 
+  
+strava_df
+```
+
+```{r include=FALSE}
+## Refined Data
+
+##### Here we manually remove any unused variables and data, we could remove these using a package like janitor, but by selecting we can visibily see our removed data using a comparitive name function to the oringal dataset. We now have a cleaner dataset to work with before we begin operating on the data.
+
+#### Additionally We have Changed Distance Meters to KM
+
+#### Chnaged Min and Max Elevation to be MEasured in KM
+
+#### We are removing activities that are exclusive to the "Hound" (Street and Track) (These have been removed to ensure fairness in data)
+
+#### Time is the Same sa Elapsed time
+#### Title is useless
+```
+
+```{r include=FALSE}
+strava_df1 <- strava_df %>% 
+  select(Activity.Type,
+         Date,
+         Distance,
+         Calories,
+         Avg.HR,
+         Max.HR,
+         Aerobic.TE,
+         Avg.Run.Cadence,
+         Max.Run.Cadence,
+         Avg.Pace,
+         Best.Pace,
+         Total.Ascent,
+         Total.Descent,
+         Avg.Stride.Length,
+         Min.Temp,
+         Best.Lap.Time,
+         Number.of.Laps,
+         Max.Temp,
+         Moving.Time,
+         Elapsed.Time,
+         Min.Elevation,
+         Max.Elevation,
+         Runner) %>% 
+  relocate(Runner, .before = Activity.Type) %>% 
+  mutate(Distance = ifelse(Distance > 150, Distance / 1000, Distance)) %>% #Converts Distance to KM
+  mutate(Max.Elevation = as.numeric(Max.Elevation) / 1000) %>% #Converts Elevation from meters to KM
+  mutate(Min.Elevation = as.numeric(Min.Elevation) / 1000) %>%   #Converts Elevation from meters to KM
+  separate(Avg.Pace, into = c("Minutes", "Seconds", "Milliseconds"), sep = ":", convert = TRUE) %>%
+  mutate(
+    Avg.Pace = (Minutes * 60) + Seconds + (Milliseconds / 1000)
+  ) %>%
+  select(-Minutes, -Seconds, -Milliseconds)
+  
+strava_df1
+
+strava_df2 <- strava_df1 %>% 
+  filter(!Activity.Type %in% c("Track Running", "Street Running")) # Ensures runners will only be compared on the same activities
+
+strava_df2
+
+```
+
+### What is Fitness?
+
+Fitness is the ability to endure long distance running for a long time. A solid measure of the heart's ability to endure strenuous activity is the VO2 Max.
+
+##### Before a spoiler of who is the fitter runner, there lay some reasoning as to how we choose variables that we chose.
+
+```{r echo=FALSE}
+runner_activity <- strava_df2 %>% 
+  group_by(Activity.Type, Runner) %>% 
+  summarise(Count = n(), .groups = "drop") %>% 
+  pivot_wider(names_from = Runner, values_from = Count)
+
+runner_activity_unfiltered <- strava_df %>% 
+  group_by(Activity.Type, Runner) %>% 
+  summarise(Count = n(), .groups = "drop") %>% 
+  pivot_wider(names_from = Runner, values_from = Count)
+
+
+```
+
+Examining our data, we can identify the following activities per Runner:
+
+```{r echo=FALSE}
+runner_activity_unfiltered %>% gt() %>% 
+  opt_interactive()
+```
+
+We notice that Collie does not participate in "Street Running" and "Track Running" as such we will be excluding these activities from our model to give use the following table:
+
+```{r echo=FALSE}
+
+runner_activity%>% gt() %>% 
+  opt_interactive()
+
+```
+
+Now that we know what activities we will be comparing our Runners on, we can now begin to determine what fitness is. Since Trail Running is the most common activity between the two Runners, we will be basing fitness metrics based around the Activity of Trail Running, and will be using their shared 3 activities to measure the "Fitness" of Each.
+
+### Measurements of Fitness:
+
+To Account for Elevation of Trail Running: Elevation Adjustment = (Total Ascent + Total Descent) / Distance
+
+### Running Efficiency
+
+Stride Efficiency: (Average Stride Length \* Avg Run Cadence)/ (Average Pace \* (1+ Elevation Adjustment) A more efficient stride will reduce energy expenditure, in theory reducing the calories burned per km. (Cal / Dist)
+
+### Cardiovascular Fitness
+
+VO2 Max: 15.3 \* (Max.HR/ Average HR during sustained run) Compare runners over time, an increase in VO2 max means improved endurance.
+
+### Overall Speed
+
+Elevation Adjusted Pace = Avg. Pace \* (1+ Elevation Adjustment)
+
+### Improvement over time
+
+Aerobic Fitness
+
+```{r echo=FALSE , message=FALSE,warning=FALSE}
+#New Data Frame with Measurements
+
+strava_df_r <- strava_df2 %>% 
+  mutate(Total.Ascent = as.numeric(Total.Ascent),
+         Total.Descent = as.numeric(Total.Descent),
+         Avg.HR = as.numeric(Avg.HR),
+         Max.HR = as.numeric(Max.HR),
+         Avg.Run.Cadence = as.numeric(Avg.Run.Cadence),
+         Max.Run.Cadence = as.numeric(Max.Run.Cadence),
+         Distance = as.numeric(Distance),
+         Calories = as.numeric(Calories),
+         )
+  
+strava_df_r <- strava_df_r %>% 
+  mutate(Elevation.Adjustment = ((Total.Ascent + Total.Descent)/1000) / Distance) %>% 
+  mutate(VO2_Max = 15.3 * (Max.HR / Avg.HR)) %>% 
+  mutate(Stride_Efficiency = (Avg.Stride.Length * Avg.Run.Cadence) / (Avg.Pace * (1 + Elevation.Adjustment))) %>% 
+  mutate(Adj_Pace = Avg.Pace * (1 + Elevation.Adjustment))
+
+strava_trails <- strava_df_r %>% 
+  filter(Activity.Type == "Trail Running")
+
+```
+```{r, echo=FALSE, message=FALSE}
+
+votwo <- ggplot(strava_df_r, aes(x = Adj_Pace, y = VO2_Max, color = Runner)) + geom_point() + stat_smooth(method = loess , se = FALSE) +
+  labs(title = "Endurance Progress: VO2 max over pace", 
+       x = "Pace (m/min)", 
+       y = "VO2 max") 
+
+plotly::ggplotly(votwo)
+#If VO2 max is higher, it's better
+
+tod <- ggplot(strava_df_r, aes(x = Avg.HR , y = VO2_Max, color = Runner)) +
+  geom_point() +
+  geom_smooth(method = "loess", se = FALSE) +
+  labs(title = "VO2 MAx over Heart rate", 
+       x = "Heart rate (bpm)", 
+       y = "VO2 Max") 
+
+plotly::ggplotly(tod)
+
+
+#Increase in heart rate is better dealth with if the runner has high VO2 max
+```
+
+### **Which runner is the fittest?**
+
+The higher the VO2 Max, indicates the efficiency of a runner's heart at supplying oxygen as a fuel to run.
+
+-   **Hound** appears to have a higher **VO2 max** across a wider range of paces, particularly at higher speeds (above 400 m/min).
+
+-   **Collie** shows a smoother trend but has a declining VO2 max as pace increases, suggesting potential fatigue or inefficiency at higher speeds.
+
+-   **Hound’s** VO2 max is also more variable, indicating fluctuating performance but a generally higher endurance capacity.
+
+-   Thus, **Hound is likely the fitter runner, as they sustain a higher VO2 max across various paces.**
+
+Multivariate regression
+```{r, echo=FALSE, message=FALSE}
+
+#regression to see what affects VO2 max
+fita <- lm(VO2_Max ~ Avg.Pace ,strava_df_r)
+fitb <- lm(VO2_Max ~ Avg.Pace + Distance,strava_df_r)
+fitc <- lm(VO2_Max ~ Avg.Pace + Distance + Avg.HR ,strava_df_r)
+fitd <- lm(VO2_Max ~ Avg.Pace + Distance + Avg.HR + Aerobic.TE ,strava_df_r)
+fite <- lm(VO2_Max ~ Avg.Pace + Distance + Avg.HR + Aerobic.TE + Stride_Efficiency ,strava_df_r)
+
+fita %>% broom::glance() %>% 
+  dplyr::add_row(fitb %>% broom::glance()) %>% 
+  dplyr::add_row(fitc %>%  broom::glance()) %>% 
+  dplyr::add_row(fitd %>%  broom::glance()) %>% 
+  dplyr::add_row(fite %>%  broom::glance()) %>% 
+  dplyr::select(c(1:2,4:5)) %>%
+  dplyr::mutate(model = paste0("Model VO2 max", dplyr::row_number())) %>% 
+  dplyr::select(model, everything()) %>% 
+  gt() %>% 
+  gt::fmt_percent(columns = !matches("statistic|model"), decimals = 1) %>% 
+  gt::fmt_number(columns = matches("statistic"), decimals = 0) %>% 
+  gt::fmt_percent(columns = matches("p.value"), decimals = 3)
+```
