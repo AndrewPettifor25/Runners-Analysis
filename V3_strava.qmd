@@ -220,11 +220,11 @@ Multivariate regression
 ```{r, echo=FALSE, message=FALSE}
 
 #regression to see what affects VO2 max
-fita <- lm(VO2_Max ~ Avg.Pace ,strava_df_r)
-fitb <- lm(VO2_Max ~ Avg.Pace + Distance,strava_df_r)
-fitc <- lm(VO2_Max ~ Avg.Pace + Distance + Avg.HR ,strava_df_r)
-fitd <- lm(VO2_Max ~ Avg.Pace + Distance + Avg.HR + Aerobic.TE ,strava_df_r)
-fite <- lm(VO2_Max ~ Avg.Pace + Distance + Avg.HR + Aerobic.TE + Stride_Efficiency ,strava_df_r)
+fita <- lm(VO2_Max ~ Adj_Pace ,strava_df_r)
+fitb <- lm(VO2_Max ~ Adj_Pace + Distance,strava_df_r)
+fitc <- lm(VO2_Max ~ Adj_Pace + Distance + Avg.HR ,strava_df_r)
+fitd <- lm(VO2_Max ~ Adj_Pace + Distance + Avg.HR + Aerobic.TE ,strava_df_r)
+fite <- lm(VO2_Max ~ Adj_Pace + Distance + Avg.HR + Aerobic.TE + Stride_Efficiency ,strava_df_r)
 
 fita %>% broom::glance() %>% 
   dplyr::add_row(fitb %>% broom::glance()) %>% 
