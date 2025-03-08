@@ -1,6 +1,6 @@
 ---
 title: "Fitness_Project_V2"
-author: "Andrew Pettifor"
+author: "Andrew Pettifor & Yoan Lianto"
 format: html
 editor: visual
 ---
@@ -33,10 +33,6 @@ library(ggpmisc)
 ```
 
 # Collie vs Hound Fitness Project
-
-devtools::install_github("risktoollib/RTLedu")
-
-RTLedu::fitness()
 
 ```{r include=FALSE}
 
@@ -124,7 +120,7 @@ runner_activity_unfiltered <- strava_df %>%
 
 ```
 
-Examing our Data we can identify the following activites per Runner:
+Examining our Data we can identify the following activities per Runner:
 
 ```{r echo=FALSE}
 runner_activity_unfiltered %>% gt() %>% 
@@ -140,36 +136,29 @@ runner_activity%>% gt() %>%
 
 ```
 
-Now that we know what activities we will be comparing our Runners on, we can now begin to determine what fitness is. 
-Since Trail Running is the most common activity between the two Runners, we will be basing fitness metrics based around the Activity of Trail Running, and will be using their shared 3 activities to measure the "Fitness" of Each. 
+Now that we know what activities we will be comparing our Runners on, we can now begin to determine what fitness is. Since Trail Running is the most common activity between the two Runners, we will be basing fitness metrics based around the Activity of Trail Running, and will be using their shared 3 activities to measure the "Fitness" of Each.
 
 Measurements of Fitness:
 
 To Account for Elevation of Trail Running: Elevation Adjustment = (Total Ascent + Total Descent) / Distance
 
-### Running Efficiency 
+### Running Efficiency
 
-Stride Efficiency: (Average Stride Length * Avg Run Cadence)/ (Average Pace * (1+ Elevation Adjustment)
-  A more efficient stride will reduce energy expendeture, in theory reducing the calories burned per km. (Cal / Dist)
+Stride Efficiency: (Average Stride Length \* Avg Run Cadence)/ (Average Pace \* (1+ Elevation Adjustment) A more efficient stride will reduce energy expendeture, in theory reducing the calories burned per km. (Cal / Dist)
 
-### Cardio Vascular Fitness 
+### Cardio Vascular Fitness
 
-VO2 Max: 15.3 * (Max.HR/ Average HR during sustained run)write
-  Compare runners over time, an increase in VO2 max means improved endurance.
-
+VO2 Max: 15.3 \* (Max.HR/ Average HR during sustained run)write Compare runners over time, an increase in VO2 max means improved endurance.
 
 ### Overall Speed
 
-Elevation Adjusted Pace = Avg. Pace * (1+ Elevation Adjustment)
-
+Elevation Adjusted Pace = Avg. Pace \* (1+ Elevation Adjustment)
 
 ### Improvement over time
 
 Aerobic TE Fitness
 
-
-
-```{r echo=FALSE}
+```{r echo=FALSE, warning=FALSE}
 #New Data Frame with Measurements
 
 strava_df_r <- strava_df2 %>% 
@@ -203,8 +192,7 @@ Collie_trails <- strava_trails %>%
 
 ### Which individual has improved more in fitness?
 
-
-```{r echo=FALSE}
+```{r echo=FALSE, warning=FALSE}
 trails_plot <- strava_trails %>% 
   ggplot(aes(x= Date, y=Adj_Pace, color = Runner )) +
            geom_line(size = 1)+
@@ -223,10 +211,7 @@ trails_plot %>% ggplotly()
 
 ```
 
-
-
-
-#### Univariate 
+#### Univariate
 
 ```{r echo=FALSE}
 
@@ -243,13 +228,11 @@ VO2_vs_Runner %>% glance() %>%
 
 ```
 
-
-The interaction term (Date * Runner) is significant, this means one runner is improving faster than the other.
-(p.value < 0.05)
-
+The interaction term (Date \* Runner) is significant, this means one runner is improving faster than the other. (p.value \< 0.05)
 
 ### First Vs Last VO2
-```{r}
+
+```{r echo=FALSE}
 strava_trails %>%
   group_by(Runner) %>%
   summarize(
@@ -260,7 +243,10 @@ strava_trails %>%
   fmt_percent(columns = matches("Improvement"), decimals = 3)
 ```
 
+While this appears to be a legitimate form of answer, this is actually overall incorrect. This accounts for only the first and last point in a data set. We want to demonstrate this misatribution error now, so you can see that as we move through our analysis, that using linear regressions to create lines of best fit and analysing slope is a far better option.
+
 ### VO2 Max Progression Over Time
+
 ```{r echo=FALSE}
 
 vo2_trend_plot <- ggplot(strava_trails, aes(x = Date, y = VO2_Max, color = Runner)) +
@@ -272,11 +258,27 @@ vo2_trend_plot <- ggplot(strava_trails, aes(x = Date, y = VO2_Max, color = Runne
   scale_color_manual(values = c("Hound" = "orange", "Collie" = "blue"))
 
 vo2_trend_plot %>% ggplotly()
+
+collie_model_vo <- lm(VO2_Max ~ Date, data = Collie_trails)
+hound_model_vo <- lm(VO2_Max ~ Date, data = Hound_trails)
+
+collie_slope_vo <- coef(collie_model_vo)[2]
+hound_slope_vo <- coef(hound_model_vo)[2]
+
+slope_df_vo <- data.frame(
+  Runner = c("Collie", "Hound"),
+  Slope = c(collie_slope_vo, hound_slope_vo)
+)
+
+slope_df_vo %>% gt()
 ```
 
+From the following graph and slope results we can see that the Hound is not only a better runner in terms of VO2, but they are also improving their VO2, whereas Collie is actually worsening as time progresses, this can perhaps be attributed to the gap year that Collie has when compared to the Hound.
 
 ### VO2 Regression
-This regression model helps identify what factors drive VO2 max, one of our key indicators of fitness. 
+
+This regression model helps identify what factors drive VO2 max, one of our key indicators of fitness.
+
 ```{r echo=FALSE}
 
 V02_model_fit1 <- 
@@ -312,25 +314,23 @@ V02_model_fit1 %>% glance() %>%
 
 ```
 
+### VIF Scores
 
-```{r}
+```{r echo=FALSE}
 
 vif(V02_model_fit5)
     
 ```
 
-
-What these outputs tell us: 
+What these outputs tell us:
 
 The final model (Model 5) explains nearly 38% of the variance in VO2 Max using Distance, Avg. HR, Elevation Adjustment, Aerobic TE, and Stride Efficiency.
 
 Aerobic TE and Stride Efficiency are the strongest predictors of VO2 Max
 
-Additionally, the VIF scores of around one indicate a lack of multicolinearity. 
+Additionally, the VIF scores of around one indicate a lack of multicolinearity.
 
-Thus We can interperet that if a runner improves their stride and aerobic TE over time, their VO2 max should also improve. 
-
-
+Thus We can interperet that if a runner improves their stride and aerobic TE over time, their VO2 max should also improve.
 
 ```{r echo=FALSE}
 
@@ -344,7 +344,24 @@ Aerobic.TE_trend_plot <-strava_trails %>%
   scale_color_manual(values = c("Hound" = "orange", "Collie" = "blue"))
 
 Aerobic.TE_trend_plot %>% ggplotly()
+
+
+collie_model_ab <- lm(Aerobic.TE ~ Date, data = Collie_trails)
+hound_model_ab <- lm(Aerobic.TE ~ Date, data = Hound_trails)
+
+collie_slope_ab <- coef(collie_model_ab)[2]
+hound_slope_ab <- coef(hound_model_ab)[2]
+
+slope_df_ab <- data.frame(
+  Runner = c("Collie", "Hound"),
+  Slope = c(collie_slope_ab, hound_slope_ab)
+)
+
+slope_df_ab %>% gt()
+
 ```
+
+Here we can see that both the Hound and Collie are improving their Aerobic TE over time. Each continues to work harder, regarding trail running however, Collie is working at an increased rate compared to the Hound. This means that the net benefit of each workout is greater for Collie. Even if only marginally.
 
 ```{r echo=FALSE}
 
@@ -364,8 +381,9 @@ strava_trails %>%
 
 ```
 
+The previous point is reinforced by this bar graph, as we can see on average, Collies Aerobic TE has a median of 4.4, while the hound is only 3.5.
 
-```{r}
+```{r echo=FALSE, warning=FALSE}
 Hound_trails <- strava_trails %>% 
   filter(Runner == "Hound")
 
@@ -389,27 +407,37 @@ p2_collie <-
 p1_hound|p2_collie
 ```
 
-
-
-
-
-```{r echo=FALSE}
+```{r echo=FALSE, warning=FALSE}
 
 stride_trend_plot <-strava_trails %>%
   ggplot(aes(x = Date, y = Stride_Efficiency, color = Runner)) +
   geom_point(alpha = 0.5) +  
   geom_smooth(method = "lm", se = TRUE, formula = y ~ x, size = 1) +  
-  labs(title = "Stride EfficiencyProgression Over Time",
+  labs(title = "Stride Efficiency Progression Over Time",
        subtitle = "Comparing Stride Efficiency Fitness Improvement of Collie vs. Hound",
        x = "Date", y = "Stride Efficiency") +
   scale_color_manual(values = c("Hound" = "orange", "Collie" = "blue"))
 
 stride_trend_plot %>% ggplotly()
+
+collie_model_eff <- lm(Stride_Efficiency ~ Date, data = Collie_trails)
+hound_model_eff <- lm(Stride_Efficiency ~ Date, data = Hound_trails)
+
+collie_slope_eff <- coef(collie_model_eff)[2]
+hound_slope_eff <- coef(hound_model_eff)[2]
+
+slope_df_eff <- data.frame(
+  Runner = c("Collie", "Hound"),
+  Slope = c(collie_slope_eff, hound_slope_eff)
+)
+
+slope_df_eff %>% gt()
 ```
 
-
+Interpreting the graph we can determine two things. Firstly, Collie has a more efficient stride, allowing for more efficient energy consumption. Second, Collie is activiley improving their stride on trail runs, while the hound has had a slight decline in efficiency over the years.
 
 ### Adjusted Pace Progression Over Time (Line)
+
 ```{r echo=FALSE}
 trails_plot <- strava_trails %>% 
   ggplot(aes(x= Date, y=Adj_Pace, color = Runner )) +
@@ -427,33 +455,12 @@ trails_plot <- strava_trails %>%
 
 trails_plot %>% ggplotly()
 
-```
 
+```
 
 ### Adjusted Pace Progression Over Time (Linear Regression)
-```{r echo=FALSE}
-adj_pace_trend_plot <- strava_trails %>% 
-  ggplot(aes(x = Date, y = Adj_Pace, color = Runner)) +
-  geom_point(alpha = 0.5) +
-  geom_smooth(method = "lm", se = TRUE, formula = y ~ x, size = 1) +
-   stat_poly_eq(aes(label = paste(..eq.label.., sep = "~~~")), 
-               formula = y ~ x, parse = TRUE, size = 5) +
-  labs(title = "Adjusted Pace Progression Over Time",
-       subtitle = "Comparing Pace Improvement of Collie vs. Hound",
-       x = "Date", y = "Adjusted Pace (Seconds/KM)") +
-  scale_color_manual(values = c("Hound" = "orange", "Collie" = "blue"))
 
-adj_pace_trend_plot %>% ggplotly()
-
-
-
-
-```
-
-### Note figure out how to measure the slope of the line to determine improving or not
-
-
-```{r}
+```{r echo=FALSE, warning=FALSE}
 adj_pace_trend_plot <- strava_trails %>% 
   ggplot(aes(x = Date, y = Adj_Pace, color = Runner)) +
   geom_point(alpha = 0.5) +
@@ -467,36 +474,56 @@ adj_pace_trend_plot <- strava_trails %>%
 
 adj_pace_trend_plot %>% ggplotly()
 
-lm(Adj_Pace~ Date, Collie_trails)
-lm(Adj_Pace~ Date, Hound_trails)
 
 
+collie_model_pace <- lm(Adj_Pace ~ Date, data = Collie_trails)
+hound_model_pace <- lm(Adj_Pace ~ Date, data = Hound_trails)
+
+collie_slope_pace <- coef(collie_model_pace)[2]
+hound_slope_pace <- coef(hound_model_pace)[2]
+
+slope_df_pace <- data.frame(
+  Runner = c("Collie", "Hound"),
+  Slope = c(collie_slope_pace, hound_slope_pace)
+)
+
+slope_df_pace %>% gt()
 ```
 
+### Final Fitness Improvement Score
 
+```{r echo=FALSE, warning=FALSE}
 
+extract_slope <- function(model) {
+  coef(model)[2]  
+}
 
+slope_df_prog <- strava_trails %>%
+  group_by(Runner) %>%
+  summarise(
+    VO2_Slope = extract_slope(lm(VO2_Max ~ Date, data = cur_data())),
+    Stride_Slope = extract_slope(lm(Stride_Efficiency ~ Date, data = cur_data())),
+    AerobicTE_Slope = extract_slope(lm(Aerobic.TE ~ Date, data = cur_data())),
+    Pace_Slope = -extract_slope(lm(Adj_Pace ~ Date, data = cur_data())),  # Negative means improvement
+  ) %>%
+  mutate(
+    Overall_Progression_Score = (VO2_Slope + Stride_Slope + AerobicTE_Slope + Pace_Slope) / 4
+  )
 
+slope_df_prog %>% gt() %>%
+  fmt_number(columns = -Runner, decimals = 5)
 
+ggplot(slope_df_prog, aes(x = Runner, y = Overall_Progression_Score, fill = Runner)) +
+  geom_bar(stat = "identity", width = 0.5) +
+  geom_text(aes(label = round(Overall_Progression_Score, 3)), 
+            nudge_y = ifelse(slope_df_prog$Overall_Progression_Score > 0, 0.01, -0.01),  
+            size =5, color = "black") +
+  labs(
+    title = "Overall Running & Fitness Progression Score (Slope-Based)",
+    subtitle = "Higher score means a stronger trend of improvement over time",
+    x = "Runner", y = "Improvement Score (Avg. Slope)"
+  ) +
+  scale_fill_manual(values = c("Hound" = "orange", "Collie" = "blue")) +
+  theme_minimal()
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+```
